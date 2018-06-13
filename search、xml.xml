@@ -9,17 +9,17 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[Spark DataFrame 常用函数]]></title>
+    <title><![CDATA[Spark DataFrame 常用函数及常见问题]]></title>
     <url>%2F2018%2F06%2F13%2FSpark-DataFrame-%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[问题 parquet格式错误 //需注意Hive版本需要低于2.1.0 SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;) 列字段存在但找不到 SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;) 表字段过多不显示 SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;) spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型)]]></content>
       <categories>
         <category>Hadoop/Spark</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[Hadoop命令]]></title>
+    <title><![CDATA[Hadoop Shell命令]]></title>
     <url>%2F2018%2F06%2F13%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 hdfs dfs -du -h / 从hdfs取文件到linux本地 hdfs dfs -get /user/portrait/scgd/data0 ./output/]]></content>
+    <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 hdfs dfs -du -h / 从hdfs取文件到linux本地 hdfs dfs -get /user/portrait/scgd/data0 ./output/ 上传文件到hdfs上 hdfs dfs -put ./output/ /user/portrait/scgd/data0]]></content>
       <categories>
         <category>Hadoop命令</category>
       </categories>

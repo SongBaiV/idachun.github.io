@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="戎马一生，天下青山一样">
+<meta name="description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark DataFrame 常用函数">
+<meta property="og:title" content="Spark DataFrame 常用函数及常见问题">
 <meta property="og:url" content="http://yoursite.com/2018/06/13/Spark-DataFrame-命令/index.html">
-<meta property="og:site_name" content="A BIG WORLD">
-<meta property="og:description" content="戎马一生，天下青山一样">
+<meta property="og:site_name" content="Alive">
+<meta property="og:description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-13T04:51:21.815Z">
+<meta property="og:updated_time" content="2018-06-13T10:56:03.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark DataFrame 常用函数">
-<meta name="twitter:description" content="戎马一生，天下青山一样">
+<meta name="twitter:title" content="Spark DataFrame 常用函数及常见问题">
+<meta name="twitter:description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>Spark DataFrame 常用函数 | A BIG WORLD</title>
+  <title>Spark DataFrame 常用函数及常见问题 | Alive</title>
   
 
 
@@ -155,7 +155,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">A BIG WORLD</span>
+        <span class="site-title">Alive</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -305,7 +305,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A BIG WORLD">
+      <meta itemprop="name" content="Alive">
     </span>
 
     
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spark DataFrame 常用函数</h1>
+          <h1 class="post-title" itemprop="name headline">Spark DataFrame 常用函数及常见问题</h1>
         
 
         <div class="post-meta">
@@ -396,7 +396,17 @@
       
 
       
-        
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+<li>parquet格式错误   <pre><code>  //需注意Hive版本需要低于2.1.0
+  SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)    
+</code></pre></li>
+<li>列字段存在但找不到  <pre><code>  SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)
+</code></pre></li>
+<li>表字段过多不显示   <pre><code>  SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;)
+</code></pre></li>
+<li>spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型)</li>
+</ul>
+
       
     </div>
     
@@ -420,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/13/Hadoop常用命令/" rel="next" title="Hadoop命令">
-                <i class="fa fa-chevron-left"></i> Hadoop命令
+              <a href="/2018/06/13/Hadoop常用命令/" rel="next" title="Hadoop Shell命令">
+                <i class="fa fa-chevron-left"></i> Hadoop Shell命令
               </a>
             
           </div>
@@ -494,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -576,6 +595,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -593,20 +628,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Deorlive_Wt</span>
-
-  
 </div>
-
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-
-
 
         
 
@@ -730,7 +752,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2018/06/13/Spark-DataFrame-命令/';
           this.page.identifier = '2018/06/13/Spark-DataFrame-命令/';
-          this.page.title = 'Spark DataFrame 常用函数';
+          this.page.title = 'Spark DataFrame 常用函数及常见问题';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

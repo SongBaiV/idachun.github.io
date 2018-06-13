@@ -81,13 +81,13 @@
 
 <meta name="description" content="戎马一生，天下青山一样">
 <meta property="og:type" content="website">
-<meta property="og:title" content="A BIG WORLD">
+<meta property="og:title" content="Alive">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="A BIG WORLD">
+<meta property="og:site_name" content="Alive">
 <meta property="og:description" content="戎马一生，天下青山一样">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A BIG WORLD">
+<meta name="twitter:title" content="Alive">
 <meta name="twitter:description" content="戎马一生，天下青山一样">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>A BIG WORLD</title>
+  <title>Alive</title>
   
 
 
@@ -155,7 +155,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">A BIG WORLD</span>
+        <span class="site-title">Alive</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -305,7 +305,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A BIG WORLD">
+      <meta itemprop="name" content="Alive">
     </span>
 
     
@@ -468,7 +468,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A BIG WORLD">
+      <meta itemprop="name" content="Alive">
     </span>
 
     
@@ -478,7 +478,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/13/Spark-DataFrame-命令/" itemprop="url">Spark DataFrame 常用函数</a></h1>
+                <a class="post-title-link" href="/2018/06/13/Spark-DataFrame-命令/" itemprop="url">Spark DataFrame 常用函数及常见问题</a></h1>
         
 
         <div class="post-meta">
@@ -563,8 +563,12 @@
       
         
           
-          
-          
+          问题
+parquet格式错误     //需注意Hive版本需要低于2.1.0
+  SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)    
+
+列字段存在但找不到  
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/06/13/Spark-DataFrame-命令/#more" rel="contents">
@@ -627,7 +631,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A BIG WORLD">
+      <meta itemprop="name" content="Alive">
     </span>
 
     
@@ -637,7 +641,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/13/Hadoop常用命令/" itemprop="url">Hadoop命令</a></h1>
+                <a class="post-title-link" href="/2018/06/13/Hadoop常用命令/" itemprop="url">Hadoop Shell命令</a></h1>
         
 
         <div class="post-meta">
@@ -725,9 +729,8 @@
           Hadoop命令
 查询目录文件大小 hdfs dfs -du -h  /
 从hdfs取文件到linux本地 hdfs dfs -get /user/portrait/scgd/data0 ./output/
-
-
-          
+上传文件到hdfs上 hdfs dfs -put ./output/ /user/portr
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/06/13/Hadoop常用命令/#more" rel="contents">
@@ -790,7 +793,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A BIG WORLD">
+      <meta itemprop="name" content="Alive">
     </span>
 
     
@@ -1067,20 +1070,7 @@ API数据
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Deorlive_Wt</span>
-
-  
 </div>
-
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-
-
 
         
 
