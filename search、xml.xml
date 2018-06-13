@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2018%2F06%2F13%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Linux命令 打包 tar cvf data0.tar data0/ 解压 tar xvf data0.tar ../data1]]></content>
+      <categories>
+        <category>Linux命令</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Spark DataFrame 常用函数]]></title>
+    <url>%2F2018%2F06%2F13%2FSpark-DataFrame-%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>Hadoop/Spark</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop命令]]></title>
+    <url>%2F2018%2F06%2F13%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 hdfs dfs -du -h / 从hdfs取文件到linux本地 hdfs dfs -get /user/portrait/scgd/data0 ./output/]]></content>
+      <categories>
+        <category>Hadoop命令</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[数据挖掘领域的机会和挑战]]></title>
     <url>%2F2018%2F06%2F10%2F%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%2F</url>
     <content type="text"><![CDATA[机会新搜索 面向知识工作者 IT工程师、记者、律师、销售、猎头、医生、公务员等等 组织内外数据相结合 以领域知识图谱为核心数据处理平民化 数据、算法和代码共享和交易 基于非表格数据的BI 业务人员处理大数据 挑战多源:整合多种来源的数据 网页数据 API数据 企业内部数据异构:多格式、非表格 通用网页提取算法 算法工厂，算法市场 标注工场，标注众包知识计算 构建实体，寻找关系 基于规则 端到端机器学习机器学习 用于知识计算 用于目标数据处理 用于数据库系统索引优化 用于数据库系统查询计划优化硬件加速 GPU、众核、内存、高速网络云+端 算法超市 如针对不同数据集的数据提取算法 数据超市 原始数据、标注、表格、知识均可交易 公有云、私有云和边缘计算[/cp]]]></content>
