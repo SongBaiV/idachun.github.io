@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
+<meta name="description" content="问题 parquet格式错误    12//需注意Hive版本需要低于2.1.0SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)  列字段存在但找不到   1SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)  表字段过多不">
 <meta name="keywords" content="spark df函数,spark df问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark DataFrame 常用函数及常见问题">
 <meta property="og:url" content="http://yoursite.com/2018/06/13/Spark-DataFrame-命令/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
+<meta property="og:description" content="问题 parquet格式错误    12//需注意Hive版本需要低于2.1.0SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)  列字段存在但找不到   1SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)  表字段过多不">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-06-14T09:58:07.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark DataFrame 常用函数及常见问题">
-<meta name="twitter:description" content="问题 parquet格式错误     //需注意Hive版本需要低于2.1.0   SparkSession().config(&amp;quot;spark.sql.hive.convertMetastoreParquet&amp;quot;,&amp;quot;false&amp;quot;)      列字段存在但找不到    SparkSession().config(&amp;quot;spark.sql.parquet.fi">
+<meta name="twitter:description" content="问题 parquet格式错误    12//需注意Hive版本需要低于2.1.0SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)  列字段存在但找不到   1SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)  表字段过多不">
 
 
 
@@ -398,12 +398,14 @@
 
       
         <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
-<li>parquet格式错误   <pre><code>  //需注意Hive版本需要低于2.1.0
-  SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)    
-</code></pre></li>
-<li>列字段存在但找不到  <pre><code>  SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)
-</code></pre></li>
-<li>表字段过多不显示   <pre><code>  SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;)
+<li><p>parquet格式错误   </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需注意Hive版本需要低于2.1.0</span></span><br><span class="line"><span class="function"><span class="title">SparkSession</span><span class="params">()</span></span>.config(<span class="string">"spark.sql.hive.convertMetastoreParquet"</span>,<span class="string">"false"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列字段存在但找不到  </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">SparkSession</span><span class="params">()</span></span>.config(<span class="string">"spark.sql.parquet.filterPushdown"</span>, <span class="string">"false"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>表字段过多不显示   </p>
+<pre><code>SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;)
 </code></pre></li>
 <li>spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型)</li>
 </ul>
@@ -564,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

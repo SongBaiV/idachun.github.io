@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="from sklearn.datasets import make_classification from sklearn.model_selection import train_test_split from sklearn.ensemble import GradientBoostingClassifier from sklearn.preprocessing import OneHotEn">
+<meta name="description" content="123456789from sklearn.datasets import make_classificationfrom sklearn.model_selection import train_test_splitfrom sklearn.ensemble import GradientBoostingClassifierfrom sklearn.preprocessing import On">
 <meta name="keywords" content="GBDT生成特征">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT生成特征">
 <meta property="og:url" content="http://yoursite.com/2018/06/14/GBDT生成特征/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="from sklearn.datasets import make_classification from sklearn.model_selection import train_test_split from sklearn.ensemble import GradientBoostingClassifier from sklearn.preprocessing import OneHotEn">
+<meta property="og:description" content="123456789from sklearn.datasets import make_classificationfrom sklearn.model_selection import train_test_splitfrom sklearn.ensemble import GradientBoostingClassifierfrom sklearn.preprocessing import On">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-06-14T09:59:32.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT生成特征">
-<meta name="twitter:description" content="from sklearn.datasets import make_classification from sklearn.model_selection import train_test_split from sklearn.ensemble import GradientBoostingClassifier from sklearn.preprocessing import OneHotEn">
+<meta name="twitter:description" content="123456789from sklearn.datasets import make_classificationfrom sklearn.model_selection import train_test_splitfrom sklearn.ensemble import GradientBoostingClassifierfrom sklearn.preprocessing import On">
 
 
 
@@ -397,100 +397,11 @@
       
 
       
-        <pre><code>from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.preprocessing import OneHotEncoder
-
-X, y = make_classification(n_samples=10) 
-print y
-print X.shape
-X
-</code></pre><pre><code>[0 1 1 0 0 1 1 1 0 0]
-(10L, 20L)
-array([[-1.46218297e+00, -4.18333502e-01, -3.59274601e-02,
-         4.51595239e-01, -1.51047633e+00,  5.07112394e-01,
-         7.38097000e-01, -3.02315469e-01,  4.26175119e-01,
-         4.01702307e-02, -6.60368519e-01, -1.00253339e+00,
-         4.55802942e-01, -4.31784177e-01,  5.61925740e-02,
-        -9.87095232e-01, -3.60589437e-01, -8.20339651e-02,
-        -1.51267169e+00, -1.75602670e+00],
-       [-1.38065657e-01,  1.51125229e+00, -1.16786498e+00,
-         8.96428602e-01,  2.24770779e-02,  2.75832881e-01,
-         8.84555986e-01,  1.90990870e-01,  1.50974562e+00,
-         6.32858976e-01,  7.43984848e-01,  6.23124869e-01,
-         2.75529340e-01,  4.13913270e-01, -5.69452199e-01,
-         9.92345363e-01, -6.58511532e-01, -1.04902254e+00,
-         4.17471392e-01, -1.69380460e+00],
-       [ 7.94578797e-01,  6.91286961e-01, -8.36134614e-01,
-         1.35232255e+00,  8.19800516e-01, -6.63009090e-01,
-        -3.93857189e-01,  1.21970975e+00,  9.45892797e-01,
-         8.78534488e-01, -6.82525652e-01, -4.65135487e-01,
-         7.91431577e-01,  3.54382290e-01,  8.96197192e-02,
-        -8.50444786e-01,  5.54008693e-01, -2.22658663e-01,
-         2.60990234e-01,  5.36795887e-01],
-       [ 2.35619886e-03,  2.00775837e-01,  4.87206937e-02,
-        -4.86582074e-02, -1.93014354e+00,  3.94423848e-01,
-         8.43146268e-01, -1.18764902e+00,  1.21507109e+00,
-        -5.82489166e-02,  2.91817058e-01,  2.63882786e-01,
-        -8.09303986e-01,  2.13007401e+00,  2.03539722e+00,
-         2.50978548e-01, -5.79211447e-01, -2.27030861e+00,
-        -1.32198712e+00,  3.58828134e-01],
-       [ 1.76208221e-01, -6.44503388e-01, -1.35005640e-01,
-         2.57927723e-01, -1.15227919e+00, -1.04384378e+00,
-        -5.25599357e-01,  2.16430369e+00,  1.14631323e+00,
-        -4.86738371e-01,  3.56177943e-01,  4.25940193e-01,
-        -2.46271932e-01,  8.02966687e-01, -9.16757374e-01,
-         3.92150341e-01,  8.89340812e-01,  8.89122664e-01,
-        -6.91321300e-01,  3.60691085e-01],
-       [-9.17667327e-01, -2.19718742e-01,  3.08231099e-01,
-        -1.20865300e+00,  9.52723078e-02, -2.13289317e+00,
-         8.23448746e-01,  1.84966961e-01,  2.35626420e+00,
-        -5.90061668e-01, -9.91453561e-01,  2.62985532e-01,
-        -9.96616193e-01, -3.90777590e-01,  3.89293149e-01,
-        -1.31349623e+00,  2.72401261e-02, -2.54414046e-01,
-        -4.60378536e-01,  1.23080237e+00],
-       [-8.28192448e-01,  1.15639869e+00,  2.78606672e-02,
-         9.65889005e-02,  1.68886757e+00, -3.25775102e-01,
-         1.75717716e-01,  1.59902401e-01, -6.55490597e-01,
-         2.95479360e-01,  6.60409198e-01, -2.70659454e+00,
-         7.21371599e-01,  5.61757431e-01,  1.22378486e+00,
-         9.99869289e-01,  2.21082939e+00,  1.31353776e-01,
-         1.64938642e+00,  3.81579172e-02],
-       [-1.18357533e+00,  1.47944412e+00,  2.82847558e-01,
-         1.01023062e+00,  1.54087073e+00,  1.88003713e-02,
-        -2.54038797e-01, -1.24068833e+00, -3.31394808e-02,
-         1.10512704e+00, -7.21359030e-01,  5.02536950e-01,
-         4.86264732e-01, -2.48485472e+00,  7.36671531e-01,
-        -8.50743359e-01,  1.42773431e+00, -3.85276831e-01,
-         7.92621022e-01,  8.04302650e-01],
-       [ 5.00298505e-01,  4.99864304e-01, -4.43128177e-01,
-        -6.80877761e-01, -2.30634433e+00, -4.18106882e-01,
-        -8.34288871e-01,  1.68655058e+00, -2.32944124e+00,
-        -3.10646642e-01, -3.88910822e-01, -9.13217680e-01,
-         1.01294499e+00,  1.13638795e-01,  3.46336445e-01,
-        -6.82351046e-01, -3.25986042e-01, -1.87458285e-01,
-        -1.97646950e+00, -1.29381917e+00],
-       [ 2.39415433e-01,  1.07290006e+00,  1.15550474e+00,
-        -1.15201307e+00, -5.78108383e-01, -3.80187570e-01,
-        -1.28861486e+00, -1.32918430e+00, -5.28881163e-01,
-         1.96556881e-01, -8.61984192e-01, -2.17046046e+00,
-        -8.82487188e-02,  5.60887804e-01,  1.31724634e+00,
-        -1.18909996e+00, -1.67108757e+00,  8.37225262e-01,
-        -9.06706808e-01, -6.15740923e-01]])
-</code></pre><p><br></p>
-<pre><code>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
-gbc = GradientBoostingClassifier(n_estimators=2)
-one_hot = OneHotEncoder()
-gbc.fit(X_train, y_train)
-X_train_new = one_hot.fit_transform(gbc.apply(X_train)[:, :, 0])
-print (X_train_new.todense())
-</code></pre><pre><code>[[0. 1. 0. 1.]
- [0. 1. 0. 1.]
- [1. 0. 1. 0.]
- [1. 0. 1. 0.]
- [1. 0. 1. 0.]]
-</code></pre>
+        <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"></span><br><span class="line">X, y = make_classification(n_samples=<span class="number">10</span>) </span><br><span class="line"><span class="built_in">print</span> y</span><br><span class="line"><span class="built_in">print</span> X.shape</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">[0 1 1 0 0 1 1 1 0 0]</span><br><span class="line">(10L, 20L)</span><br><span class="line">array([[<span class="string">-1</span>.46218297e<span class="string">+00</span>, <span class="string">-4</span>.18333502e<span class="string">-01</span>, <span class="string">-3</span>.59274601e<span class="string">-02</span>,</span><br><span class="line">         4.51595239e<span class="string">-01</span>, <span class="string">-1</span>.51047633e<span class="string">+00</span>,  5.07112394e<span class="string">-01</span>,</span><br><span class="line">         7.38097000e<span class="string">-01</span>, <span class="string">-3</span>.02315469e<span class="string">-01</span>,  4.26175119e<span class="string">-01</span>,</span><br><span class="line">         4.01702307e<span class="string">-02</span>, <span class="string">-6</span>.60368519e<span class="string">-01</span>, <span class="string">-1</span>.00253339e<span class="string">+00</span>,</span><br><span class="line">         4.55802942e<span class="string">-01</span>, <span class="string">-4</span>.31784177e<span class="string">-01</span>,  5.61925740e<span class="string">-02</span>,</span><br><span class="line">        <span class="string">-9</span>.87095232e<span class="string">-01</span>, <span class="string">-3</span>.60589437e<span class="string">-01</span>, <span class="string">-8</span>.20339651e<span class="string">-02</span>,</span><br><span class="line">        <span class="string">-1</span>.51267169e<span class="string">+00</span>, <span class="string">-1</span>.75602670e<span class="string">+00</span>],</span><br><span class="line">       [<span class="string">-1</span>.38065657e<span class="string">-01</span>,  1.51125229e<span class="string">+00</span>, <span class="string">-1</span>.16786498e<span class="string">+00</span>,</span><br><span class="line">         8.96428602e<span class="string">-01</span>,  2.24770779e<span class="string">-02</span>,  2.75832881e<span class="string">-01</span>,</span><br><span class="line">         8.84555986e<span class="string">-01</span>,  1.90990870e<span class="string">-01</span>,  1.50974562e<span class="string">+00</span>,</span><br><span class="line">         6.32858976e<span class="string">-01</span>,  7.43984848e<span class="string">-01</span>,  6.23124869e<span class="string">-01</span>,</span><br><span class="line">         2.75529340e<span class="string">-01</span>,  4.13913270e<span class="string">-01</span>, <span class="string">-5</span>.69452199e<span class="string">-01</span>,</span><br><span class="line">         9.92345363e<span class="string">-01</span>, <span class="string">-6</span>.58511532e<span class="string">-01</span>, <span class="string">-1</span>.04902254e<span class="string">+00</span>,</span><br><span class="line">         4.17471392e<span class="string">-01</span>, <span class="string">-1</span>.69380460e<span class="string">+00</span>],</span><br><span class="line">       [ 7.94578797e<span class="string">-01</span>,  6.91286961e<span class="string">-01</span>, <span class="string">-8</span>.36134614e<span class="string">-01</span>,</span><br><span class="line">         1.35232255e<span class="string">+00</span>,  8.19800516e<span class="string">-01</span>, <span class="string">-6</span>.63009090e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-3</span>.93857189e<span class="string">-01</span>,  1.21970975e<span class="string">+00</span>,  9.45892797e<span class="string">-01</span>,</span><br><span class="line">         8.78534488e<span class="string">-01</span>, <span class="string">-6</span>.82525652e<span class="string">-01</span>, <span class="string">-4</span>.65135487e<span class="string">-01</span>,</span><br><span class="line">         7.91431577e<span class="string">-01</span>,  3.54382290e<span class="string">-01</span>,  8.96197192e<span class="string">-02</span>,</span><br><span class="line">        <span class="string">-8</span>.50444786e<span class="string">-01</span>,  5.54008693e<span class="string">-01</span>, <span class="string">-2</span>.22658663e<span class="string">-01</span>,</span><br><span class="line">         2.60990234e<span class="string">-01</span>,  5.36795887e<span class="string">-01</span>],</span><br><span class="line">       [ 2.35619886e<span class="string">-03</span>,  2.00775837e<span class="string">-01</span>,  4.87206937e<span class="string">-02</span>,</span><br><span class="line">        <span class="string">-4</span>.86582074e<span class="string">-02</span>, <span class="string">-1</span>.93014354e<span class="string">+00</span>,  3.94423848e<span class="string">-01</span>,</span><br><span class="line">         8.43146268e<span class="string">-01</span>, <span class="string">-1</span>.18764902e<span class="string">+00</span>,  1.21507109e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-5</span>.82489166e<span class="string">-02</span>,  2.91817058e<span class="string">-01</span>,  2.63882786e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-8</span>.09303986e<span class="string">-01</span>,  2.13007401e<span class="string">+00</span>,  2.03539722e<span class="string">+00</span>,</span><br><span class="line">         2.50978548e<span class="string">-01</span>, <span class="string">-5</span>.79211447e<span class="string">-01</span>, <span class="string">-2</span>.27030861e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-1</span>.32198712e<span class="string">+00</span>,  3.58828134e<span class="string">-01</span>],</span><br><span class="line">       [ 1.76208221e<span class="string">-01</span>, <span class="string">-6</span>.44503388e<span class="string">-01</span>, <span class="string">-1</span>.35005640e<span class="string">-01</span>,</span><br><span class="line">         2.57927723e<span class="string">-01</span>, <span class="string">-1</span>.15227919e<span class="string">+00</span>, <span class="string">-1</span>.04384378e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-5</span>.25599357e<span class="string">-01</span>,  2.16430369e<span class="string">+00</span>,  1.14631323e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-4</span>.86738371e<span class="string">-01</span>,  3.56177943e<span class="string">-01</span>,  4.25940193e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-2</span>.46271932e<span class="string">-01</span>,  8.02966687e<span class="string">-01</span>, <span class="string">-9</span>.16757374e<span class="string">-01</span>,</span><br><span class="line">         3.92150341e<span class="string">-01</span>,  8.89340812e<span class="string">-01</span>,  8.89122664e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-6</span>.91321300e<span class="string">-01</span>,  3.60691085e<span class="string">-01</span>],</span><br><span class="line">       [<span class="string">-9</span>.17667327e<span class="string">-01</span>, <span class="string">-2</span>.19718742e<span class="string">-01</span>,  3.08231099e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-1</span>.20865300e<span class="string">+00</span>,  9.52723078e<span class="string">-02</span>, <span class="string">-2</span>.13289317e<span class="string">+00</span>,</span><br><span class="line">         8.23448746e<span class="string">-01</span>,  1.84966961e<span class="string">-01</span>,  2.35626420e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-5</span>.90061668e<span class="string">-01</span>, <span class="string">-9</span>.91453561e<span class="string">-01</span>,  2.62985532e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-9</span>.96616193e<span class="string">-01</span>, <span class="string">-3</span>.90777590e<span class="string">-01</span>,  3.89293149e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-1</span>.31349623e<span class="string">+00</span>,  2.72401261e<span class="string">-02</span>, <span class="string">-2</span>.54414046e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-4</span>.60378536e<span class="string">-01</span>,  1.23080237e<span class="string">+00</span>],</span><br><span class="line">       [<span class="string">-8</span>.28192448e<span class="string">-01</span>,  1.15639869e<span class="string">+00</span>,  2.78606672e<span class="string">-02</span>,</span><br><span class="line">         9.65889005e<span class="string">-02</span>,  1.68886757e<span class="string">+00</span>, <span class="string">-3</span>.25775102e<span class="string">-01</span>,</span><br><span class="line">         1.75717716e<span class="string">-01</span>,  1.59902401e<span class="string">-01</span>, <span class="string">-6</span>.55490597e<span class="string">-01</span>,</span><br><span class="line">         2.95479360e<span class="string">-01</span>,  6.60409198e<span class="string">-01</span>, <span class="string">-2</span>.70659454e<span class="string">+00</span>,</span><br><span class="line">         7.21371599e<span class="string">-01</span>,  5.61757431e<span class="string">-01</span>,  1.22378486e<span class="string">+00</span>,</span><br><span class="line">         9.99869289e<span class="string">-01</span>,  2.21082939e<span class="string">+00</span>,  1.31353776e<span class="string">-01</span>,</span><br><span class="line">         1.64938642e<span class="string">+00</span>,  3.81579172e<span class="string">-02</span>],</span><br><span class="line">       [<span class="string">-1</span>.18357533e<span class="string">+00</span>,  1.47944412e<span class="string">+00</span>,  2.82847558e<span class="string">-01</span>,</span><br><span class="line">         1.01023062e<span class="string">+00</span>,  1.54087073e<span class="string">+00</span>,  1.88003713e<span class="string">-02</span>,</span><br><span class="line">        <span class="string">-2</span>.54038797e<span class="string">-01</span>, <span class="string">-1</span>.24068833e<span class="string">+00</span>, <span class="string">-3</span>.31394808e<span class="string">-02</span>,</span><br><span class="line">         1.10512704e<span class="string">+00</span>, <span class="string">-7</span>.21359030e<span class="string">-01</span>,  5.02536950e<span class="string">-01</span>,</span><br><span class="line">         4.86264732e<span class="string">-01</span>, <span class="string">-2</span>.48485472e<span class="string">+00</span>,  7.36671531e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-8</span>.50743359e<span class="string">-01</span>,  1.42773431e<span class="string">+00</span>, <span class="string">-3</span>.85276831e<span class="string">-01</span>,</span><br><span class="line">         7.92621022e<span class="string">-01</span>,  8.04302650e<span class="string">-01</span>],</span><br><span class="line">       [ 5.00298505e<span class="string">-01</span>,  4.99864304e<span class="string">-01</span>, <span class="string">-4</span>.43128177e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-6</span>.80877761e<span class="string">-01</span>, <span class="string">-2</span>.30634433e<span class="string">+00</span>, <span class="string">-4</span>.18106882e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-8</span>.34288871e<span class="string">-01</span>,  1.68655058e<span class="string">+00</span>, <span class="string">-2</span>.32944124e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-3</span>.10646642e<span class="string">-01</span>, <span class="string">-3</span>.88910822e<span class="string">-01</span>, <span class="string">-9</span>.13217680e<span class="string">-01</span>,</span><br><span class="line">         1.01294499e<span class="string">+00</span>,  1.13638795e<span class="string">-01</span>,  3.46336445e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-6</span>.82351046e<span class="string">-01</span>, <span class="string">-3</span>.25986042e<span class="string">-01</span>, <span class="string">-1</span>.87458285e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-1</span>.97646950e<span class="string">+00</span>, <span class="string">-1</span>.29381917e<span class="string">+00</span>],</span><br><span class="line">       [ 2.39415433e<span class="string">-01</span>,  1.07290006e<span class="string">+00</span>,  1.15550474e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-1</span>.15201307e<span class="string">+00</span>, <span class="string">-5</span>.78108383e<span class="string">-01</span>, <span class="string">-3</span>.80187570e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-1</span>.28861486e<span class="string">+00</span>, <span class="string">-1</span>.32918430e<span class="string">+00</span>, <span class="string">-5</span>.28881163e<span class="string">-01</span>,</span><br><span class="line">         1.96556881e<span class="string">-01</span>, <span class="string">-8</span>.61984192e<span class="string">-01</span>, <span class="string">-2</span>.17046046e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-8</span>.82487188e<span class="string">-02</span>,  5.60887804e<span class="string">-01</span>,  1.31724634e<span class="string">+00</span>,</span><br><span class="line">        <span class="string">-1</span>.18909996e<span class="string">+00</span>, <span class="string">-1</span>.67108757e<span class="string">+00</span>,  8.37225262e<span class="string">-01</span>,</span><br><span class="line">        <span class="string">-9</span>.06706808e<span class="string">-01</span>, <span class="string">-6</span>.15740923e<span class="string">-01</span>]])</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)</span><br><span class="line">gbc = GradientBoostingClassifier(n_estimators=2)</span><br><span class="line">one_hot = OneHotEncoder()</span><br><span class="line">gbc.fit(X_train, y_train)</span><br><span class="line">X_train_new = one_hot.fit_transform(gbc.apply(X_train)[:, :, 0])</span><br><span class="line">print (X_train_new.todense())</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span>]]</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -636,7 +547,7 @@ print (X_train_new.todense())
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
