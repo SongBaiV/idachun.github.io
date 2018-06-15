@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[makedown 表格自动生成]]></title>
     <url>%2F2018%2F06%2F15%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
-    <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx]]></content>
+    <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx 注意事项在执行命令时，需关闭要处理的xls文件窗口，不能在Excel打开]]></content>
       <categories>
         <category>makedown</category>
       </categories>
@@ -22,7 +22,7 @@
   <entry>
     <title><![CDATA[python连接hive/mysql]]></title>
     <url>%2F2018%2F06%2F14%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
-    <content type="text"><![CDATA[123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() 12 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 123456 0 1 2 3 4 5 6 7 80 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.06290081 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.08578422 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.04596123 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.09773544 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822047]]></content>
+    <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 代码123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
       <categories>
         <category>Hadoop/Spark</category>
       </categories>
@@ -77,8 +77,8 @@
   </entry>
   <entry>
     <title><![CDATA[Spark DataFrame 常用函数及常见问题]]></title>
-    <url>%2F2018%2F06%2F13%2FSpark-DataFrame-%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[问题 parquet格式错误 12//需注意Hive版本需要低于2.1.0SparkSession().config("spark.sql.hive.convertMetastoreParquet","false") 列字段存在但找不到 1SparkSession().config("spark.sql.parquet.filterPushdown", "false") 表字段过多不显示 SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;) spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型)]]></content>
+    <url>%2F2018%2F06%2F13%2F%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[问题 parquet格式错误 12//需注意Hive版本需要低于2.1.0SparkSession().config("spark.sql.hive.convertMetastoreParquet","false") 列字段存在但找不到 1SparkSession().config("spark.sql.parquet.filterPushdown", "false") 表字段过多不显示 SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;) spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型) spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确]]></content>
       <categories>
         <category>Hadoop/Spark</category>
       </categories>
