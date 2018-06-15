@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="阿里音乐流行趋势预测赛题描述">
+<meta name="description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如50个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，判断">
 <meta name="keywords" content="项目经验总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据挖掘项目经验总结">
 <meta property="og:url" content="http://yoursite.com/2018/06/15/数据挖掘项目经验总结/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="阿里音乐流行趋势预测赛题描述">
+<meta property="og:description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如50个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，判断">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T08:34:54.419Z">
+<meta property="og:updated_time" content="2018-06-15T10:37:13.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据挖掘项目经验总结">
-<meta name="twitter:description" content="阿里音乐流行趋势预测赛题描述">
+<meta name="twitter:description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如50个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，判断">
 
 
 
@@ -397,7 +397,29 @@
       
 
       
-        <h2 id="阿里音乐流行趋势预测"><a href="#阿里音乐流行趋势预测" class="headerlink" title="阿里音乐流行趋势预测"></a>阿里音乐流行趋势预测</h2><p><a href="https://tianchi.aliyun.com/competition/information.htm?spm=5176.11409106.5678.2.4a98580aBk3VXM&amp;raceId=231531" target="_blank" rel="noopener">赛题描述</a></p>
+        <h2 id="阿里音乐流行趋势预测"><a href="#阿里音乐流行趋势预测" class="headerlink" title="阿里音乐流行趋势预测"></a>阿里音乐流行趋势预测</h2><p><a href="https://tianchi.aliyun.com/competition/information.htm?spm=5176.11409106.5678.2.4a98580aBk3VXM&amp;raceId=231531" target="_blank" rel="noopener">赛题描述</a>，对一定数量的歌手(比如50个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量</p>
+<ul>
+<li>可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律</li>
+<li>画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据</li>
+<li>规则算法<ul>
+<li>进一步分析变化规律，看看有几种规律，判断哪些规律可预测，哪些规律不可预测</li>
+<li>根据第一步的分析结果人工定义特征，然后寻找参数，构造线性函数，函数实际上拟合的是非线性问题(通过人工定义特征转化线性问题)<ul>
+<li>a,可以取前60日中位数，前7日均值，前14日中位数，前30/60日最小值等</li>
+<li>特征b，当天前3日播放量的均值相对于前60日最低值的增长量。经分析，当天前3日播放量的均值相对于前60日最低值的增长量不近似直线，不好回归，使用b1=后30天播放量的均值/前7天播放量的均值</li>
+<li>特征c对应特征，当天播放量，即总体播放量的增长量</li>
+<li>公式还得加上对每周周末的周期变化和节假日的修正系数</li>
+</ul>
+</li>
+<li>特征b主要起的作用是分类，通过设置不同的b的阈值来划分类别<ul>
+<li>当b取某值比如0.96，小于此值为1类，大于此值为另一个类，这样数据就有标签了。然后对待预测数据，不使用此规则来打标签，而是使用GDBT基于刚才产生的有标签数据来预测类别。最后将用户分为两类，然后使用线性回归求出a,b,c对应的系数，这样就得到了线性回归模型，就可以预测歌手未来两个月每天的播放量</li>
+<li>将b设置为另外一个值，又到了一个线性回归模型和结果</li>
+<li>···</li>
+<li>最终将这几个线性回归模型，使用加权法来融合模型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
