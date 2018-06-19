@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="正负样本规范sklearn 横行为预测值，纵行为真实值sklearn中0为负样本、1为正样本,计算精确率、召回率，也是计算类别为1的正样本     预测值  0 1     真实值 0      1">
+<meta name="description" content="规范化，一般有4个文件夹，分别为bin、conf、jars和logs  运行  ./run.sh，不能直接使用run.sh，需指定当前目录  bin   job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 12345678910111213141516171819202">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sklearn 注意事项">
-<meta property="og:url" content="http://yoursite.com/2018/06/15/sklearn-注意事项/index.html">
+<meta property="og:title" content="将jar包打包到集群运行">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/将jar包打包到集群运行/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="正负样本规范sklearn 横行为预测值，纵行为真实值sklearn中0为负样本、1为正样本,计算精确率、召回率，也是计算类别为1的正样本     预测值  0 1     真实值 0      1">
+<meta property="og:description" content="规范化，一般有4个文件夹，分别为bin、conf、jars和logs  运行  ./run.sh，不能直接使用run.sh，需指定当前目录  bin   job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 12345678910111213141516171819202">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T02:48:35.675Z">
+<meta property="og:updated_time" content="2018-06-19T06:57:44.540Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sklearn 注意事项">
-<meta name="twitter:description" content="正负样本规范sklearn 横行为预测值，纵行为真实值sklearn中0为负样本、1为正样本,计算精确率、召回率，也是计算类别为1的正样本     预测值  0 1     真实值 0      1">
+<meta name="twitter:title" content="将jar包打包到集群运行">
+<meta name="twitter:description" content="规范化，一般有4个文件夹，分别为bin、conf、jars和logs  运行  ./run.sh，不能直接使用run.sh，需指定当前目录  bin   job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 12345678910111213141516171819202">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/15/sklearn-注意事项/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/将jar包打包到集群运行/"/>
 
 
 
 
 
-  <title>sklearn 注意事项 | Alive</title>
+  <title>将jar包打包到集群运行 | Alive</title>
   
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/sklearn-注意事项/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/将jar包打包到集群运行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sklearn 注意事项</h1>
+          <h1 class="post-title" itemprop="name headline">将jar包打包到集群运行</h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-15T10:17:14+08:00">
-                2018-06-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T14:32:48+08:00">
+                2018-06-19
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sklearn/" itemprop="url" rel="index">
-                    <span itemprop="name">sklearn</span>
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
                   </a>
                 </span>
 
@@ -366,9 +366,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/15/sklearn-注意事项/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/19/将jar包打包到集群运行/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/15/sklearn-注意事项/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/19/将jar包打包到集群运行/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -396,33 +396,27 @@
       
 
       
-        <ul>
-<li>正负样本规范<br>sklearn 横行为预测值，纵行为真实值<br>sklearn中0为负样本、1为正样本,计算精确率、召回率，也是计算类别为1的正样本</li>
+        <p>规范化，一般有4个文件夹，分别为bin、conf、jars和logs</p>
+<ul>
+<li><p>运行<br>  ./run.sh，不能直接使用run.sh，需指定当前目录</p>
+</li>
+<li><p>bin</p>
+</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">预测值</th>
-<th style="text-align:left"></th>
-<th style="text-align:left">0</th>
-<th style="text-align:left">1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">真实值</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left">1</td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
+<p>job-env.sh</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SPARK_HOME</span>=/opt/cloudera/parcels/spark</span><br><span class="line"><span class="attr">HADOOP_CONF_DIR</span>=/etc/hadoop/conf</span><br></pre></td></tr></table></figure>
+<p>run.sh</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env bash</span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$&#123;JOB_HOME&#125;</span>"</span> ]; then</span><br><span class="line">  <span class="builtin-name">export</span> <span class="attribute">JOB_HOME</span>=<span class="string">"<span class="variable">$(cd "`dirname "$0"`"/; pwd)</span>"</span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">cd <span class="variable">$JOB_HOME</span></span><br><span class="line">cd <span class="built_in">..</span></span><br><span class="line">source bin/job-env.sh</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">HADOOP_CONF_DIR</span>=/etc/hadoop/conf</span><br><span class="line">nohup <span class="variable">$SPARK_HOME</span>/bin/spark-submit --master yarn \</span><br><span class="line">--deploy-mode<span class="built_in"> client </span>\</span><br><span class="line">--conf spark.yarn.<span class="attribute">maxAppAttempts</span>=1 \</span><br><span class="line">--conf spark.default.<span class="attribute">parallelism</span>=30 \</span><br><span class="line">--num-executors 3 \</span><br><span class="line">--executor-memory 1G \</span><br><span class="line">--driver-memory 1G \</span><br><span class="line">--executor-cores 1 \</span><br><span class="line">--driver-class-path /etc/hive/conf \</span><br><span class="line">--files /etc/hive/conf/hive-site.xml,/etc/hadoop/conf/hdfs-site.xml,/etc/hadoop/conf/core-site.xml,conf/log4j.properties \</span><br><span class="line">--class ScgdUserLoss \</span><br><span class="line">jars/1-1.0-SNAPSHOT.jar \ &gt; logs/nohup.out 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>conf<br>log4j.properties，默认为</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Licensed to the Apache Software Foundation (ASF) under one or more</span></span><br><span class="line"><span class="comment"># contributor license agreements.  See the NOTICE file distributed with</span></span><br><span class="line"><span class="comment"># this work for additional information regarding copyright ownership.</span></span><br><span class="line"><span class="comment"># The ASF licenses this file to You under the Apache License, Version 2.0</span></span><br><span class="line"><span class="comment"># (the "License"); you may not use this file except in compliance with</span></span><br><span class="line"><span class="comment"># the License.  You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#    http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment"># distributed under the License is distributed on an "AS IS" BASIS,</span></span><br><span class="line"><span class="comment"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment"># See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment"># limitations under the License.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set everything to be logged to the console</span></span><br><span class="line">log4j.<span class="attribute">rootCategory</span>=INFO, console</span><br><span class="line">log4j.appender.<span class="attribute">console</span>=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.console.<span class="attribute">target</span>=System.err</span><br><span class="line">log4j.appender.console.<span class="attribute">layout</span>=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.console.layout.<span class="attribute">ConversionPattern</span>=%d&#123;yy/MM/dd HH:mm:ss&#125; %p %c&#123;1&#125;: %m%n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the default spark-shell log level to WARN. When running the spark-shell, the</span></span><br><span class="line"><span class="comment"># log level for this class is used to overwrite the root logger's log level, so that</span></span><br><span class="line"><span class="comment"># the user can have different defaults for the shell and regular Spark apps.</span></span><br><span class="line">log4j.logger.org.apache.spark.repl.<span class="attribute">Main</span>=WARN</span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings to quiet third party logs that are too verbose</span></span><br><span class="line">log4j.logger.org.spark_project.<span class="attribute">jetty</span>=WARN</span><br><span class="line">log4j.logger.org.spark_project.jetty.util.component.<span class="attribute">AbstractLifeCycle</span>=ERROR</span><br><span class="line">log4j.logger.org.apache.spark.repl.SparkIMain<span class="variable">$exprTyper</span>=INFO</span><br><span class="line">log4j.logger.org.apache.spark.repl.SparkILoop<span class="variable">$SparkILoopInterpreter</span>=INFO</span><br><span class="line">log4j.logger.org.apache.<span class="attribute">parquet</span>=ERROR</span><br><span class="line">log4j.logger.<span class="attribute">parquet</span>=ERROR</span><br><span class="line"></span><br><span class="line"><span class="comment"># SPARK-9183: Settings to avoid annoying messages when looking up nonexistent UDFs in SparkSQL with Hive support</span></span><br><span class="line">log4j.logger.org.apache.hadoop.hive.metastore.<span class="attribute">RetryingHMSHandler</span>=FATAL</span><br><span class="line">log4j.logger.org.apache.hadoop.hive.ql.exec.<span class="attribute">FunctionRegistry</span>=ERROR</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>jars<br>自己提交的jar包</p>
+</li>
+<li><p>logs<br>输出日志</p>
+</li>
+</ul>
 
       
     </div>
@@ -447,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/14/python连接hive-mysql/" rel="next" title="python连接hive/mysql">
-                <i class="fa fa-chevron-left"></i> python连接hive/mysql
+              <a href="/2018/06/19/时间序列转回归简述/" rel="next" title="时间序列问题转回归问题简述">
+                <i class="fa fa-chevron-left"></i> 时间序列问题转回归问题简述
               </a>
             
           </div>
@@ -456,10 +450,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/15/makedown-表格自动生成/" rel="prev" title="makedown 表格自动生成">
-                makedown 表格自动生成 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -541,7 +531,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +542,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -742,9 +732,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/06/15/sklearn-注意事项/';
-          this.page.identifier = '2018/06/15/sklearn-注意事项/';
-          this.page.title = 'sklearn 注意事项';
+          this.page.url = 'http://yoursite.com/2018/06/19/将jar包打包到集群运行/';
+          this.page.identifier = '2018/06/19/将jar包打包到集群运行/';
+          this.page.title = '将jar包打包到集群运行';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
