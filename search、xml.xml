@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[将jar包打包到集群运行]]></title>
-    <url>%2F2018%2F06%2F19%2F%E5%B0%86jar%E5%8C%85%E6%89%93%E5%8C%85%E5%88%B0%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%2F</url>
-    <content type="text"><![CDATA[规范化，一般有4个文件夹，分别为bin、conf、jars和logs 运行 ./run.sh，不能直接使用run.sh，需指定当前目录 bin job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 1234567891011121314151617181920212223#!/usr/bin/env bashsource /etc/profileif [ -z "$&#123;JOB_HOME&#125;" ]; then export JOB_HOME="$(cd "`dirname "$0"`"/; pwd)"ficd $JOB_HOMEcd ..source bin/job-env.shexport HADOOP_CONF_DIR=/etc/hadoop/confnohup $SPARK_HOME/bin/spark-submit --master yarn \--deploy-mode client \--conf spark.yarn.maxAppAttempts=1 \--conf spark.default.parallelism=30 \--num-executors 3 \--executor-memory 1G \--driver-memory 1G \--executor-cores 1 \--driver-class-path /etc/hive/conf \--files /etc/hive/conf/hive-site.xml,/etc/hadoop/conf/hdfs-site.xml,/etc/hadoop/conf/core-site.xml,conf/log4j.properties \--class ScgdUserLoss \jars/1-1.0-SNAPSHOT.jar \ &gt; logs/nohup.out 2&gt;&amp;1 &amp; conflog4j.properties，默认为 12345678910111213141516171819202122232425262728293031323334353637383940## Licensed to the Apache Software Foundation (ASF) under one or more# contributor license agreements. See the NOTICE file distributed with# this work for additional information regarding copyright ownership.# The ASF licenses this file to You under the Apache License, Version 2.0# (the "License"); you may not use this file except in compliance with# the License. You may obtain a copy of the License at## http://www.apache.org/licenses/LICENSE-2.0## Unless required by applicable law or agreed to in writing, software# distributed under the License is distributed on an "AS IS" BASIS,# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.# See the License for the specific language governing permissions and# limitations under the License.## Set everything to be logged to the consolelog4j.rootCategory=INFO, consolelog4j.appender.console=org.apache.log4j.ConsoleAppenderlog4j.appender.console.target=System.errlog4j.appender.console.layout=org.apache.log4j.PatternLayoutlog4j.appender.console.layout.ConversionPattern=%d&#123;yy/MM/dd HH:mm:ss&#125; %p %c&#123;1&#125;: %m%n# Set the default spark-shell log level to WARN. When running the spark-shell, the# log level for this class is used to overwrite the root logger's log level, so that# the user can have different defaults for the shell and regular Spark apps.log4j.logger.org.apache.spark.repl.Main=WARN# Settings to quiet third party logs that are too verboselog4j.logger.org.spark_project.jetty=WARNlog4j.logger.org.spark_project.jetty.util.component.AbstractLifeCycle=ERRORlog4j.logger.org.apache.spark.repl.SparkIMain$exprTyper=INFOlog4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=INFOlog4j.logger.org.apache.parquet=ERRORlog4j.logger.parquet=ERROR# SPARK-9183: Settings to avoid annoying messages when looking up nonexistent UDFs in SparkSQL with Hive supportlog4j.logger.org.apache.hadoop.hive.metastore.RetryingHMSHandler=FATALlog4j.logger.org.apache.hadoop.hive.ql.exec.FunctionRegistry=ERROR jars自己提交的jar包 logs输出日志]]></content>
-      <categories>
-        <category>Hadoop/Spark</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[时间序列问题转回归问题简述]]></title>
     <url>%2F2018%2F06%2F19%2F%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E8%BD%AC%E5%9B%9E%E5%BD%92%E7%AE%80%E8%BF%B0%2F</url>
     <content type="text"><![CDATA[这种场景，一般是随着时间预测销量，比如销量预测、电量预测等原理参考链接上代码··· 12345678# 核心函数import pandas as pdfrom pandas import DataFramefrom pandas import concatdir = '../input/'train = pd.read_table(dir + 'train_20171215.txt',engine='python')train.head(10) date day_of_week brand cnt 0 1 3 1 20 1 1 3 5 48 2 2 4 1 16 3 2 4 3 20 4 3 5 1 1411 5 3 5 2 811 6 3 5 3 1005 7 3 5 4 773 8 3 5 5 1565 9 4 6 1 1176 1234567891011121314151617181920212223242526272829303132def series_to_supervised(data, n_in=1, n_out=1, dropnan=True): """ Frame a time series as a supervised learning dataset. Arguments: data: Sequence of observations as a list or NumPy array. n_in: Number of lag observations as input (X). n_out: Number of observations as output (y). dropnan: Boolean whether or not to drop rows with NaN values. Returns: Pandas DataFrame of series framed for supervised learning. """ n_vars = 1 if type(data) is list else data.shape[1] df = DataFrame(data) cols, names = list(), list() # input sequence (t-n, ... t-1) for i in range(n_in, 0, -1): cols.append(df.shift(i)) names += [('var%d(t-%d)' % (j + 1, i)) for j in range(n_vars)] # forecast sequence (t, t+1, ... t+n) for i in range(0, n_out): cols.append(df.shift(-i)) if i == 0: names += [('var%d(t)' % (j + 1)) for j in range(n_vars)] else: names += [('var%d(t+%d)' % (j + 1, i)) for j in range(n_vars)] # put it all together agg = concat(cols, axis=1) agg.columns = names # drop rows with NaN values if dropnan: agg.dropna(inplace=True) return agg 1234time_cnt = list(train['cnt'].values)# nin 前看 nout后看 这个题目需要前看time2sup = series_to_supervised(data=time_cnt,n_in=276,dropnan=True) time2sup.head(10) var1(t-276) var1(t-275) var1(t-274) var1(t-273) … var1(t-4) var1(t-3) var1(t-2) var1(t-1) var1(t) 276 20 48 16 20 … 407 237 200 535 384 277 48 16 20 1411 … 237 200 535 384 303 278 16 20 1411 811 … 200 535 384 303 314 279 20 1411 811 1005 … 535 384 303 314 176 280 1411 811 1005 773 … 384 303 314 176 310 281 811 1005 773 1565 … 303 314 176 310 283 282 1005 773 1565 1176 … 314 176 310 283 261 283 773 1565 1176 824 … 176 310 283 261 342 284 1565 1176 824 802 … 310 283 261 342 171 285 1176 824 802 1057 … 283 261 342 171 242 12print train.shapeprint time2sup.shape (4773, 4)(4497, 277)4497+276=4773，最后一列var1(t)则为label,表示此刻的值]]></content>
@@ -28,34 +20,12 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[makedown 表格自动生成]]></title>
-    <url>%2F2018%2F06%2F15%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
-    <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx 注意事项在执行命令时，需关闭要处理的xls文件窗口，不能在Excel打开]]></content>
-      <categories>
-        <category>makedown</category>
-      </categories>
-      <tags>
-        <tag>makedown 表格自动生成</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[正负样本的定义问题]]></title>
     <url>%2F2018%2F06%2F15%2F%E6%AD%A3%E8%B4%9F%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[sklearn与spark ml对于正负样本的定义有区别 sklearn横行为预测值，纵行为真实值0为负样本、1为正样本,计算精确率、召回率，是计算类别为1的样本 预测值 0 1 真实值 0 x x 1 x x spark ml1为负样本、0为正样本,计算精确率、召回率，是计算类别为0的样本]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[python连接hive/mysql]]></title>
-    <url>%2F2018%2F06%2F14%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
-    <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 代码123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
-      <categories>
-        <category>Hadoop/Spark</category>
-      </categories>
-      <tags>
-        <tag>python连接hive/mysql</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[特征重要性计算]]></title>
@@ -92,17 +62,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令]]></title>
-    <url>%2F2018%2F06%2F13%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux命令</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spark DataFrame 常用函数及常见问题]]></title>
     <url>%2F2018%2F06%2F13%2FSpark%20DataFrame%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[问题 parquet格式错误 12//需注意Hive版本需要低于2.1.0SparkSession().config("spark.sql.hive.convertMetastoreParquet","false") 列字段存在但找不到 1SparkSession().config("spark.sql.parquet.filterPushdown", "false") 表字段过多不显示 SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;) spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型) spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确]]></content>
@@ -115,6 +74,36 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[将jar包打包到集群运行]]></title>
+    <url>%2F2018%2F06%2F13%2F%E5%B0%86jar%E5%8C%85%E6%89%93%E5%8C%85%E5%88%B0%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%2F</url>
+    <content type="text"><![CDATA[规范化，一般有4个文件夹，分别为bin、conf、jars和logs 运行 ./run.sh，不能直接使用run.sh，需指定当前目录 bin job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 1234567891011121314151617181920212223#!/usr/bin/env bashsource /etc/profileif [ -z "$&#123;JOB_HOME&#125;" ]; then export JOB_HOME="$(cd "`dirname "$0"`"/; pwd)"ficd $JOB_HOMEcd ..source bin/job-env.shexport HADOOP_CONF_DIR=/etc/hadoop/confnohup $SPARK_HOME/bin/spark-submit --master yarn \--deploy-mode client \--conf spark.yarn.maxAppAttempts=1 \--conf spark.default.parallelism=30 \--num-executors 3 \--executor-memory 1G \--driver-memory 1G \--executor-cores 1 \--driver-class-path /etc/hive/conf \--files /etc/hive/conf/hive-site.xml,/etc/hadoop/conf/hdfs-site.xml,/etc/hadoop/conf/core-site.xml,conf/log4j.properties \--class ScgdUserLoss \jars/1-1.0-SNAPSHOT.jar \ &gt; logs/nohup.out 2&gt;&amp;1 &amp; conflog4j.properties，默认为 12345678910111213141516171819202122232425262728293031323334353637383940## Licensed to the Apache Software Foundation (ASF) under one or more# contributor license agreements. See the NOTICE file distributed with# this work for additional information regarding copyright ownership.# The ASF licenses this file to You under the Apache License, Version 2.0# (the "License"); you may not use this file except in compliance with# the License. You may obtain a copy of the License at## http://www.apache.org/licenses/LICENSE-2.0## Unless required by applicable law or agreed to in writing, software# distributed under the License is distributed on an "AS IS" BASIS,# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.# See the License for the specific language governing permissions and# limitations under the License.## Set everything to be logged to the consolelog4j.rootCategory=INFO, consolelog4j.appender.console=org.apache.log4j.ConsoleAppenderlog4j.appender.console.target=System.errlog4j.appender.console.layout=org.apache.log4j.PatternLayoutlog4j.appender.console.layout.ConversionPattern=%d&#123;yy/MM/dd HH:mm:ss&#125; %p %c&#123;1&#125;: %m%n# Set the default spark-shell log level to WARN. When running the spark-shell, the# log level for this class is used to overwrite the root logger's log level, so that# the user can have different defaults for the shell and regular Spark apps.log4j.logger.org.apache.spark.repl.Main=WARN# Settings to quiet third party logs that are too verboselog4j.logger.org.spark_project.jetty=WARNlog4j.logger.org.spark_project.jetty.util.component.AbstractLifeCycle=ERRORlog4j.logger.org.apache.spark.repl.SparkIMain$exprTyper=INFOlog4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=INFOlog4j.logger.org.apache.parquet=ERRORlog4j.logger.parquet=ERROR# SPARK-9183: Settings to avoid annoying messages when looking up nonexistent UDFs in SparkSQL with Hive supportlog4j.logger.org.apache.hadoop.hive.metastore.RetryingHMSHandler=FATALlog4j.logger.org.apache.hadoop.hive.ql.exec.FunctionRegistry=ERROR jars自己提交的jar包 logs输出日志]]></content>
+      <categories>
+        <category>Hadoop/Spark</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[python连接hive/mysql]]></title>
+    <url>%2F2018%2F06%2F13%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
+    <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 代码123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
+      <categories>
+        <category>Hadoop/Spark</category>
+      </categories>
+      <tags>
+        <tag>python连接hive/mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2018%2F06%2F13%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux命令</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hadoop Shell命令]]></title>
     <url>%2F2018%2F06%2F13%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 1hdfs dfs -du -h / 从hdfs取文件到linux本地 1hdfs dfs -get /user/portrait/scgd/data0 ./output/ 上传文件到hdfs上 1hdfs dfs -put ./output/ /user/portrait/scgd/data0]]></content>
@@ -123,6 +112,17 @@
       </categories>
       <tags>
         <tag>Hadoop命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[makedown 表格自动生成]]></title>
+    <url>%2F2018%2F06%2F10%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
+    <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx 注意事项在执行命令时，需关闭要处理的xls文件窗口，不能在Excel打开]]></content>
+      <categories>
+        <category>makedown</category>
+      </categories>
+      <tags>
+        <tag>makedown 表格自动生成</tag>
       </tags>
   </entry>
   <entry>
