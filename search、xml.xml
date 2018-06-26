@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[不平衡数据处理方式]]></title>
+    <url>%2F2018%2F06%2F04%2F%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[惩罚正负样本的权重 很多模型和算法中都有基于类别参数的调整设置，以scikit-learn中的SVM为例，通过在class_weight: {dict, ‘balanced’}中针对不同类别针对不同的权重，来手动指定不同类别的权重。如果使用其默认的方法balanced，那么SVM会将权重设置为与不同类别样本数量呈反比的权重来做自动均衡处理，计算公式为：n_samples / (n_classes * np.bincount(y)).比较简单高效。比如label=0样本数为10，label=1样本数为100,此时可以设置class_weight={0:1,1:0.1}来影响惩罚项系数C，进而影响损失函数的求解，使得权重大样本的惩罚项少，权重小的样本惩罚项多。 特征通过选择显著性特征 采用boosting/bagging等算法 抽样 过采样过采样比较广泛，最直接的方法是简单复制少数类样本形成多条记录，也可使用smote算法 123456789# 过抽样处理库SMOTEfrom imblearn.over_sampling import SMOTE # 建立SMOTE模型对象model_smote = SMOTE() # 输入数据并作过抽样处理x_smote_resampled, y_smote_resampled = model_smote.fit_sample(train,train_y) x_smote_resampled = pd.DataFrame(x_smote_resampled, columns=train.columns)y_smote_resampled = pd.DataFrame(y_smote_resampled,columns=['label']) 欠采样最直接的方法是随机地去掉一些多数类样本来减小多数类的规模 1234567# 欠抽样处理库RandomUnderSamplerfrom imblearn.under_sampling import RandomUnderSampler# 建立RandomUnderSampler模型对象model_RandomUnderSampler = RandomUnderSampler() # 输入数据并作过抽样处理x_RandomUnderSampler_resampled, y_RandomUnderSampler_resampled =model_RandomUnderSampler.fit_sample(train,train_y)]]></content>
+      <categories>
+        <category>数据预处理</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[时间序列问题转回归问题简述]]></title>
-    <url>%2F2018%2F06%2F19%2F%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E8%BD%AC%E5%9B%9E%E5%BD%92%E7%AE%80%E8%BF%B0%2F</url>
+    <url>%2F2018%2F05%2F19%2F%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E8%BD%AC%E5%9B%9E%E5%BD%92%E7%AE%80%E8%BF%B0%2F</url>
     <content type="text"><![CDATA[这种场景，一般是随着时间预测销量，比如销量预测、电量预测等原理参考链接上代码··· 12345678# 核心函数import pandas as pdfrom pandas import DataFramefrom pandas import concatdir = '../input/'train = pd.read_table(dir + 'train_20171215.txt',engine='python')train.head(10) date day_of_week brand cnt 0 1 3 1 20 1 1 3 5 48 2 2 4 1 16 3 2 4 3 20 4 3 5 1 1411 5 3 5 2 811 6 3 5 3 1005 7 3 5 4 773 8 3 5 5 1565 9 4 6 1 1176 1234567891011121314151617181920212223242526272829303132def series_to_supervised(data, n_in=1, n_out=1, dropnan=True): """ Frame a time series as a supervised learning dataset. Arguments: data: Sequence of observations as a list or NumPy array. n_in: Number of lag observations as input (X). n_out: Number of observations as output (y). dropnan: Boolean whether or not to drop rows with NaN values. Returns: Pandas DataFrame of series framed for supervised learning. """ n_vars = 1 if type(data) is list else data.shape[1] df = DataFrame(data) cols, names = list(), list() # input sequence (t-n, ... t-1) for i in range(n_in, 0, -1): cols.append(df.shift(i)) names += [('var%d(t-%d)' % (j + 1, i)) for j in range(n_vars)] # forecast sequence (t, t+1, ... t+n) for i in range(0, n_out): cols.append(df.shift(-i)) if i == 0: names += [('var%d(t)' % (j + 1)) for j in range(n_vars)] else: names += [('var%d(t+%d)' % (j + 1, i)) for j in range(n_vars)] # put it all together agg = concat(cols, axis=1) agg.columns = names # drop rows with NaN values if dropnan: agg.dropna(inplace=True) return agg 1234time_cnt = list(train['cnt'].values)# nin 前看 nout后看 这个题目需要前看time2sup = series_to_supervised(data=time_cnt,n_in=276,dropnan=True) time2sup.head(10) var1(t-276) var1(t-275) var1(t-274) var1(t-273) … var1(t-4) var1(t-3) var1(t-2) var1(t-1) var1(t) 276 20 48 16 20 … 407 237 200 535 384 277 48 16 20 1411 … 237 200 535 384 303 278 16 20 1411 811 … 200 535 384 303 314 279 20 1411 811 1005 … 535 384 303 314 176 280 1411 811 1005 773 … 384 303 314 176 310 281 811 1005 773 1565 … 303 314 176 310 283 282 1005 773 1565 1176 … 314 176 310 283 261 283 773 1565 1176 824 … 176 310 283 261 342 284 1565 1176 824 802 … 310 283 261 342 171 285 1176 824 802 1057 … 283 261 342 171 242 12print train.shapeprint time2sup.shape (4773, 4)(4497, 277)4497+276=4773，最后一列var1(t)则为label,表示此刻的值]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[数据挖掘项目经验总结]]></title>
-    <url>%2F2018%2F06%2F15%2F%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量 可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，判断哪些规律可预测，哪些规律不可预测 根据第一步的分析结果人工定义特征，然后寻找参数，构造线性函数，函数实际上拟合的是非线性问题(通过人工定义特征转化线性问题) a,可以取前60日中位数，前7日均值，前14日中位数，前30/60日最小值等 特征b，当天前3日播放量的均值相对于前60日最低值的增长量。经分析，当天前3日播放量的均值相对于前60日最低值的增长量不近似直线，不好回归，使用b1=后30天播放量的均值/前7天播放量的均值 特征c对应特征，当天播放量，即总体播放量的增长量 公式还得加上对每周周末的周期变化和节假日的修正系数 特征b主要起的作用是分类（在本案例中，将这50名歌手分为两类，来做预测，每一类最终得到的预测函数是一样的），通过设置不同的b的阈值来划分类别 当b取某值比如0.96，小于此值为1类，大于此值为另一个类，这样数据就有标签了。然后对待预测数据，不使用此规则来打标签，而是使用GDBT基于刚才产生的有标签数据来预测类别。最后将用户分为两类，然后使用线性回归求出a,b,c对应的系数，这样就得到了线性回归模型，就可以预测歌手未来两个月每天的播放量 将b设置为另外一个值，又到了一个线性回归模型和结果 ··· 最终将这几个线性回归模型，使用加权法来融合模型]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>项目经验总结</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[正负样本的定义问题]]></title>
-    <url>%2F2018%2F06%2F15%2F%E6%AD%A3%E8%B4%9F%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98%2F</url>
+    <url>%2F2018%2F05%2F05%2F%E6%AD%A3%E8%B4%9F%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%AE%9A%E4%B9%89%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[sklearn与spark ml对于正负样本的定义有区别 sklearn横行为预测值，纵行为真实值0为负样本、1为正样本,计算精确率、召回率，是计算类别为1的样本 预测值 0 1 真实值 0 x x 1 x x spark ml1为负样本、0为正样本,计算精确率、召回率，是计算类别为0的样本]]></content>
       <categories>
         <category>机器学习</category>
@@ -29,7 +26,7 @@
   </entry>
   <entry>
     <title><![CDATA[特征重要性计算]]></title>
-    <url>%2F2018%2F06%2F14%2F%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E8%AE%A1%E7%AE%97%2F</url>
+    <url>%2F2018%2F04%2F20%2F%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E8%AE%A1%E7%AE%97%2F</url>
     <content type="text"><![CDATA[特征重要性可以用来做模型可解释性，这在风控等领域是非常重要的方面。xgboostxgboost实现中Booster类get_score方法输出特征重要性，其中importance_type参数支持三种特征重要性的计算方法 1.importance_type=weight（默认值），特征重要性使用特征在所有树中作为划分属性的次数 2.importance_type=gain，特征重要性使用特征在作为划分属性时loss平均的降低量 3.importance_type=cover，特征重要性使用特征在作为划分属性时对样本的覆盖度]]></content>
       <categories>
         <category>机器学习</category>
@@ -40,7 +37,7 @@
   </entry>
   <entry>
     <title><![CDATA[GBDT生成特征]]></title>
-    <url>%2F2018%2F06%2F14%2FGBDT%E7%94%9F%E6%88%90%E7%89%B9%E5%BE%81%2F</url>
+    <url>%2F2018%2F03%2F14%2FGBDT%E7%94%9F%E6%88%90%E7%89%B9%E5%BE%81%2F</url>
     <content type="text"><![CDATA[123456789from sklearn.datasets import make_classificationfrom sklearn.model_selection import train_test_splitfrom sklearn.ensemble import GradientBoostingClassifierfrom sklearn.preprocessing import OneHotEncoderX, y = make_classification(n_samples=10) print yprint X.shapeX 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172[0 1 1 0 0 1 1 1 0 0](10L, 20L)array([[-1.46218297e+00, -4.18333502e-01, -3.59274601e-02, 4.51595239e-01, -1.51047633e+00, 5.07112394e-01, 7.38097000e-01, -3.02315469e-01, 4.26175119e-01, 4.01702307e-02, -6.60368519e-01, -1.00253339e+00, 4.55802942e-01, -4.31784177e-01, 5.61925740e-02, -9.87095232e-01, -3.60589437e-01, -8.20339651e-02, -1.51267169e+00, -1.75602670e+00], [-1.38065657e-01, 1.51125229e+00, -1.16786498e+00, 8.96428602e-01, 2.24770779e-02, 2.75832881e-01, 8.84555986e-01, 1.90990870e-01, 1.50974562e+00, 6.32858976e-01, 7.43984848e-01, 6.23124869e-01, 2.75529340e-01, 4.13913270e-01, -5.69452199e-01, 9.92345363e-01, -6.58511532e-01, -1.04902254e+00, 4.17471392e-01, -1.69380460e+00], [ 7.94578797e-01, 6.91286961e-01, -8.36134614e-01, 1.35232255e+00, 8.19800516e-01, -6.63009090e-01, -3.93857189e-01, 1.21970975e+00, 9.45892797e-01, 8.78534488e-01, -6.82525652e-01, -4.65135487e-01, 7.91431577e-01, 3.54382290e-01, 8.96197192e-02, -8.50444786e-01, 5.54008693e-01, -2.22658663e-01, 2.60990234e-01, 5.36795887e-01], [ 2.35619886e-03, 2.00775837e-01, 4.87206937e-02, -4.86582074e-02, -1.93014354e+00, 3.94423848e-01, 8.43146268e-01, -1.18764902e+00, 1.21507109e+00, -5.82489166e-02, 2.91817058e-01, 2.63882786e-01, -8.09303986e-01, 2.13007401e+00, 2.03539722e+00, 2.50978548e-01, -5.79211447e-01, -2.27030861e+00, -1.32198712e+00, 3.58828134e-01], [ 1.76208221e-01, -6.44503388e-01, -1.35005640e-01, 2.57927723e-01, -1.15227919e+00, -1.04384378e+00, -5.25599357e-01, 2.16430369e+00, 1.14631323e+00, -4.86738371e-01, 3.56177943e-01, 4.25940193e-01, -2.46271932e-01, 8.02966687e-01, -9.16757374e-01, 3.92150341e-01, 8.89340812e-01, 8.89122664e-01, -6.91321300e-01, 3.60691085e-01], [-9.17667327e-01, -2.19718742e-01, 3.08231099e-01, -1.20865300e+00, 9.52723078e-02, -2.13289317e+00, 8.23448746e-01, 1.84966961e-01, 2.35626420e+00, -5.90061668e-01, -9.91453561e-01, 2.62985532e-01, -9.96616193e-01, -3.90777590e-01, 3.89293149e-01, -1.31349623e+00, 2.72401261e-02, -2.54414046e-01, -4.60378536e-01, 1.23080237e+00], [-8.28192448e-01, 1.15639869e+00, 2.78606672e-02, 9.65889005e-02, 1.68886757e+00, -3.25775102e-01, 1.75717716e-01, 1.59902401e-01, -6.55490597e-01, 2.95479360e-01, 6.60409198e-01, -2.70659454e+00, 7.21371599e-01, 5.61757431e-01, 1.22378486e+00, 9.99869289e-01, 2.21082939e+00, 1.31353776e-01, 1.64938642e+00, 3.81579172e-02], [-1.18357533e+00, 1.47944412e+00, 2.82847558e-01, 1.01023062e+00, 1.54087073e+00, 1.88003713e-02, -2.54038797e-01, -1.24068833e+00, -3.31394808e-02, 1.10512704e+00, -7.21359030e-01, 5.02536950e-01, 4.86264732e-01, -2.48485472e+00, 7.36671531e-01, -8.50743359e-01, 1.42773431e+00, -3.85276831e-01, 7.92621022e-01, 8.04302650e-01], [ 5.00298505e-01, 4.99864304e-01, -4.43128177e-01, -6.80877761e-01, -2.30634433e+00, -4.18106882e-01, -8.34288871e-01, 1.68655058e+00, -2.32944124e+00, -3.10646642e-01, -3.88910822e-01, -9.13217680e-01, 1.01294499e+00, 1.13638795e-01, 3.46336445e-01, -6.82351046e-01, -3.25986042e-01, -1.87458285e-01, -1.97646950e+00, -1.29381917e+00], [ 2.39415433e-01, 1.07290006e+00, 1.15550474e+00, -1.15201307e+00, -5.78108383e-01, -3.80187570e-01, -1.28861486e+00, -1.32918430e+00, -5.28881163e-01, 1.96556881e-01, -8.61984192e-01, -2.17046046e+00, -8.82487188e-02, 5.60887804e-01, 1.31724634e+00, -1.18909996e+00, -1.67108757e+00, 8.37225262e-01, -9.06706808e-01, -6.15740923e-01]]) 123456X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)gbc = GradientBoostingClassifier(n_estimators=2)one_hot = OneHotEncoder()gbc.fit(X_train, y_train)X_train_new = one_hot.fit_transform(gbc.apply(X_train)[:, :, 0])print (X_train_new.todense()) 12345[[0. 1. 0. 1.] [0. 1. 0. 1.] [1. 0. 1. 0.] [1. 0. 1. 0.] [1. 0. 1. 0.]]]]></content>
       <categories>
         <category>特征工程</category>
@@ -51,7 +48,7 @@
   </entry>
   <entry>
     <title><![CDATA[python文本处理之gensim]]></title>
-    <url>%2F2018%2F06%2F14%2Fpython%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B9%8Bgensim%2F</url>
+    <url>%2F2018%2F03%2F05%2Fpython%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B9%8Bgensim%2F</url>
     <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233from gensim import corpora,similarities,models import jieba # 训练样本 raw_documents = [ '0南京江心洲污泥偷排”等污泥偷排或处置不当而造成的污染问题，不断被媒体曝光', '1面对美国金融危机冲击与国内经济增速下滑形势，中国政府在2008年11月初快速推出“4万亿”投资十项措施', '2全国大面积出现的雾霾，使解决我国环境质量恶化问题的紧迫性得到全社会的广泛关注', '3大约是1962年的夏天吧，潘文突然出现在我们居住的安宁巷中，她旁边走着40号王孃孃家的大儿子，一看就知道，他们是一对恋人。那时候，潘文梳着一条长长的独辫', '4坐落在美国科罗拉多州的小镇蒙特苏马有一座4200平方英尺(约合390平方米)的房子，该建筑外表上与普通民居毫无区别，但其内在构造却别有洞天', '5据英国《每日邮报》报道，美国威斯康辛州的非营利组织“占领麦迪逊建筑公司”(OMBuild)在华盛顿和俄勒冈州打造了99平方英尺(约9平方米)的迷你房屋', '6长沙市公安局官方微博@长沙警事发布消息称，3月14日上午10时15分许，长沙市开福区伍家岭沙湖桥菜市场内，两名摊贩因纠纷引发互殴，其中一人被对方砍死', '7乌克兰克里米亚就留在乌克兰还是加入俄罗斯举行全民公投，全部选票的统计结果表明，96.6%的选民赞成克里米亚加入俄罗斯，但未获得乌克兰和国际社会的普遍承认', '8京津冀的大气污染，造成了巨大的综合负面效应，显性的是空气污染、水质变差、交通拥堵、食品不安全等，隐性的是各种恶性疾病的患者增加，生存环境越来越差', '9 1954年2月19日，苏联最高苏维埃主席团，在“兄弟的乌克兰与俄罗斯结盟300周年之际”通过决议，将俄罗斯联邦的克里米亚州，划归乌克兰加盟共和国', '10北京市昌平区一航空训练基地，演练人员身穿训练服，从机舱逃生门滑降到地面', '11腾讯入股京东的公告如期而至，与三周前的传闻吻合。毫无疑问，仅仅是传闻阶段的“联姻”，已经改变了京东赴美上市的舆论氛围', '12国防部网站消息，3月8日凌晨，马来西亚航空公司MH370航班起飞后与地面失去联系，西安卫星测控中心在第一时间启动应急机制，配合地面搜救人员开展对失联航班的搜索救援行动', '13新华社昆明3月2日电，记者从昆明市政府新闻办获悉，昆明“3·01”事件事发现场证据表明，这是一起由新疆分裂势力一手策划组织的严重暴力恐怖事件', '14在即将召开的全国“两会”上，中国政府将提出2014年GDP增长7.5%左右、CPI通胀率控制在3.5%的目标', '15中共中央总书记、国家主席、中央军委主席习近平看望出席全国政协十二届二次会议的委员并参加分组讨论时强调，团结稳定是福，分裂动乱是祸。全国各族人民都要珍惜民族大团结的政治局面，都要坚决反对一切危害各民族大团结的言行' ] corpora_documents = [] #分词处理 for item_text in raw_documents: item_seg = list(jieba.cut(item_text)) corpora_documents.append(item_seg) # 生成字典和向量语料 dictionary = corpora.Dictionary(corpora_documents)print type(dictionary)print(dictionary) 12&lt;class 'gensim.corpora.dictionary.Dictionary'&gt;Dictionary(384 unique tokens: [u'\u8981', u'CPI', u'\u5931\u8054', u'\u901a\u8fc7', u'\u73af\u5883\u8d28\u91cf']...) 12345# 稀疏表达方式，实际上产生的是16*384的词频矩阵，16是文档数目，384是词语数目# 通过下面一句得到语料中每一篇文档对应的稀疏向量（这里是bow向量） corpus = [dictionary.doc2bow(text) for text in corpora_documents] # 向量的每一个元素代表了一个word在这篇文档中出现的次数 print(corpus) 1[[(0, 1), (1, 1), (2, 1), (3, 1), (4, 2), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (10, 1), (11, 1), (12, 2), (13, 1), (14, 1), (15, 1), (16, 1), (17, 1), (18, 1), (19, 1)], [(1, 1), (19, 1), (20, 1), (21, 1), (22, 1), (23, 1), (24, 1), (25, 1), (26, 1), (27, 1), (28, 1), (29, 1), (30, 1), (31, 1), (32, 1), (33, 1), (34, 1), (35, 1), (36, 1), (37, 1), (38, 1), (39, 1), (40, 1), (41, 1), (42, 1), (43, 1), (44, 1)], [(13, 3), (18, 1), (19, 1), (45, 1), (46, 1), (47, 1), (48, 1), (49, 1), (50, 1), (51, 1), (52, 1), (53, 1), (54, 1), (55, 1), (56, 1), (57, 1), (58, 1), (59, 1), (60, 1), (61, 1)], [(13, 3), (19, 5), (32, 1), (34, 1), (50, 1), (62, 1), (63, 1), (64, 1), (65, 1), (66, 1), (67, 1), (68, 1), (69, 1), (70, 1), (71, 1), (72, 1), (73, 1), (74, 1), (75, 1), (76, 2), (77, 1), (78, 1), (79, 1), (80, 1), (81, 1), (82, 1), (83, 1), (84, 1), (85, 1), (86, 2), (87, 1), (88, 2), (89, 1), (90, 1), (91, 1), (92, 1), (93, 1), (94, 1), (95, 1), (96, 1)], [(13, 2), (19, 2), (23, 1), (27, 1), (32, 2), (42, 1), (97, 1), (98, 1), (99, 1), (100, 1), (101, 1), (102, 1), (103, 1), (104, 1), (105, 1), (106, 1), (107, 1), (108, 1), (109, 1), (110, 1), (111, 1), (112, 1), (113, 1), (114, 1), (115, 1), (116, 1), (117, 1), (118, 1), (119, 1), (120, 1), (121, 1), (122, 1)], [(1, 1), (13, 2), (19, 1), (24, 1), (32, 1), (42, 1), (97, 2), (98, 2), (110, 1), (111, 1), (112, 1), (123, 1), (124, 1), (125, 1), (126, 1), (127, 1), (128, 1), (129, 1), (130, 1), (131, 1), (132, 1), (133, 1), (134, 1), (135, 1), (136, 1), (137, 1), (138, 1), (139, 1), (140, 1), (141, 1), (142, 1), (143, 1), (144, 1), (145, 1), (146, 1), (147, 1), (148, 1)], [(16, 1), (19, 4), (63, 1), (149, 1), (150, 1), (151, 1), (152, 1), (153, 1), (154, 1), (155, 1), (156, 1), (157, 1), (158, 1), (159, 1), (160, 1), (161, 1), (162, 1), (163, 1), (164, 1), (165, 1), (166, 1), (167, 1), (168, 1), (169, 1), (170, 1), (171, 1), (172, 1), (173, 1), (174, 1), (175, 1), (176, 1), (177, 1), (178, 1), (179, 1), (180, 1), (181, 1), (182, 1), (183, 2)], [(13, 3), (19, 3), (57, 1), (79, 1), (103, 1), (134, 1), (184, 1), (185, 1), (186, 1), (187, 3), (188, 2), (189, 2), (190, 1), (191, 1), (192, 1), (193, 2), (194, 1), (195, 1), (196, 1), (197, 1), (198, 1), (199, 1), (200, 1), (201, 1), (202, 1), (203, 1), (204, 1), (205, 1)], [(13, 5), (14, 1), (17, 1), (19, 4), (86, 2), (129, 1), (206, 1), (207, 3), (208, 1), (209, 1), (210, 1), (211, 1), (212, 1), (213, 1), (214, 1), (215, 1), (216, 1), (217, 1), (218, 1), (219, 1), (220, 1), (221, 1), (222, 1), (223, 1), (224, 1), (225, 1), (226, 1), (227, 1), (228, 1), (229, 1)], [(1, 1), (13, 2), (19, 4), (24, 1), (27, 1), (32, 1), (34, 1), (45, 1), (124, 1), (136, 1), (171, 1), (173, 1), (187, 2), (188, 1), (189, 1), (230, 1), (231, 1), (232, 1), (233, 1), (234, 1), (235, 1), (236, 1), (237, 1), (238, 1), (239, 1), (240, 1), (241, 1), (242, 1), (243, 1), (244, 1), (245, 1), (246, 1)], [(19, 2), (149, 1), (247, 1), (248, 1), (249, 1), (250, 1), (251, 1), (252, 1), (253, 1), (254, 1), (255, 1), (256, 1), (257, 1), (258, 1), (259, 1), (260, 2), (261, 1), (262, 1)], [(1, 1), (13, 4), (19, 3), (21, 1), (24, 1), (27, 1), (65, 1), (86, 1), (129, 1), (263, 1), (264, 1), (265, 2), (266, 1), (267, 2), (268, 1), (269, 1), (270, 1), (271, 1), (272, 1), (273, 1), (274, 1), (275, 1), (276, 1), (277, 1), (278, 1), (279, 1), (280, 1), (281, 1)], [(13, 1), (19, 4), (27, 1), (32, 1), (63, 1), (171, 1), (173, 1), (176, 1), (206, 1), (248, 1), (252, 2), (282, 1), (283, 1), (284, 1), (285, 1), (286, 1), (287, 1), (288, 1), (289, 1), (290, 1), (291, 1), (292, 1), (293, 1), (294, 1), (295, 1), (296, 1), (297, 1), (298, 1), (299, 1), (300, 1), (301, 2), (302, 1), (303, 1), (304, 1), (305, 1), (306, 1), (307, 1)], [(1, 1), (13, 1), (19, 3), (24, 1), (45, 1), (63, 2), (143, 1), (173, 1), (249, 1), (308, 1), (309, 1), (310, 1), (311, 1), (312, 1), (313, 1), (314, 1), (315, 1), (316, 1), (317, 1), (318, 1), (319, 1), (320, 1), (321, 1), (322, 1), (323, 1), (324, 2), (325, 1), (326, 1), (327, 1), (328, 1), (329, 1), (330, 1), (331, 1), (332, 1), (333, 1), (334, 1)], [(1, 1), (13, 2), (19, 1), (24, 1), (28, 1), (32, 2), (34, 1), (48, 1), (102, 1), (150, 1), (207, 1), (243, 1), (335, 1), (336, 1), (337, 1), (338, 1), (339, 1), (340, 1), (341, 1), (342, 1), (343, 1), (344, 1), (345, 1), (346, 1), (347, 1), (348, 1)], [(13, 3), (19, 3), (48, 1), (65, 1), (86, 2), (151, 1), (172, 1), (207, 2), (316, 1), (349, 1), (350, 1), (351, 1), (352, 2), (353, 1), (354, 1), (355, 1), (356, 1), (357, 1), (358, 1), (359, 1), (360, 1), (361, 1), (362, 1), (363, 1), (364, 1), (365, 1), (366, 1), (367, 1), (368, 1), (369, 2), (370, 1), (371, 1), (372, 1), (373, 1), (374, 1), (375, 2), (376, 1), (377, 1), (378, 1), (379, 1), (380, 1), (381, 2), (382, 1), (383, 2)]] 1234# corpus是一个返回bow向量的迭代器。下面代码将完成对corpus中出现的每一个特征的IDF值的统计工作 tfidf_model = models.TfidfModel(corpus) corpus_tfidf = tfidf_model[corpus] corpus_tfidf 1&lt;gensim.interfaces.TransformedCorpus at 0xaa15eb8&gt; 12345678similarity = similarities.Similarity('Similarity-tfidf-index', corpus_tfidf, num_features=600) test_data_1 = '北京雾霾红色预警' test_cut_raw_1 = list(jieba.cut(test_data_1)) # ['北京', '雾', '霾', '红色', '预警'] test_corpus_1 = dictionary.doc2bow(test_cut_raw_1) # [(51, 1), (59, 1)]，即在字典的56和60的地方出现重复的字段，这个值可能会变化 similarity.num_best = 5 test_corpus_tfidf_1=tfidf_model[test_corpus_1] # 根据之前训练生成的model，生成query的IFIDF值，然后进行相似度计算 # [(51, 0.7071067811865475), (59, 0.7071067811865475)] print(similarity[test_corpus_tfidf_1]) # 返回最相似的样本材料,(index_of_document, similarity) tuples 1[(2, 0.3595932722091675)] 123456test_data_2 = '长沙街头发生砍人事件致6人死亡' test_cut_raw_2 = list(jieba.cut(test_data_2)) test_corpus_2 = dictionary.doc2bow(test_cut_raw_2) test_corpus_tfidf_2=tfidf_model[test_corpus_2] similarity.num_best = 3 print(similarity[test_corpus_tfidf_2]) # 返回最相似的样本材料,(index_of_document, similarity) tuples 1[(6, 0.19451555609703064), (13, 0.10124017298221588)]]]></content>
       <categories>
         <category>nlp</category>
@@ -63,7 +60,7 @@
   </entry>
   <entry>
     <title><![CDATA[Spark DataFrame 常用函数及常见问题]]></title>
-    <url>%2F2018%2F06%2F13%2FSpark%20DataFrame%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%2F</url>
+    <url>%2F2018%2F02%2F26%2FSpark%20DataFrame%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[问题 parquet格式错误 12//需注意Hive版本需要低于2.1.0SparkSession().config("spark.sql.hive.convertMetastoreParquet","false") 列字段存在但找不到 1SparkSession().config("spark.sql.parquet.filterPushdown", "false") 表字段过多不显示 SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;) spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型) spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确]]></content>
       <categories>
         <category>Hadoop/Spark</category>
@@ -74,8 +71,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数据挖掘项目经验总结]]></title>
+    <url>%2F2018%2F02%2F03%2F%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量 可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，判断哪些规律可预测，哪些规律不可预测 根据第一步的分析结果人工定义特征，然后寻找参数，构造线性函数，函数实际上拟合的是非线性问题(通过人工定义特征转化线性问题) a,可以取前60日中位数，前7日均值，前14日中位数，前30/60日最小值等 特征b，当天前3日播放量的均值相对于前60日最低值的增长量。经分析，当天前3日播放量的均值相对于前60日最低值的增长量不近似直线，不好回归，使用b1=后30天播放量的均值/前7天播放量的均值 特征c对应特征，当天播放量，即总体播放量的增长量 公式还得加上对每周周末的周期变化和节假日的修正系数 特征b主要起的作用是分类（在本案例中，将这50名歌手分为两类，来做预测，每一类最终得到的预测函数是一样的），通过设置不同的b的阈值来划分类别 当b取某值比如0.96，小于此值为1类，大于此值为另一个类，这样数据就有标签了。然后对待预测数据，不使用此规则来打标签，而是使用GDBT基于刚才产生的有标签数据来预测类别。最后将用户分为两类，然后使用线性回归求出a,b,c对应的系数，这样就得到了线性回归模型，就可以预测歌手未来两个月每天的播放量 将b设置为另外一个值，又到了一个线性回归模型和结果 ··· 最终将这几个线性回归模型，使用加权法来融合模型]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>项目经验总结</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[将jar包打包到集群运行]]></title>
-    <url>%2F2018%2F06%2F13%2F%E5%B0%86jar%E5%8C%85%E6%89%93%E5%8C%85%E5%88%B0%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%2F</url>
+    <url>%2F2018%2F01%2F06%2F%E5%B0%86jar%E5%8C%85%E6%89%93%E5%8C%85%E5%88%B0%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%2F</url>
     <content type="text"><![CDATA[规范化，一般有4个文件夹，分别为bin、conf、jars和logs 运行 ./run.sh，不能直接使用run.sh，需指定当前目录 bin job-env.sh 12SPARK_HOME=/opt/cloudera/parcels/sparkHADOOP_CONF_DIR=/etc/hadoop/conf run.sh 1234567891011121314151617181920212223#!/usr/bin/env bashsource /etc/profileif [ -z "$&#123;JOB_HOME&#125;" ]; then export JOB_HOME="$(cd "`dirname "$0"`"/; pwd)"ficd $JOB_HOMEcd ..source bin/job-env.shexport HADOOP_CONF_DIR=/etc/hadoop/confnohup $SPARK_HOME/bin/spark-submit --master yarn \--deploy-mode client \--conf spark.yarn.maxAppAttempts=1 \--conf spark.default.parallelism=30 \--num-executors 3 \--executor-memory 1G \--driver-memory 1G \--executor-cores 1 \--driver-class-path /etc/hive/conf \--files /etc/hive/conf/hive-site.xml,/etc/hadoop/conf/hdfs-site.xml,/etc/hadoop/conf/core-site.xml,conf/log4j.properties \--class ScgdUserLoss \jars/1-1.0-SNAPSHOT.jar \ &gt; logs/nohup.out 2&gt;&amp;1 &amp; conflog4j.properties，默认为 12345678910111213141516171819202122232425262728293031323334353637383940## Licensed to the Apache Software Foundation (ASF) under one or more# contributor license agreements. See the NOTICE file distributed with# this work for additional information regarding copyright ownership.# The ASF licenses this file to You under the Apache License, Version 2.0# (the "License"); you may not use this file except in compliance with# the License. You may obtain a copy of the License at## http://www.apache.org/licenses/LICENSE-2.0## Unless required by applicable law or agreed to in writing, software# distributed under the License is distributed on an "AS IS" BASIS,# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.# See the License for the specific language governing permissions and# limitations under the License.## Set everything to be logged to the consolelog4j.rootCategory=INFO, consolelog4j.appender.console=org.apache.log4j.ConsoleAppenderlog4j.appender.console.target=System.errlog4j.appender.console.layout=org.apache.log4j.PatternLayoutlog4j.appender.console.layout.ConversionPattern=%d&#123;yy/MM/dd HH:mm:ss&#125; %p %c&#123;1&#125;: %m%n# Set the default spark-shell log level to WARN. When running the spark-shell, the# log level for this class is used to overwrite the root logger's log level, so that# the user can have different defaults for the shell and regular Spark apps.log4j.logger.org.apache.spark.repl.Main=WARN# Settings to quiet third party logs that are too verboselog4j.logger.org.spark_project.jetty=WARNlog4j.logger.org.spark_project.jetty.util.component.AbstractLifeCycle=ERRORlog4j.logger.org.apache.spark.repl.SparkIMain$exprTyper=INFOlog4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=INFOlog4j.logger.org.apache.parquet=ERRORlog4j.logger.parquet=ERROR# SPARK-9183: Settings to avoid annoying messages when looking up nonexistent UDFs in SparkSQL with Hive supportlog4j.logger.org.apache.hadoop.hive.metastore.RetryingHMSHandler=FATALlog4j.logger.org.apache.hadoop.hive.ql.exec.FunctionRegistry=ERROR jars自己提交的jar包 logs输出日志]]></content>
       <categories>
         <category>Hadoop/Spark</category>
@@ -83,7 +91,7 @@
   </entry>
   <entry>
     <title><![CDATA[python连接hive/mysql]]></title>
-    <url>%2F2018%2F06%2F13%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
+    <url>%2F2017%2F12%2F14%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
     <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 代码123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
       <categories>
         <category>Hadoop/Spark</category>
@@ -93,8 +101,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[提交本地项目到github及更新项目]]></title>
+    <url>%2F2017%2F11%2F26%2F%E6%8F%90%E4%BA%A4%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%88%B0github%E5%8F%8A%E6%9B%B4%E6%96%B0%E9%A1%B9%E7%9B%AE%2F</url>
+    <content type="text"><![CDATA[github在线上传通过git工具 上传 cd 项目文件夹 git init git add . git commit -m “update” github主页创建同名项目，不要勾选add README,并复制仓库地址 git remote add origin https://github.com/dcexist/study_4_userLoss.git git push -u origin master 更新 cd 项目文件夹 git add . git commit -m “update” git push origin master]]></content>
+      <categories>
+        <category>github</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Linux常用命令]]></title>
-    <url>%2F2018%2F06%2F13%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <url>%2F2017%2F11%2F23%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1]]></content>
       <categories>
         <category>Linux</category>
@@ -105,7 +121,7 @@
   </entry>
   <entry>
     <title><![CDATA[Hadoop Shell命令]]></title>
-    <url>%2F2018%2F06%2F13%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <url>%2F2017%2F11%2F13%2FHadoop%20Shell%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 1hdfs dfs -du -h / 从hdfs取文件到linux本地 1hdfs dfs -get /user/portrait/scgd/data0 ./output/ 上传文件到hdfs上 1hdfs dfs -put ./output/ /user/portrait/scgd/data0]]></content>
       <categories>
         <category>Hadoop/Spark</category>
@@ -116,7 +132,7 @@
   </entry>
   <entry>
     <title><![CDATA[makedown 表格自动生成]]></title>
-    <url>%2F2018%2F06%2F10%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
+    <url>%2F2017%2F10%2F15%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
     <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx 注意事项在执行命令时，需关闭要处理的xls文件窗口，不能在Excel打开]]></content>
       <categories>
         <category>makedown</category>
@@ -127,7 +143,7 @@
   </entry>
   <entry>
     <title><![CDATA[数据挖掘第一篇]]></title>
-    <url>%2F2018%2F06%2F10%2F%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%2F</url>
+    <url>%2F2017%2F10%2F10%2F%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AC%AC%E4%B8%80%E7%AF%87%2F</url>
     <content type="text"><![CDATA[机会新搜索 面向知识工作者 IT工程师、记者、律师、销售、猎头、医生、公务员等等 组织内外数据相结合 以领域知识图谱为核心数据处理平民化 数据、算法和代码共享和交易 基于非表格数据的BI 业务人员处理大数据 挑战多源:整合多种来源的数据 网页数据 API数据 企业内部数据异构:多格式、非表格 通用网页提取算法 算法工厂，算法市场 标注工场，标注众包知识计算 构建实体，寻找关系 基于规则 端到端机器学习机器学习 用于知识计算 用于目标数据处理 用于数据库系统索引优化 用于数据库系统查询计划优化硬件加速 GPU、众核、内存、高速网络云+端 算法超市 如针对不同数据集的数据提取算法 数据超市 原始数据、标注、表格、知识均可交易 公有云、私有云和边缘计算[/cp] 核心竞争力 有丰富深入的项目经历，且有前15名名次 熟悉Linux命令 熟悉hive/presto查询 熟悉Scala编程 熟悉Hadoop/Spark基础知识]]></content>
       <categories>
         <category>机器学习</category>
