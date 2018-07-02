@@ -405,9 +405,9 @@
 cd 项目文件夹
 git init
 git add .
-git commit -m “update”
+git commit -m update
 github主页创建同名项目，不要勾选add README,并复制仓库地址
-git remote add origin https://github.com
+git remote add origin https://github.com/d
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -568,15 +568,20 @@ git remote add origin https://github.com
           
           Linux命令
 打包 
-  1tar cvf data0.tar data0/
-
-
+1tar cvf data0.tar data0/
 
 解压 
-  1tar xvf data0.tar ../data1
+1tar xvf data0.tar ../data1
 
+集群配置文件夹
+1cd /etc/hive/conf
 
-          
+查看集群其他主机名和对应ip
+1cat /etc/hosts
+
+查找指定进程是否在运行
+1ps au
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/23/Linux常用命令/#more" rel="contents">
@@ -736,20 +741,183 @@ git remote add origin https://github.com
           
           Hadoop命令
 查询目录文件大小 
-
 1hdfs dfs -du -h  /
 
-从hdfs取文件到linux本地 
+查询某个文件夹大小
+1hdfs dfs -dus -h /
 
+从hdfs取文件到linux本地 
 1hdfs dfs -get /user/portrait/scgd/data0 ./output/
 
-上传文件到hdfs上 
-
-1hdfs dfs -put ./output/ 
+上传文件到hdfs
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/13/Hadoop Shell常用命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/pandas-常用操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Deorlive_Wt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://p2.gexing.com/G1/M00/CC/2B/rBACE1WjflOixlZpAACXLIEhLjg875.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alive">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/17/pandas-常用操作/" itemprop="url">pandas 常用函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T17:20:59+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pandas/" itemprop="url" rel="index">
+                    <span itemprop="name">pandas</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/17/pandas-常用操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/17/pandas-常用操作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+保存文件,含header
+1data.to_csv('F:\\MyDocuments\\starcor\\one_day.csv',header=True,index=False,encoding='utf-8')
+
+读取文件，含header
+1data=pd.read_csv('F:\\MyDo
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/17/pandas-常用操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1171,7 +1339,7 @@ API数据
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1182,7 +1350,7 @@ API数据
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

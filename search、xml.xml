@@ -92,7 +92,7 @@
   <entry>
     <title><![CDATA[python连接hive/mysql]]></title>
     <url>%2F2017%2F12%2F14%2Fpython%E8%BF%9E%E6%8E%A5hive-mysql%2F</url>
-    <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 代码123456789101112131415import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素exposure_pv = list(cursor.fetchall())#变成外面是个列表，里面是个小元组exposure_list = []for r in exposure_pv: exposure_list.append(r)#变成外面是个大列表，里面是个小列表columns = ["day","mediaid","aid","clickthrougt"]impression_Data = pd.DataFrame(data=exposure_list,columns=columns)impression_Data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom 123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
+    <content type="text"><![CDATA[注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 首先集群需要启动hiveserver2 1hive --service hiveserver2 ip映射，可以在xshell对应集群窗口属性中设置隧道，访问某个ip的端口映射到访问本地ip某个端口 hive 12345678910import pandas as pdimport pymysqlfrom hdfs3 import HDFileSystemfrom pyhive import hivecursor = hive.connect("192.168.90.44",port = 10000).cursor()cursor.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log where day between "20180409" and "20180523" ')columns = ["day","mediaid","aid","clickthrougt"]data = pd.DataFrame(data=cursor.fetchall(),columns=columns)data.head() day mediaid aid clickthrougt 0 20180409 agltb3B1Yi1 id1 starcorcom 1 20180409 agltb3B1Yi1 id1 starcorcom 2 20180409 agltb3B1Yi1 id1 starcorcom 3 20180409 agltb3B1Yi1 id1 starcorcom 4 20180409 agltb3B1Yi1 id1 starcorcom mysql123456conn= pymysql.connect(host="192.168.90.44",user="root", password="starcor",db="test",port=3306,charset='utf8')# 创建游标cursor = conn.cursor()cursor.execute("select * from item_index")item_index_df=pd.DataFrame(data=list(cursor.fetchall()))item_index_df.head() 0 1 2 3 4 5 6 7 8 0 (22-23) 0.833254 0.166746 0.131273 0.245796 0.281922 0.162764 0.11543 0.0629 1 (26-27) 0.83121 0.16879 0.113689 0.233952 0.280988 0.187385 0.0982592 0.0857 2 (28-29) 0.766236 0.233764 0.105216 0.228691 0.280427 0.235434 0.104194 0.0459 3 -14 0.828478 0.171522 0.0940754 0.146784 0.28686 0.258316 0.116409 0.0977 4 007大战皇家赌场 0.709068 0.290932 0.279817 0.150034 0.180251 0.204246 0.103626 0.0822]]></content>
       <categories>
         <category>Hadoop/Spark</category>
       </categories>
@@ -103,7 +103,7 @@
   <entry>
     <title><![CDATA[提交本地项目到github及更新项目]]></title>
     <url>%2F2017%2F11%2F26%2F%E6%8F%90%E4%BA%A4%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%88%B0github%E5%8F%8A%E6%9B%B4%E6%96%B0%E9%A1%B9%E7%9B%AE%2F</url>
-    <content type="text"><![CDATA[github在线上传通过git工具 上传 cd 项目文件夹 git init git add . git commit -m “update” github主页创建同名项目，不要勾选add README,并复制仓库地址 git remote add origin https://github.com/dcexist/study_4_userLoss.git git push -u origin master 更新 cd 项目文件夹 git add . git commit -m “update” git push origin master]]></content>
+    <content type="text"><![CDATA[github在线上传通过git工具 上传 cd 项目文件夹 git init git add . git commit -m update github主页创建同名项目，不要勾选add README,并复制仓库地址 git remote add origin https://github.com/dcexist/study_4_userLoss.git git push -u origin master 更新 cd 项目文件夹 git add . git commit -m update git push origin master]]></content>
       <categories>
         <category>github</category>
       </categories>
@@ -111,7 +111,7 @@
   <entry>
     <title><![CDATA[Linux常用命令]]></title>
     <url>%2F2017%2F11%2F23%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1]]></content>
+    <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1 集群配置文件夹 1cd /etc/hive/conf 查看集群其他主机名和对应ip 1cat /etc/hosts 查找指定进程是否在运行 1ps aux | grep hiveser]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -122,13 +122,21 @@
   <entry>
     <title><![CDATA[Hadoop Shell命令]]></title>
     <url>%2F2017%2F11%2F13%2FHadoop%20Shell%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 1hdfs dfs -du -h / 从hdfs取文件到linux本地 1hdfs dfs -get /user/portrait/scgd/data0 ./output/ 上传文件到hdfs上 1hdfs dfs -put ./output/ /user/portrait/scgd/data0]]></content>
+    <content type="text"><![CDATA[Hadoop命令 查询目录文件大小 1hdfs dfs -du -h / 查询某个文件夹大小 1hdfs dfs -dus -h / 从hdfs取文件到linux本地 1hdfs dfs -get /user/portrait/scgd/data0 ./output/ 上传文件到hdfs上 1hdfs dfs -put ./output/ /user/portrait/scgd/data0]]></content>
       <categories>
         <category>Hadoop/Spark</category>
       </categories>
       <tags>
         <tag>Hadoop命令</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pandas 常用函数]]></title>
+    <url>%2F2017%2F10%2F17%2Fpandas-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[保存文件,含header 1data.to_csv('F:\\MyDocuments\\starcor\\one_day.csv',header=True,index=False,encoding='utf-8') 读取文件，含header 1data=pd.read_csv('F:\\MyDocuments\\starcor\\one_day.csv',encoding='utf-8')]]></content>
+      <categories>
+        <category>pandas</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[makedown 表格自动生成]]></title>

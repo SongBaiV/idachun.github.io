@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。  代码123456789101112131415import pandas as pdimport pymysqlfro">
+<meta name="description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 首先集群需要启动hiveserver2 1hive --service hiveserver2  ip映射，可以在xsh">
 <meta name="keywords" content="python连接hive&#x2F;mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python连接hive&#x2F;mysql">
 <meta property="og:url" content="http://yoursite.com/2017/12/14/python连接hive-mysql/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。  代码123456789101112131415import pandas as pdimport pymysqlfro">
+<meta property="og:description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 首先集群需要启动hiveserver2 1hive --service hiveserver2  ip映射，可以在xsh">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-26T03:14:07.219Z">
+<meta property="og:updated_time" content="2018-07-02T09:11:55.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python连接hive&#x2F;mysql">
-<meta name="twitter:description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。  代码123456789101112131415import pandas as pdimport pymysqlfro">
+<meta name="twitter:description" content="注意 windows环境，sasl安装不上，报各种错误解决办法：在whl库中，找到所需要的whl中，安装即可 whl文件是什么？whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。 首先集群需要启动hiveserver2 1hive --service hiveserver2  ip映射，可以在xsh">
 
 
 
@@ -400,8 +400,15 @@
         <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
 <li>windows环境，sasl安装不上，报各种错误<br>解决办法：在<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">whl库</a>中，找到所需要的whl中，安装即可</li>
 <li>whl文件是什么？<br>whl格式本质上是一个压缩包，里面包含了py文件，以及经过编译的pyd文件。使得可以在不具备编译环境的情况下，选择合适自己的python环境进行安装。</li>
+<li><p>首先集群需要启动hiveserver2</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive <span class="comment">--service hiveserver2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ip映射，可以在xshell对应集群窗口属性中设置隧道，访问某个ip的端口映射到访问本地ip某个端口</p>
+</li>
+<li><p>hive</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="title">from</span> hdfs3 <span class="keyword">import</span> HDFileSystem</span><br><span class="line"><span class="title">from</span> pyhive <span class="keyword">import</span> hive</span><br><span class="line"></span><br><span class="line"><span class="title">cursor</span> = hive.connect(<span class="string">"192.168.90.44"</span>,port = <span class="number">10000</span>).cursor()</span><br><span class="line"><span class="title">cursor</span>.execute('select day ,mediaid,aid ,clickthrough from ad.terminalclick_log <span class="keyword">where</span> day between <span class="string">"20180409"</span> and <span class="string">"20180523"</span> ')</span><br><span class="line"><span class="title">columns</span> = [<span class="string">"day"</span>,<span class="string">"mediaid"</span>,<span class="string">"aid"</span>,<span class="string">"clickthrougt"</span>]</span><br><span class="line"><span class="class"><span class="keyword">data</span> = pd.<span class="type">DataFrame</span>(<span class="title">data</span>=<span class="title">cursor</span>.<span class="title">fetchall</span>(),columns=columns)</span></span><br><span class="line"><span class="class"><span class="keyword">data</span>.head()</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> pandas as pd</span><br><span class="line"><span class="built_in">import</span> pymysql</span><br><span class="line">from hdfs3 <span class="built_in">import</span> HDFileSystem</span><br><span class="line">from pyhive <span class="built_in">import</span> hive</span><br><span class="line"></span><br><span class="line"><span class="attr">cursor</span> = hive.connect(<span class="string">"192.168.90.44"</span>,<span class="attr">port</span> = <span class="number">10000</span>).cursor()</span><br><span class="line">cursor.execute('select day ,mediaid,aid ,clickthrough  from ad.terminalclick_log where day between <span class="string">"20180409"</span> <span class="literal">and</span> <span class="string">"20180523"</span> ')</span><br><span class="line"><span class="comment">#cursor.fetchall()外面是个大元组，里面是个小元组，小元组代表每一行元素</span></span><br><span class="line"><span class="attr">exposure_pv</span> = list(cursor.fetchall())<span class="comment">#变成外面是个列表，里面是个小元组</span></span><br><span class="line"><span class="attr">exposure_list</span> = []</span><br><span class="line">for r <span class="keyword">in</span> exposure_pv:</span><br><span class="line">    exposure_list.append(r)<span class="comment">#变成外面是个大列表，里面是个小列表</span></span><br><span class="line"><span class="attr">columns</span> = [<span class="string">"day"</span>,<span class="string">"mediaid"</span>,<span class="string">"aid"</span>,<span class="string">"clickthrougt"</span>]</span><br><span class="line"><span class="attr">impression_Data</span> = pd.DataFrame(<span class="attr">data=exposure_list,columns=columns)</span></span><br><span class="line">impression_Data.head()</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -451,7 +458,10 @@
 </tbody>
 </table>
 <p><br></p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn= pymysql.connect(host=<span class="string">"192.168.90.44"</span>,user=<span class="string">"root"</span>, password=<span class="string">"starcor"</span>,db=<span class="string">"test"</span>,port=3306,charset='utf8')</span><br><span class="line"><span class="comment"># 创建游标</span></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line">cursor.execute(<span class="string">"select * from item_index"</span>)</span><br><span class="line">item_index_df=pd.DataFrame(data=list(cursor.fetchall()))</span><br><span class="line">item_index_df.head()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>mysql<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn= pymysql.connect(host=<span class="string">"192.168.90.44"</span>,user=<span class="string">"root"</span>, password=<span class="string">"starcor"</span>,db=<span class="string">"test"</span>,port=3306,charset='utf8')</span><br><span class="line"><span class="comment"># 创建游标</span></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line">cursor.execute(<span class="string">"select * from item_index"</span>)</span><br><span class="line">item_index_df=pd.DataFrame(data=list(cursor.fetchall()))</span><br><span class="line">item_index_df.head()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -663,7 +673,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -674,7 +684,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -734,7 +744,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li></ol></div>
             
 
           </div>
