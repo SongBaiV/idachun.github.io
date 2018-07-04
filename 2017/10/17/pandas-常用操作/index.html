@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="保存文件,含header 1data.to_csv(&apos;F:\\MyDocuments\\starcor\\one_day.csv&apos;,header=True,index=False,encoding=&apos;utf-8&apos;)  读取文件，含header 1data=pd.read_csv(&apos;F:\\MyDocuments\\starcor\\one_day.csv&apos;,encoding=&apos;utf-8&apos;)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-02T09:26:28.328Z">
+<meta property="og:updated_time" content="2018-07-03T08:38:24.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pandas 常用函数">
 <meta name="twitter:description" content="保存文件,含header 1data.to_csv(&apos;F:\\MyDocuments\\starcor\\one_day.csv&apos;,header=True,index=False,encoding=&apos;utf-8&apos;)  读取文件，含header 1data=pd.read_csv(&apos;F:\\MyDocuments\\starcor\\one_day.csv&apos;,encoding=&apos;utf-8&apos;)">
@@ -401,7 +401,13 @@
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span>.to_csv('<span class="type">F</span>:\\<span class="type">MyDocuments</span>\\<span class="title">starcor</span>\\<span class="title">one_day</span>.<span class="title">csv'</span>,<span class="title">header</span>=<span class="type">True</span>,<span class="title">index</span>=<span class="type">False</span>,<span class="title">encoding</span>='<span class="title">utf</span>-8')</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>读取文件，含header</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span>=pd.read_csv('<span class="type">F</span>:\\<span class="type">MyDocuments</span>\\<span class="title">starcor</span>\\<span class="title">one_day</span>.<span class="title">csv'</span>,<span class="title">encoding</span>='<span class="title">utf</span>-8')</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span>=pd.read_csv('<span class="type">F</span>:\\<span class="type">MyDocuments</span>\\<span class="title">starcor</span>\\<span class="title">one_day</span>.<span class="title">csv'</span>,<span class="title">encoding</span>='<span class="title">utf</span>-8')</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户行为记录，按照用户分组，计算分组后server_time.max-server_time.min</p>
+  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index	user_id	client_type	video_id	video_name	playbill_length	server_time</span><br><span class="line"><span class="number">0</span>	<span class="number">8230003234837184</span>	stb	d216440bff6dadf9813b067d6c42bdc0	御姐归来	<span class="number">0.0</span>	<span class="number">1.529424e+12</span></span><br><span class="line"><span class="number">1</span>	<span class="number">8230004001768545</span>	stb	<span class="number">34</span>acd1a54645f3a9761173ddc62154f0	宝宝巴士儿歌	<span class="number">0.0</span>	<span class="number">1.529424e+12</span></span><br><span class="line"><span class="number">2</span>	<span class="number">8230004001768545</span>	stb	<span class="number">34</span>acd1a54645f3a9761173ddc62154f0	宝宝巴士儿歌	<span class="number">0.0</span>	<span class="number">1.529424e+12</span></span><br><span class="line"><span class="number">3</span>	<span class="number">8230004001768545</span>	stb	<span class="number">34</span>acd1a54645f3a9761173ddc62154f0	宝宝巴士儿歌	<span class="number">0.0</span>	<span class="number">1.529424e+12</span></span><br><span class="line"><span class="number">4</span>	<span class="number">8230002289053523</span>	stb	<span class="number">5</span>b1fa285380f7f1fbf3d68665be05d24	女医明妃传 DVD版	<span class="number">0.0</span>	<span class="number">1.529424e+12</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">temp=data.groupby(<span class="string">'user_id'</span>,as_index=<span class="literal">False</span>)[<span class="string">'server_time'</span>].agg(&#123;<span class="string">'server_time_max'</span>:<span class="built_in">max</span>,<span class="string">'server_time_min'</span>:<span class="built_in">min</span>&#125;)</span><br><span class="line">temp[<span class="string">'playbill_length1'</span>]=temp.server_time_max-temp.server_time_min</span><br><span class="line">temp.head()</span><br></pre></td></tr></table></figure>
+  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index	user_id	server_time_min	server_time_max	playbill_length1</span><br><span class="line"><span class="number">0</span>	<span class="number">8230002560236474</span>	<span class="number">1.529508e+12</span>	<span class="number">1.529510e+12</span>	<span class="number">2773122.0</span></span><br><span class="line"><span class="number">1</span>	<span class="number">8230002560283518</span>	<span class="number">1.529508e+12</span>	<span class="number">1.529510e+12</span>	<span class="number">1383261.0</span></span><br><span class="line"><span class="number">2</span>	<span class="number">8230002560346901</span>	<span class="number">1.529508e+12</span>	<span class="number">1.529510e+12</span>	<span class="number">2516150.0</span></span><br><span class="line"><span class="number">3</span>	<span class="number">8230002560367956</span>	<span class="number">1.529510e+12</span>	<span class="number">1.529510e+12</span>	<span class="number">1326.0</span></span><br><span class="line"><span class="number">4</span>	<span class="number">8230002560463268</span>	<span class="number">1.529509e+12</span>	<span class="number">1.529509e+12</span>	<span class="number">1832.0</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
@@ -521,7 +527,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -532,7 +538,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

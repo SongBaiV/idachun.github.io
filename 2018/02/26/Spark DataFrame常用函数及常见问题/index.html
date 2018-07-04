@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="问题 parquet格式错误    12//需注意Hive版本需要低于2.1.0SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)  列字段存在但找不到   1SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)  表字段过多不">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-26T03:17:59.156Z">
+<meta property="og:updated_time" content="2018-07-03T07:00:34.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark DataFrame 常用函数及常见问题">
 <meta name="twitter:description" content="问题 parquet格式错误    12//需注意Hive版本需要低于2.1.0SparkSession().config(&quot;spark.sql.hive.convertMetastoreParquet&quot;,&quot;false&quot;)  列字段存在但找不到   1SparkSession().config(&quot;spark.sql.parquet.filterPushdown&quot;, &quot;false&quot;)  表字段过多不">
@@ -408,7 +408,8 @@
 <pre><code>SparkSession().config(&quot;spark.debug.maxToStringFields&quot;, &quot;100&quot;)
 </code></pre></li>
 <li>spark ml算法管道predict产生的df字段，其中label对应predictedLabel(int类型)，indexedLabel对应prediction(double类型)</li>
-<li>spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确</li>
+<li>spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确，一般所说的正样本和sklearn一样（正样本为1，负样本为0）。</li>
+<li>spark 批量读取DataFrame文件时，有时候会出错，此时可以一个个文件读入，然后合并，即使这样还不行，那也找到了出现问题的文件在哪里。</li>
 </ul>
 
       
@@ -545,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -556,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
