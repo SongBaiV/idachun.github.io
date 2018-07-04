@@ -109,14 +109,6 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[XShell Mysql 下载数据]]></title>
-    <url>%2F2017%2F11%2F23%2FXShell-mysql-%E4%B8%8B%E8%BD%BD%E6%95%B0%E6%8D%AE%2F</url>
-    <content type="text"><![CDATA[命令行下输入：mysqldump -u用戶名 -h地址 -p密码 -d 数据库名 表名 文件名; 导出数据库为dbname的表结构（其中用戶名為root,密码為dbpasswd） mysqldump -uroot -p1234 -d dbname &gt;db_structure.csv; 导出数据库为dbname某张表(test)结构 mysqldump -uroot -p1234 -d dbname test&gt;test_structure.csv; 导出数据库为dbname所有表结构及表数据（不加-d） mysqldump -uroot -p1234 dbname &gt;db.csv; 导出数据库为dbname某张表(test)结构及表数据（不加-d） mysqldump -uroot -h地址 -p1234 dbname test&gt;test.csv;]]></content>
-      <categories>
-        <category>Mysql</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[Linux常用命令]]></title>
     <url>%2F2017%2F11%2F23%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[Linux命令 打包 1tar cvf data0.tar data0/ 解压 1tar xvf data0.tar ../data1 集群配置文件夹 1cd /etc/hive/conf 查看集群其他主机名和对应ip 1cat /etc/hosts 查找指定进程是否在运行 1ps aux | grep hiveser]]></content>
@@ -141,7 +133,7 @@
   <entry>
     <title><![CDATA[pandas 常用函数]]></title>
     <url>%2F2017%2F10%2F17%2Fpandas-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[保存文件,含header 1data.to_csv('F:\\MyDocuments\\starcor\\one_day.csv',header=True,index=False,encoding='utf-8') 读取文件，含header 1data=pd.read_csv('F:\\MyDocuments\\starcor\\one_day.csv',encoding='utf-8') 用户行为记录，按照用户分组，计算分组后server_time.max-server_time.min 123456index user_id client_type video_id video_name playbill_length server_time0 8230003234837184 stb d216440bff6dadf9813b067d6c42bdc0 御姐归来 0.0 1.529424e+121 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+122 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+123 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+124 8230002289053523 stb 5b1fa285380f7f1fbf3d68665be05d24 女医明妃传 DVD版 0.0 1.529424e+12 123temp=data.groupby('user_id',as_index=False)['server_time'].agg(&#123;'server_time_max':max,'server_time_min':min&#125;)temp['playbill_length1']=temp.server_time_max-temp.server_time_mintemp.head() 123456index user_id server_time_min server_time_max playbill_length10 8230002560236474 1.529508e+12 1.529510e+12 2773122.01 8230002560283518 1.529508e+12 1.529510e+12 1383261.02 8230002560346901 1.529508e+12 1.529510e+12 2516150.03 8230002560367956 1.529510e+12 1.529510e+12 1326.04 8230002560463268 1.529509e+12 1.529509e+12 1832.0]]></content>
+    <content type="text"><![CDATA[保存文件,含header 1data.to_csv('F:\\MyDocuments\\starcor\\one_day.csv',header=True,index=False,encoding='utf-8') 读取文件，含header 1data=pd.read_csv('F:\\MyDocuments\\starcor\\one_day.csv',encoding='utf-8') 用户行为记录，按照用户分组，计算分组后server_time.max-server_time.min 123456index user_id client_type video_id video_name playbill_length server_time0 8230003234837184 stb d216440bff6dadf9813b067d6c42bdc0 御姐归来 0.0 1.529424e+121 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+122 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+123 8230004001768545 stb 34acd1a54645f3a9761173ddc62154f0 宝宝巴士儿歌 0.0 1.529424e+124 8230002289053523 stb 5b1fa285380f7f1fbf3d68665be05d24 女医明妃传 DVD版 0.0 1.529424e+12 123temp=data.groupby('user_id',as_index=False)['server_time'].agg(&#123;'server_time_max':max,'server_time_min':min&#125;)temp['playbill_length1']=temp.server_time_max-temp.server_time_mintemp.head() 123456index user_id server_time_min server_time_max playbill_length10 8230002560236474 1.529508e+12 1.529510e+12 2773122.01 8230002560283518 1.529508e+12 1.529510e+12 1383261.02 8230002560346901 1.529508e+12 1.529510e+12 2516150.03 8230002560367956 1.529510e+12 1.529510e+12 1326.04 8230002560463268 1.529509e+12 1.529509e+12 1832.0 DataFrame有些字段，比如影片类型特征列，往往不止一个类型，有些情况下需要将影片类型拆分并新建特征列(类型1，类型2) 1234# 提取多值标签-影片类型len=data2.evs_content_type.map(lambda x:len(str(x).split('/'))).max()for i in range(len): data2['film_category'+str(i)]=data2['evs_content_type'].map(lambda x:str(str(x).split('/')[i]) if len(str(x).split('/')) &gt; i else '')]]></content>
       <categories>
         <category>pandas</category>
       </categories>
