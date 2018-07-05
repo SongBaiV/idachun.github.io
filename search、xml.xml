@@ -144,6 +144,11 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[jupyter notebook 隐藏代码]]></title>
+    <url>%2F2017%2F10%2F16%2Fjupyter-notebook-%E9%9A%90%E8%97%8F%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[123456789101112131415from IPython.display import HTMLHTML('''&lt;script&gt;code_show=true; function code_toggle() &#123; if (code_show)&#123; $('div.input').hide(); &#125; else &#123; $('div.input').show(); &#125; code_show = !code_show&#125; $( document ).ready(code_toggle);&lt;/script&gt;&lt;form action="javascript:code_toggle()"&gt;&lt;input type="submit" value="Click here to toggle on/off the raw code."&gt;&lt;/form&gt;''')]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[makedown 表格自动生成]]></title>
     <url>%2F2017%2F10%2F15%2Fmakedown-%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%2F</url>
     <content type="text"><![CDATA[参考链接 1234567891011exceltk用例整个表格： exceltk.exe -t md -xls xxx.xls exceltk.exe -t md -xls xxx.xlsx指定sheet： exceltk.exe -t md -xls xx.xls -sheet sheetname exceltk.exe -t md -xls xx.xlsx -sheet sheetnameexceltk特性： 转换Excel表格到MarkDown表格 支持Excel单元格带超链接 如果Excel里有合并的跨行单元格，在转换后的MarkDown里是分开的单元格，这是因为MarkDown本身不支持跨行单元格 如果Excel表格右侧有大量的空列，则会被自动裁剪，算法是根据前100行来检测并计算 exceltk下载地址 1./exceltk.exe -t md -xls 1.xlsx 注意事项在执行命令时，需关闭要处理的xls文件窗口，不能在Excel打开]]></content>
