@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2018%2F07%2F05%2Fexceltk-0-1-3-1Sheet1%2F</url>
-    <content type="text"><![CDATA[user_id server_time_min 0 a 0 1 a 1 2 a 5 3 a 9 4 a 9 5 a 10 6 a 11 7 a 15 8 b 7 9 c 5 10 c 6 11 c 9 12 c 12 13 c 14 14 c 14 15 c 15 16 c 16 17 c 17]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[不平衡数据处理方式]]></title>
     <url>%2F2018%2F06%2F04%2F%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[惩罚正负样本的权重 很多模型和算法中都有基于类别参数的调整设置，以scikit-learn中的SVM为例，通过在class_weight: {dict, ‘balanced’}中针对不同类别针对不同的权重，来手动指定不同类别的权重。如果使用其默认的方法balanced，那么SVM会将权重设置为与不同类别样本数量呈反比的权重来做自动均衡处理，计算公式为：n_samples / (n_classes * np.bincount(y)).比较简单高效。比如label=0样本数为10，label=1样本数为100,此时可以设置class_weight={0:1,1:0.1}来影响惩罚项系数C，进而影响损失函数的求解，使得权重大样本的惩罚项少，权重小的样本惩罚项多。 特征通过选择显著性特征 采用boosting/bagging等算法 抽样 过采样过采样比较广泛，最直接的方法是简单复制少数类样本形成多条记录，也可使用smote算法 123456789# 过抽样处理库SMOTEfrom imblearn.over_sampling import SMOTE # 建立SMOTE模型对象model_smote = SMOTE() # 输入数据并作过抽样处理x_smote_resampled, y_smote_resampled = model_smote.fit_sample(train,train_y) x_smote_resampled = pd.DataFrame(x_smote_resampled, columns=train.columns)y_smote_resampled = pd.DataFrame(y_smote_resampled,columns=['label']) 欠采样最直接的方法是随机地去掉一些多数类样本来减小多数类的规模 1234567# 欠抽样处理库RandomUnderSamplerfrom imblearn.under_sampling import RandomUnderSampler# 建立RandomUnderSampler模型对象model_RandomUnderSampler = RandomUnderSampler() # 输入数据并作过抽样处理x_RandomUnderSampler_resampled, y_RandomUnderSampler_resampled =model_RandomUnderSampler.fit_sample(train,train_y)]]></content>
