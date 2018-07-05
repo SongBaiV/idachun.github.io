@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="项目经验总结," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，">
-<meta name="keywords" content="项目经验总结">
+<meta name="description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据挖掘项目经验总结">
-<meta property="og:url" content="http://yoursite.com/2018/02/03/数据挖掘项目经验总结/index.html">
+<meta property="og:title" content="sql 常用操作">
+<meta property="og:url" content="http://yoursite.com/2017/10/20/sql-常用操作/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，">
+<meta property="og:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-26T03:16:10.048Z">
+<meta property="og:updated_time" content="2018-07-05T06:22:23.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据挖掘项目经验总结">
-<meta name="twitter:description" content="阿里音乐流行趋势预测赛题描述，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量  可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律 画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据 规则算法 进一步分析变化规律，看看有几种规律，">
+<meta name="twitter:title" content="sql 常用操作">
+<meta name="twitter:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/03/数据挖掘项目经验总结/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/20/sql-常用操作/"/>
 
 
 
 
 
-  <title>数据挖掘项目经验总结 | Alive</title>
+  <title>sql 常用操作 | Alive</title>
   
 
 
@@ -297,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/数据挖掘项目经验总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/sql-常用操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -314,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据挖掘项目经验总结</h1>
+          <h1 class="post-title" itemprop="name headline">sql 常用操作</h1>
         
 
         <div class="post-meta">
@@ -326,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T11:07:15+08:00">
-                2018-02-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T14:18:47+08:00">
+                2017-10-20
               </time>
             
 
@@ -337,28 +336,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -367,9 +344,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/03/数据挖掘项目经验总结/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/20/sql-常用操作/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/02/03/数据挖掘项目经验总结/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/20/sql-常用操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,28 +374,8 @@
       
 
       
-        <h2 id="阿里音乐流行趋势预测"><a href="#阿里音乐流行趋势预测" class="headerlink" title="阿里音乐流行趋势预测"></a>阿里音乐流行趋势预测</h2><p><a href="https://tianchi.aliyun.com/competition/information.htm?spm=5176.11409106.5678.2.4a98580aBk3VXM&amp;raceId=231531" target="_blank" rel="noopener">赛题描述</a>，对一定数量的歌手(比如1000个)，根据历史播放量等信息(比如最近6个月的每天播放量等信息)，预测每个歌手未来2个月每天的播放量</p>
-<ul>
-<li>可以使用某种方式对歌手进行分类，然后分别对分类群体，画出目标变量播放量的趋势图，摸索出不同的分类群体的变化规律</li>
-<li>画出播放总量趋势图，发现在假期和周末时数据不一样，此时可以通过修正系数修正数据</li>
-<li>规则算法<ul>
-<li>进一步分析变化规律，看看有几种规律，判断哪些规律可预测，哪些规律不可预测</li>
-<li>根据第一步的分析结果人工定义特征，然后寻找参数，构造线性函数，函数实际上拟合的是非线性问题(通过人工定义特征转化线性问题)<ul>
-<li>a,可以取前60日中位数，前7日均值，前14日中位数，前30/60日最小值等</li>
-<li>特征b，当天前3日播放量的均值相对于前60日最低值的增长量。经分析，当天前3日播放量的均值相对于前60日最低值的增长量不近似直线，不好回归，使用b1=后30天播放量的均值/前7天播放量的均值</li>
-<li>特征c对应特征，当天播放量，即总体播放量的增长量</li>
-<li>公式还得加上对每周周末的周期变化和节假日的修正系数</li>
-</ul>
-</li>
-<li>特征b主要起的作用是分类（在本案例中，将这50名歌手分为两类，来做预测，每一类最终得到的预测函数是一样的），通过设置不同的b的阈值来划分类别<ul>
-<li>当b取某值比如0.96，小于此值为1类，大于此值为另一个类，这样数据就有标签了。然后对待预测数据，不使用此规则来打标签，而是使用GDBT基于刚才产生的有标签数据来预测类别。最后将用户分为两类，然后使用线性回归求出a,b,c对应的系数，这样就得到了线性回归模型，就可以预测歌手未来两个月每天的播放量</li>
-<li>将b设置为另外一个值，又到了一个线性回归模型和结果</li>
-<li>···</li>
-<li>最终将这几个线性回归模型，使用加权法来融合模型</li>
-</ul>
-</li>
-</ul>
-</li>
+        <ul>
+<li>用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark.sql("<span class="keyword">select</span> user_id,video_type,server_time,row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> server_time) <span class="keyword">rank</span> <span class="keyword">from</span> playlog <span class="string">").createOrReplaceTempView("</span>a<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type,server_time,<span class="keyword">rank</span><span class="number">-1</span> <span class="keyword">as</span> <span class="keyword">rank</span> <span class="keyword">from</span> a <span class="keyword">order</span> <span class="keyword">by</span> user_id,server_time<span class="string">").createOrReplaceTempView("</span>b<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> a.user_id,a.video_type,( b.server_time-a.server_time) watch_time <span class="keyword">from</span> a <span class="keyword">left</span> <span class="keyword">join</span> b <span class="keyword">on</span> a.user_id=b.user_id <span class="keyword">and</span> a.rank=b.rank <span class="keyword">order</span> <span class="keyword">by</span> a.server_time<span class="string">").createOrReplaceTempView("</span>c<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type, watch_time/<span class="number">60000.0</span> watch_time <span class="keyword">from</span> c <span class="keyword">where</span> watch_time <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span><span class="string">").createOrReplaceTempView("</span>d<span class="string">")</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -435,12 +392,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/项目经验总结/" rel="tag"># 项目经验总结</a>
-          
-        </div>
-      
 
       
       
@@ -450,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/06/将jar包打包到集群运行/" rel="next" title="将jar包打包到集群运行">
-                <i class="fa fa-chevron-left"></i> 将jar包打包到集群运行
+              <a href="/2017/10/17/pandas-常用操作/" rel="next" title="pandas 常用函数">
+                <i class="fa fa-chevron-left"></i> pandas 常用函数
               </a>
             
           </div>
@@ -460,8 +411,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/26/Spark DataFrame常用函数及常见问题/" rel="prev" title="Spark DataFrame 常用函数及常见问题">
-                Spark DataFrame 常用函数及常见问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/13/Hadoop Shell常用命令/" rel="prev" title="Hadoop Shell命令">
+                Hadoop Shell命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,17 +475,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -614,22 +556,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里音乐流行趋势预测"><span class="nav-number">1.</span> <span class="nav-text">阿里音乐流行趋势预测</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -770,9 +696,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/02/03/数据挖掘项目经验总结/';
-          this.page.identifier = '2018/02/03/数据挖掘项目经验总结/';
-          this.page.title = '数据挖掘项目经验总结';
+          this.page.url = 'http://yoursite.com/2017/10/20/sql-常用操作/';
+          this.page.identifier = '2017/10/20/sql-常用操作/';
+          this.page.title = 'sql 常用操作';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
