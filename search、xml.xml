@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2018%2F07%2F08%2Fexceltk-0-1-3-1Sheet1%2F</url>
+    <content type="text"><![CDATA[index before after int8 NaN 66.0 int16 NaN 8.0 int32 NaN 21.0 int64 95 NaN]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[pandas 优化内存]]></title>
+    <url>%2F2018%2F07%2F08%2Fpandas-%E9%99%8D%E4%BD%8E%E5%86%85%E5%AD%98%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[检查DataFrame内存 1data.info(memory_usage='deep') 检查每种类型大概用了多少内存 12345for dtype in ['float','int64','object']: selected_dtype = data.select_dtypes(include=[dtype]) mean_usage_b = selected_dtype.memory_usage(deep=True).mean() mean_usage_mb = mean_usage_b / 1024 ** 2 print("Average memory usage for &#123;&#125; columns: &#123;:03.2f&#125; MB".format(dtype,mean_usage_mb)) 定义方法，计算内存 1234567def mem_usage(pandas_obj): if isinstance(pandas_obj,pd.DataFrame): usage_b = pandas_obj.memory_usage(deep=True).sum() else: # we assume if not a df it's a series usage_b = pandas_obj.memory_usage(deep=True) usage_mb = usage_b / 1024 ** 2 # convert bytes to megabytes return "&#123;:03.2f&#125; MB".format(usage_mb) 数值类型int/float 12345678# code: raw_int=data.select_dtypes(include=['int64'])print mem_usage(raw_int)# 1658.00 MBdone_int=raw_int.apply(pd.to_numeric,downcast='integer')print mem_usage(done_int)# 362.00 MBcompare= pd.concat([raw_int.dtypes,done_int.dtypes],axis=1)compare.columns = ['before','after']compare.apply(pd.Series.value_counts) 123456# output:index before afterint8 NaN 66.0int16 NaN 8.0int32 NaN 21.0int64 95.0 NaN object类型，如果列取值不多，可以转化为category类型，用于可视化分析]]></content>
+      <categories>
+        <category>pandas</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[不平衡数据处理方式]]></title>
     <url>%2F2018%2F06%2F04%2F%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[惩罚正负样本的权重 很多模型和算法中都有基于类别参数的调整设置，以scikit-learn中的SVM为例，通过在class_weight: {dict, ‘balanced’}中针对不同类别针对不同的权重，来手动指定不同类别的权重。如果使用其默认的方法balanced，那么SVM会将权重设置为与不同类别样本数量呈反比的权重来做自动均衡处理，计算公式为：n_samples / (n_classes * np.bincount(y)).比较简单高效。比如label=0样本数为10，label=1样本数为100,此时可以设置class_weight={0:1,1:0.1}来影响惩罚项系数C，进而影响损失函数的求解，使得权重大样本的惩罚项少，权重小的样本惩罚项多。 特征通过选择显著性特征 采用boosting/bagging等算法 抽样 过采样过采样比较广泛，最直接的方法是简单复制少数类样本形成多条记录，也可使用smote算法 123456789# 过抽样处理库SMOTEfrom imblearn.over_sampling import SMOTE # 建立SMOTE模型对象model_smote = SMOTE() # 输入数据并作过抽样处理x_smote_resampled, y_smote_resampled = model_smote.fit_sample(train,train_y) x_smote_resampled = pd.DataFrame(x_smote_resampled, columns=train.columns)y_smote_resampled = pd.DataFrame(y_smote_resampled,columns=['label']) 欠采样最直接的方法是随机地去掉一些多数类样本来减小多数类的规模 1234567# 欠抽样处理库RandomUnderSamplerfrom imblearn.under_sampling import RandomUnderSampler# 建立RandomUnderSampler模型对象model_RandomUnderSampler = RandomUnderSampler() # 输入数据并作过抽样处理x_RandomUnderSampler_resampled, y_RandomUnderSampler_resampled =model_RandomUnderSampler.fit_sample(train,train_y)]]></content>
