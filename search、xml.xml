@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2018%2F07%2F08%2Fexceltk-0-1-3-1Sheet1%2F</url>
-    <content type="text"><![CDATA[index before after int8 NaN 66.0 int16 NaN 8.0 int32 NaN 21.0 int64 95 NaN]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[pandas 优化内存]]></title>
     <url>%2F2018%2F07%2F08%2Fpandas-%E9%99%8D%E4%BD%8E%E5%86%85%E5%AD%98%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[检查DataFrame内存 1data.info(memory_usage='deep') 检查每种类型大概用了多少内存 12345for dtype in ['float','int64','object']: selected_dtype = data.select_dtypes(include=[dtype]) mean_usage_b = selected_dtype.memory_usage(deep=True).mean() mean_usage_mb = mean_usage_b / 1024 ** 2 print("Average memory usage for &#123;&#125; columns: &#123;:03.2f&#125; MB".format(dtype,mean_usage_mb)) 定义方法，计算内存 1234567def mem_usage(pandas_obj): if isinstance(pandas_obj,pd.DataFrame): usage_b = pandas_obj.memory_usage(deep=True).sum() else: # we assume if not a df it's a series usage_b = pandas_obj.memory_usage(deep=True) usage_mb = usage_b / 1024 ** 2 # convert bytes to megabytes return "&#123;:03.2f&#125; MB".format(usage_mb) 数值类型int/float 12345678# code: raw_int=data.select_dtypes(include=['int64'])print mem_usage(raw_int)# 1658.00 MBdone_int=raw_int.apply(pd.to_numeric,downcast='integer')print mem_usage(done_int)# 362.00 MBcompare= pd.concat([raw_int.dtypes,done_int.dtypes],axis=1)compare.columns = ['before','after']compare.apply(pd.Series.value_counts) 123456# output:index before afterint8 NaN 66.0int16 NaN 8.0int32 NaN 21.0int64 95.0 NaN object类型，如果列取值不多，可以转化为category类型，用于可视化分析]]></content>
