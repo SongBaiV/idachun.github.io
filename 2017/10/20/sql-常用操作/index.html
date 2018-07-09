@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
+<meta name="description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql 常用操作">
 <meta property="og:url" content="http://yoursite.com/2017/10/20/sql-常用操作/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
+<meta property="og:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T06:22:23.558Z">
+<meta property="og:updated_time" content="2018-07-09T09:43:16.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql 常用操作">
-<meta name="twitter:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)1234spark.sql(&quot;select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog &quot;).createOrReplaceTempView(&quot;a&quot;)s">
+<meta name="twitter:description" content="用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)">
 
 
 
@@ -375,7 +375,8 @@
 
       
         <ul>
-<li>用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark.sql("<span class="keyword">select</span> user_id,video_type,server_time,row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> server_time) <span class="keyword">rank</span> <span class="keyword">from</span> playlog <span class="string">").createOrReplaceTempView("</span>a<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type,server_time,<span class="keyword">rank</span><span class="number">-1</span> <span class="keyword">as</span> <span class="keyword">rank</span> <span class="keyword">from</span> a <span class="keyword">order</span> <span class="keyword">by</span> user_id,server_time<span class="string">").createOrReplaceTempView("</span>b<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> a.user_id,a.video_type,( b.server_time-a.server_time) watch_time <span class="keyword">from</span> a <span class="keyword">left</span> <span class="keyword">join</span> b <span class="keyword">on</span> a.user_id=b.user_id <span class="keyword">and</span> a.rank=b.rank <span class="keyword">order</span> <span class="keyword">by</span> a.server_time<span class="string">").createOrReplaceTempView("</span>c<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type, watch_time/<span class="number">60000.0</span> watch_time <span class="keyword">from</span> c <span class="keyword">where</span> watch_time <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span><span class="string">").createOrReplaceTempView("</span>d<span class="string">")</span></span><br></pre></td></tr></table></figure></li>
+<li>用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间)<a id="more"></a>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark.sql("<span class="keyword">select</span> user_id,video_type,server_time,row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> server_time) <span class="keyword">rank</span> <span class="keyword">from</span> playlog <span class="string">").createOrReplaceTempView("</span>a<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type,server_time,<span class="keyword">rank</span><span class="number">-1</span> <span class="keyword">as</span> <span class="keyword">rank</span> <span class="keyword">from</span> a <span class="keyword">order</span> <span class="keyword">by</span> user_id,server_time<span class="string">").createOrReplaceTempView("</span>b<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> a.user_id,a.video_type,( b.server_time-a.server_time) watch_time <span class="keyword">from</span> a <span class="keyword">left</span> <span class="keyword">join</span> b <span class="keyword">on</span> a.user_id=b.user_id <span class="keyword">and</span> a.rank=b.rank <span class="keyword">order</span> <span class="keyword">by</span> a.server_time<span class="string">").createOrReplaceTempView("</span>c<span class="string">")</span></span><br><span class="line"><span class="string">spark.sql("</span><span class="keyword">select</span> user_id,video_type, watch_time/<span class="number">60000.0</span> watch_time <span class="keyword">from</span> c <span class="keyword">where</span> watch_time <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span><span class="string">").createOrReplaceTempView("</span>d<span class="string">")</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -495,7 +496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -506,7 +507,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
