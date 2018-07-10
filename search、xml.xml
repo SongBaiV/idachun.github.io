@@ -155,6 +155,14 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[本地IDEA连接集群]]></title>
+    <url>%2F2017%2F11%2F05%2F%E6%9C%AC%E5%9C%B0IDEA%E8%BF%9E%E6%8E%A5%E9%9B%86%E7%BE%A4%2F</url>
+    <content type="text"><![CDATA[读取hdfs数据 建立resource文件夹,将集群中 /etc/hive/conf 中的xml文件复制到这个文件夹,并将该文件夹设置为resource属性，同时将代码文件夹设置为source属性 将集群 /etc/hosts文件中的映射关系添加到c:/System32/drivers/etc/hosts文件 spark.read.format(“csv”).load(“/user/test/test2.csv”).show() 读取hive表数据 除了上述之外，还需配置pom.xml的依赖，比如spark-sql/spark-hive/tez引擎等 spark.sql(“select * from starcor_test.play_log where day=20180509 limit 20”).show() #表名需要是库名.表名 读取mysql表数据加入mysql-connector···依赖 val jdbcDF = spark.read .format(&quot;jdbc&quot;) .option(&quot;url&quot;, &quot;jdbc:mysql://master02:3306&quot;) .option(&quot;driver&quot;, &quot;com.mysql.jdbc.Driver&quot;) .option(&quot;dbtable&quot;, &quot;test.item_index&quot;) .option(&quot;user&quot;, &quot;root&quot;) .option(&quot;password&quot;, &quot;starcor&quot;) .load() 本地文件 spark.read.format(“csv”).load(“file:/c:/user/test/test2.csv”).show()]]></content>
+      <categories>
+        <category>Hadoop/Spark</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[sql 常用操作]]></title>
     <url>%2F2017%2F10%2F20%2Fsql-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%2F</url>
     <content type="text"><![CDATA[用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间) 1234spark.sql("select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog ").createOrReplaceTempView("a")spark.sql("select user_id,video_type,server_time,rank-1 as rank from a order by user_id,server_time").createOrReplaceTempView("b")spark.sql("select a.user_id,a.video_type,( b.server_time-a.server_time) watch_time from a left join b on a.user_id=b.user_id and a.rank=b.rank order by a.server_time").createOrReplaceTempView("c")spark.sql("select user_id,video_type, watch_time/60000.0 watch_time from c where watch_time is not null").createOrReplaceTempView("d")]]></content>
