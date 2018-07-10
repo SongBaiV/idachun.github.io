@@ -79,16 +79,20 @@
 
 
 
+<meta name="description" content="原理主要是利用树的形式，每次按照一定的准则选择特征，然后根据特征划分子树或者叶结点，直到满足停止条件位置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LR原理及推导">
-<meta property="og:url" content="http://yoursite.com/2018/07/10/LR原理及推导/index.html">
+<meta property="og:title" content="决策树原理及推导">
+<meta property="og:url" content="http://yoursite.com/2018/06/16/决策树原理及推导/index.html">
 <meta property="og:site_name" content="Alive">
+<meta property="og:description" content="原理主要是利用树的形式，每次按照一定的准则选择特征，然后根据特征划分子树或者叶结点，直到满足停止条件位置。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/07/10/LR原理及推导/LR推导.jpg">
-<meta property="og:updated_time" content="2018-07-10T03:04:48.668Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/16/决策树原理及推导/04_ID3+C4.5+CART推导1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/16/决策树原理及推导/04_ID3+C4.5+CART推导2.jpg">
+<meta property="og:updated_time" content="2018-07-10T03:51:10.493Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LR原理及推导">
-<meta name="twitter:image" content="http://yoursite.com/2018/07/10/LR原理及推导/LR推导.jpg">
+<meta name="twitter:title" content="决策树原理及推导">
+<meta name="twitter:description" content="原理主要是利用树的形式，每次按照一定的准则选择特征，然后根据特征划分子树或者叶结点，直到满足停止条件位置。">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/16/决策树原理及推导/04_ID3+C4.5+CART推导1.jpg">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/10/LR原理及推导/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/16/决策树原理及推导/"/>
 
 
 
 
 
-  <title>LR原理及推导 | Alive</title>
+  <title>决策树原理及推导 | Alive</title>
   
 
 
@@ -295,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/LR原理及推导/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/决策树原理及推导/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -312,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LR原理及推导</h1>
+          <h1 class="post-title" itemprop="name headline">决策树原理及推导</h1>
         
 
         <div class="post-meta">
@@ -324,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T10:54:40+08:00">
-                2018-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T11:41:45+08:00">
+                2018-06-16
               </time>
             
 
@@ -365,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/10/LR原理及推导/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/16/决策树原理及推导/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/10/LR原理及推导/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/16/决策树原理及推导/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -395,7 +399,10 @@
       
 
       
-        <p><img src="/2018/07/10/LR原理及推导/LR推导.jpg" alt=""></p>
+        <ul>
+<li>原理<br>主要是利用树的形式，每次按照一定的准则选择特征，然后根据特征划分子树或者叶结点，直到满足停止条件位置。<a id="more"></a></li>
+<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2018/06/16/决策树原理及推导/04_ID3+C4.5+CART推导1.jpg" alt=""><br><img src="/2018/06/16/决策树原理及推导/04_ID3+C4.5+CART推导2.jpg" alt=""></li>
+</ul>
 
       
     </div>
@@ -420,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/11/推荐系统简述/" rel="next" title="推荐系统简述">
-                <i class="fa fa-chevron-left"></i> 推荐系统简述
+              <a href="/2018/06/15/朴素贝叶斯原理及推导/" rel="next" title="朴素贝叶斯原理及推导">
+                <i class="fa fa-chevron-left"></i> 朴素贝叶斯原理及推导
               </a>
             
           </div>
@@ -429,6 +436,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/18/AdaBoost-GDBT原理及推导/" rel="prev" title="AdaBoost&GDBT原理及推导">
+                AdaBoost&GDBT原理及推导 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -510,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -711,9 +722,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/07/10/LR原理及推导/';
-          this.page.identifier = '2018/07/10/LR原理及推导/';
-          this.page.title = 'LR原理及推导';
+          this.page.url = 'http://yoursite.com/2018/06/16/决策树原理及推导/';
+          this.page.identifier = '2018/06/16/决策树原理及推导/';
+          this.page.title = '决策树原理及推导';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
