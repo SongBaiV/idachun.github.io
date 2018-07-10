@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="惩罚正负样本的权重">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T09:44:04.016Z">
+<meta property="og:updated_time" content="2018-07-10T05:38:52.048Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不平衡数据处理方式">
 <meta name="twitter:description" content="惩罚正负样本的权重">
@@ -397,8 +397,7 @@
 
       
         <ul>
-<li>惩罚正负样本的权重<a id="more"></a>
-很多模型和算法中都有基于类别参数的调整设置，以scikit-learn中的SVM为例，通过在class_weight: {dict, ‘balanced’}中针对不同类别针对不同的权重，来手动指定不同类别的权重。如果使用其默认的方法balanced，那么SVM会将权重设置为与不同类别样本数量呈反比的权重来做自动均衡处理，计算公式为：n_samples / (n_classes * np.bincount(y)).比较简单高效。<br>比如label=0样本数为10，label=1样本数为100,此时可以设置class_weight={0:1,1:0.1}来影响惩罚项系数C，进而影响损失函数的求解，使得权重大样本的惩罚项少，权重小的样本惩罚项多。</li>
+<li>惩罚正负样本的权重<a id="more"></a><br>很多模型和算法中都有基于类别参数的调整设置，以scikit-learn中的SVM为例，通过在class_weight: {dict, ‘balanced’}中针对不同类别针对不同的权重，来手动指定不同类别的权重。如果使用其默认的方法balanced，那么SVM会将权重设置为与不同类别样本数量呈反比的权重来做自动均衡处理，计算公式为：n_samples / (n_classes * np.bincount(y)).比较简单高效。<br>比如label=0样本数为10，label=1样本数为100,此时可以设置class_weight={0:1,1:0.1}来影响惩罚项系数C，进而影响损失函数的求解，使得权重大样本的惩罚项少，权重小的样本惩罚项多。</li>
 <li>特征<br>通过选择显著性特征</li>
 <li>采用boosting/bagging等算法</li>
 <li><p>抽样</p>
@@ -530,7 +529,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

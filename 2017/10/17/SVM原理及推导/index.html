@@ -79,20 +79,19 @@
 
 
 
-<meta name="description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
+<meta name="description" content="原理寻找一个超平面，使得距离超平面最近的点与超平面间隔最大化，然后通过对其对偶问题的求解求得模型参数。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AdaBoost&amp;GDBT原理及推导">
-<meta property="og:url" content="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/index.html">
+<meta property="og:title" content="SVM原理及推导">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/SVM原理及推导/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
+<meta property="og:description" content="原理寻找一个超平面，使得距离超平面最近的点与超平面间隔最大化，然后通过对其对偶问题的求解求得模型参数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/05Adaboost_GBDT2.jpg">
-<meta property="og:updated_time" content="2018-07-10T04:39:29.903Z">
+<meta property="og:image" content="http://yoursite.com/2017/10/17/SVM原理及推导/02_SVM推导.jpg">
+<meta property="og:updated_time" content="2018-07-10T05:53:00.282Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AdaBoost&amp;GDBT原理及推导">
-<meta name="twitter:description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg">
+<meta name="twitter:title" content="SVM原理及推导">
+<meta name="twitter:description" content="原理寻找一个超平面，使得距离超平面最近的点与超平面间隔最大化，然后通过对其对偶问题的求解求得模型参数。">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/17/SVM原理及推导/02_SVM推导.jpg">
 
 
 
@@ -122,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/SVM原理及推导/"/>
 
 
 
 
 
-  <title>AdaBoost&GDBT原理及推导 | Alive</title>
+  <title>SVM原理及推导 | Alive</title>
   
 
 
@@ -299,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/SVM原理及推导/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -316,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AdaBoost&GDBT原理及推导</h1>
+          <h1 class="post-title" itemprop="name headline">SVM原理及推导</h1>
         
 
         <div class="post-meta">
@@ -328,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T11:43:15+08:00">
-                2018-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T11:41:45+08:00">
+                2017-10-17
               </time>
             
 
@@ -369,9 +368,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/18/AdaBoost-GDBT原理及推导/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/17/SVM原理及推导/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/18/AdaBoost-GDBT原理及推导/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/17/SVM原理及推导/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,12 +399,8 @@
 
       
         <ul>
-<li>原理<ul>
-<li>AdaBoost<br>对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。<a id="more"></a></li>
-<li>GDBT<br>是一种Boosting算法，但又与传统的boost算法思路不同，每次迭代不是对犯错的样本施以更高的权重。回归树在使用前项分步算法迭代中，下一轮是拟合上一轮的模型的负梯度在上一轮模型的值。</li>
-</ul>
-</li>
-<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2018/06/18/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg" alt=""><br><img src="/2018/06/18/AdaBoost-GDBT原理及推导/05Adaboost_GBDT2.jpg" alt=""></li>
+<li>原理<br>寻找一个超平面，使得距离超平面最近的点与超平面间隔最大化，然后通过对其对偶问题的求解求得模型参数。<a id="more"></a></li>
+<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2017/10/17/SVM原理及推导/02_SVM推导.jpg" alt=""></li>
 </ul>
 
       
@@ -431,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/16/决策树原理及推导/" rel="next" title="决策树原理及推导">
-                <i class="fa fa-chevron-left"></i> 决策树原理及推导
+              <a href="/2017/10/16/jupyter-notebook-隐藏代码/" rel="next" title="jupyter notebook 隐藏代码">
+                <i class="fa fa-chevron-left"></i> jupyter notebook 隐藏代码
               </a>
             
           </div>
@@ -441,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/19/XGBoost原理及推导/" rel="prev" title="XGBoost原理及推导">
-                XGBoost原理及推导 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/17/pandas-常用操作/" rel="prev" title="pandas 常用函数">
+                pandas 常用函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -525,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -726,9 +721,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/06/18/AdaBoost-GDBT原理及推导/';
-          this.page.identifier = '2018/06/18/AdaBoost-GDBT原理及推导/';
-          this.page.title = 'AdaBoost&GDBT原理及推导';
+          this.page.url = 'http://yoursite.com/2017/10/17/SVM原理及推导/';
+          this.page.identifier = '2017/10/17/SVM原理及推导/';
+          this.page.title = 'SVM原理及推导';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

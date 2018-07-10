@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="原理利用sigmoid函数对线性回归预测的结果进行映射，规定当sigmoid自变量&amp;gt;0时，输出y为1代表正例，当sigmoid变量&amp;lt;0时，输出y为0代表负例，利用极大似然法求解模型参数（极大似然法公式中也代表着使预测为正的概率最大和预测为负的概率最大）。">
+<meta name="description" content="原理判断某个记录属于哪一类，可以认为在该记录出现的情况下哪种类别概率最大，最大的就属于该类（比如判断一个黑人来自哪里，可以认为在黑人记录出现的情况下非洲概率最大，会判断他来自非洲）。但这个问题有时候不好直接得到答案P(C=0|X)，利用朴素贝叶斯的话就是求（P(C=0，X)）除以（训练集中该记录出现的概率强P(X)），分母一般不需要计算，分子用条件概率就可以求得，分子，即P(C=0，X)=P(X">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LR原理及推导">
-<meta property="og:url" content="http://yoursite.com/2018/06/13/LR原理及推导/index.html">
+<meta property="og:title" content="朴素贝叶斯原理及推导">
+<meta property="og:url" content="http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="原理利用sigmoid函数对线性回归预测的结果进行映射，规定当sigmoid自变量&amp;gt;0时，输出y为1代表正例，当sigmoid变量&amp;lt;0时，输出y为0代表负例，利用极大似然法求解模型参数（极大似然法公式中也代表着使预测为正的概率最大和预测为负的概率最大）。">
+<meta property="og:description" content="原理判断某个记录属于哪一类，可以认为在该记录出现的情况下哪种类别概率最大，最大的就属于该类（比如判断一个黑人来自哪里，可以认为在黑人记录出现的情况下非洲概率最大，会判断他来自非洲）。但这个问题有时候不好直接得到答案P(C=0|X)，利用朴素贝叶斯的话就是求（P(C=0，X)）除以（训练集中该记录出现的概率强P(X)），分母一般不需要计算，分子用条件概率就可以求得，分子，即P(C=0，X)=P(X">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/13/LR原理及推导/LR推导.jpg">
-<meta property="og:updated_time" content="2018-07-10T03:40:02.259Z">
+<meta property="og:image" content="http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/03_Naive%20Bayes推导.jpg">
+<meta property="og:updated_time" content="2018-07-10T05:52:52.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LR原理及推导">
-<meta name="twitter:description" content="原理利用sigmoid函数对线性回归预测的结果进行映射，规定当sigmoid自变量&amp;gt;0时，输出y为1代表正例，当sigmoid变量&amp;lt;0时，输出y为0代表负例，利用极大似然法求解模型参数（极大似然法公式中也代表着使预测为正的概率最大和预测为负的概率最大）。">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/13/LR原理及推导/LR推导.jpg">
+<meta name="twitter:title" content="朴素贝叶斯原理及推导">
+<meta name="twitter:description" content="原理判断某个记录属于哪一类，可以认为在该记录出现的情况下哪种类别概率最大，最大的就属于该类（比如判断一个黑人来自哪里，可以认为在黑人记录出现的情况下非洲概率最大，会判断他来自非洲）。但这个问题有时候不好直接得到答案P(C=0|X)，利用朴素贝叶斯的话就是求（P(C=0，X)）除以（训练集中该记录出现的概率强P(X)），分母一般不需要计算，分子用条件概率就可以求得，分子，即P(C=0，X)=P(X">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/03_Naive%20Bayes推导.jpg">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/13/LR原理及推导/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/"/>
 
 
 
 
 
-  <title>LR原理及推导 | Alive</title>
+  <title>朴素贝叶斯原理及推导 | Alive</title>
   
 
 
@@ -298,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/13/LR原理及推导/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -315,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LR原理及推导</h1>
+          <h1 class="post-title" itemprop="name headline">朴素贝叶斯原理及推导</h1>
         
 
         <div class="post-meta">
@@ -327,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-13T10:54:40+08:00">
-                2018-06-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T11:41:45+08:00">
+                2017-10-08
               </time>
             
 
@@ -368,9 +368,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/13/LR原理及推导/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/08/朴素贝叶斯原理及推导/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/13/LR原理及推导/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/08/朴素贝叶斯原理及推导/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,8 +399,8 @@
 
       
         <ul>
-<li>原理<br>利用sigmoid函数对线性回归预测的结果进行映射，规定当sigmoid自变量&gt;0时，输出y为1代表正例，当sigmoid变量&lt;0时，输出y为0代表负例，利用极大似然法求解模型参数（极大似然法公式中也代表着使预测为正的概率最大和预测为负的概率最大）。<a id="more"></a></li>
-<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2018/06/13/LR原理及推导/LR推导.jpg" alt=""></li>
+<li>原理<br>判断某个记录属于哪一类，可以认为在该记录出现的情况下哪种类别概率最大，最大的就属于该类（比如判断一个黑人来自哪里，可以认为在黑人记录出现的情况下非洲概率最大，会判断他来自非洲）。但这个问题有时候不好直接得到答案P(C=0|X)，利用朴素贝叶斯的话就是求（P(C=0，X)）除以（训练集中该记录出现的概率强P(X)），分母一般不需要计算，分子用条件概率就可以求得，分子，即P(C=0，X)=P(X|C=0)P(C=0)=P(X1|C=0)*P(X2|C=0)P(C=0)<a id="more"></a></li>
+<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2017/10/08/朴素贝叶斯原理及推导/03_Naive Bayes推导.jpg" alt=""></li>
 </ul>
 
       
@@ -426,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/11/推荐系统简述/" rel="next" title="推荐系统简述">
-                <i class="fa fa-chevron-left"></i> 推荐系统简述
+              <a href="/2017/10/06/LR原理及推导/" rel="next" title="LR原理及推导">
+                <i class="fa fa-chevron-left"></i> LR原理及推导
               </a>
             
           </div>
@@ -436,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/14/SVM原理及推导/" rel="prev" title="SVM原理及推导">
-                SVM原理及推导 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/09/决策树原理及推导/" rel="prev" title="决策树原理及推导">
+                决策树原理及推导 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -721,9 +721,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/06/13/LR原理及推导/';
-          this.page.identifier = '2018/06/13/LR原理及推导/';
-          this.page.title = 'LR原理及推导';
+          this.page.url = 'http://yoursite.com/2017/10/08/朴素贝叶斯原理及推导/';
+          this.page.identifier = '2017/10/08/朴素贝叶斯原理及推导/';
+          this.page.title = '朴素贝叶斯原理及推导';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

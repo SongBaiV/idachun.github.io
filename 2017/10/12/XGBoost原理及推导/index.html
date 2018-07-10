@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="梯度下降法+最小二乘法+牛顿法+拟牛顿法">
+<meta name="description" content="原理利用前向分布算法，在优化目标函数的时候，泰勒展开到二阶，然后优化求解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最小值寻优算法推导">
-<meta property="og:url" content="http://yoursite.com/2018/06/21/最小值寻优算法推导/index.html">
+<meta property="og:title" content="XGBoost原理及推导">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/XGBoost原理及推导/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="梯度下降法+最小二乘法+牛顿法+拟牛顿法">
+<meta property="og:description" content="原理利用前向分布算法，在优化目标函数的时候，泰勒展开到二阶，然后优化求解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/21/最小值寻优算法推导/08梯度下降法+最小二乘法+牛顿法+拟牛顿法推导.jpg">
-<meta property="og:updated_time" content="2018-07-10T04:46:38.836Z">
+<meta property="og:image" content="http://yoursite.com/2017/10/12/XGBoost原理及推导/06XGBoost推导.jpg">
+<meta property="og:updated_time" content="2018-07-10T05:52:15.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="最小值寻优算法推导">
-<meta name="twitter:description" content="梯度下降法+最小二乘法+牛顿法+拟牛顿法">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/21/最小值寻优算法推导/08梯度下降法+最小二乘法+牛顿法+拟牛顿法推导.jpg">
+<meta name="twitter:title" content="XGBoost原理及推导">
+<meta name="twitter:description" content="原理利用前向分布算法，在优化目标函数的时候，泰勒展开到二阶，然后优化求解。">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/12/XGBoost原理及推导/06XGBoost推导.jpg">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/21/最小值寻优算法推导/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/12/XGBoost原理及推导/"/>
 
 
 
 
 
-  <title>最小值寻优算法推导 | Alive</title>
+  <title>XGBoost原理及推导 | Alive</title>
   
 
 
@@ -298,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/最小值寻优算法推导/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/XGBoost原理及推导/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -315,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">最小值寻优算法推导</h1>
+          <h1 class="post-title" itemprop="name headline">XGBoost原理及推导</h1>
         
 
         <div class="post-meta">
@@ -327,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T11:44:50+08:00">
-                2018-06-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T11:43:28+08:00">
+                2017-10-12
               </time>
             
 
@@ -350,8 +350,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ml/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -368,9 +368,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/21/最小值寻优算法推导/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/12/XGBoost原理及推导/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/21/最小值寻优算法推导/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/12/XGBoost原理及推导/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -398,9 +398,9 @@
       
 
       
-        <p>梯度下降法+最小二乘法+牛顿法+拟牛顿法<br><a id="more"></a></p>
-<ul>
-<li>推导<br><img src="/2018/06/21/最小值寻优算法推导/08梯度下降法+最小二乘法+牛顿法+拟牛顿法推导.jpg" alt=""></li>
+        <ul>
+<li>原理<br>利用前向分布算法，在优化目标函数的时候，泰勒展开到二阶，然后优化求解。<a id="more"></a></li>
+<li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2017/10/12/XGBoost原理及推导/06XGBoost推导.jpg" alt=""></li>
 </ul>
 
       
@@ -426,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/20/L1-L2正则化原理及推导/" rel="next" title="L1&L2正则化介绍及推导">
-                <i class="fa fa-chevron-left"></i> L1&L2正则化介绍及推导
+              <a href="/2017/10/10/AdaBoost-GDBT原理及推导/" rel="next" title="AdaBoost&GDBT原理及推导">
+                <i class="fa fa-chevron-left"></i> AdaBoost&GDBT原理及推导
               </a>
             
           </div>
@@ -435,6 +435,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/13/L1-L2正则化原理及推导/" rel="prev" title="L1&L2正则化介绍及推导">
+                L1&L2正则化介绍及推导 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -516,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -717,9 +721,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/06/21/最小值寻优算法推导/';
-          this.page.identifier = '2018/06/21/最小值寻优算法推导/';
-          this.page.title = '最小值寻优算法推导';
+          this.page.url = 'http://yoursite.com/2017/10/12/XGBoost原理及推导/';
+          this.page.identifier = '2017/10/12/XGBoost原理及推导/';
+          this.page.title = 'XGBoost原理及推导';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
