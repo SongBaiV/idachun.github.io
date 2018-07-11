@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="spark df函数,spark df问题," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="问题 parquet格式错误">
-<meta name="keywords" content="spark df函数,spark df问题">
+<meta name="description" content="函数123456# python:df[&apos;age&apos;].value_counts()df.groupBy(&quot;age&quot;).count().show()# python:df.describe()df.describe().show()# python:df.fillna(df.mean())# spark:https://stackoverflow.com/questions/40057563/rep">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark DataFrame 常用函数及常见问题">
 <meta property="og:url" content="http://yoursite.com/2018/02/26/Spark DataFrame常用函数及常见问题/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="问题 parquet格式错误">
+<meta property="og:description" content="函数123456# python:df[&apos;age&apos;].value_counts()df.groupBy(&quot;age&quot;).count().show()# python:df.describe()df.describe().show()# python:df.fillna(df.mean())# spark:https://stackoverflow.com/questions/40057563/rep">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T09:45:29.206Z">
+<meta property="og:updated_time" content="2018-07-11T06:09:15.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark DataFrame 常用函数及常见问题">
-<meta name="twitter:description" content="问题 parquet格式错误">
+<meta name="twitter:description" content="函数123456# python:df[&apos;age&apos;].value_counts()df.groupBy(&quot;age&quot;).count().show()# python:df.describe()df.describe().show()# python:df.fillna(df.mean())# spark:https://stackoverflow.com/questions/40057563/rep">
 
 
 
@@ -397,7 +396,8 @@
       
 
       
-        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+        <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">python</span><span class="selector-pseudo">:df</span><span class="selector-attr">['age']</span><span class="selector-class">.value_counts</span>()</span><br><span class="line"><span class="selector-tag">df</span><span class="selector-class">.groupBy</span>(<span class="string">"age"</span>)<span class="selector-class">.count</span>()<span class="selector-class">.show</span>()</span><br><span class="line"># <span class="selector-tag">python</span><span class="selector-pseudo">:df.describe()</span></span><br><span class="line"><span class="selector-tag">df</span><span class="selector-class">.describe</span>()<span class="selector-class">.show</span>()</span><br><span class="line"># <span class="selector-tag">python</span><span class="selector-pseudo">:df.fillna(df.mean())</span></span><br><span class="line"># <span class="selector-tag">spark</span><span class="selector-pseudo">:https</span>:<span class="comment">//stackoverflow.com/questions/40057563/replace-missing-values-with-mean-spark-dataframe</span></span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
 <li><p>parquet格式错误   </p>
 <a id="more"></a>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需注意Hive版本需要低于2.1.0</span></span><br><span class="line"><span class="function"><span class="title">SparkSession</span><span class="params">()</span></span>.config(<span class="string">"spark.sql.hive.convertMetastoreParquet"</span>,<span class="string">"false"</span>)</span><br></pre></td></tr></table></figure>
@@ -412,6 +412,7 @@
 <li>spark ml模型评估，和sklearn不同，需要将我们关注的样本正样本定义为0，负样本为1，这样在计算精确率和召回率时才正确，一般所说的正样本和sklearn一样（正样本为1，负样本为0）。</li>
 <li>spark 批量读取DataFrame文件时，有时候会出错，此时可以一个个文件读入，然后合并，即使这样还不行，那也找到了出现问题的文件在哪里。</li>
 </ul>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><p>spark-shell –conf spark.sql.hive.convertMetastoreParquet=false 命令行启动</p>
 
       
     </div>
@@ -426,14 +427,6 @@
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/spark-df函数/" rel="tag"># spark df函数</a>
-          
-            <a href="/tags/spark-df问题/" rel="tag"># spark df问题</a>
-          
-        </div>
       
 
       
@@ -454,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/05/python文本处理之gensim/" rel="prev" title="python文本处理之gensim">
-                python文本处理之gensim <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/05/python文本处理之gensim/" rel="prev" title="python文本处理">
+                python文本处理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -547,7 +540,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -569,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -618,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行"><span class="nav-text">命令行</span></a></li></ol></div>
             
 
           </div>

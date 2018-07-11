@@ -81,14 +81,14 @@
 
 <meta name="description" content="1. 概述 长尾效应就在于它的数量上，将所有非流行的市场累加起来就会形成一个比流行市场还大的市场。这也是数据挖掘中，提高预测的关键。用户活跃度和物品流行度均成长尾分布，接近直线。二者关系，一般认为，新用户倾向于浏览热门的物品，因为他们对网站还不熟悉，只能点击首页的热门物品，而老用户会逐渐开始浏览冷门的物品。用户越活跃，越倾向于浏览冷门的物品。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="推荐系统简述">
+<meta property="og:title" content="推荐系统概述">
 <meta property="og:url" content="http://yoursite.com/2018/06/11/推荐系统简述/index.html">
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1. 概述 长尾效应就在于它的数量上，将所有非流行的市场累加起来就会形成一个比流行市场还大的市场。这也是数据挖掘中，提高预测的关键。用户活跃度和物品流行度均成长尾分布，接近直线。二者关系，一般认为，新用户倾向于浏览热门的物品，因为他们对网站还不熟悉，只能点击首页的热门物品，而老用户会逐渐开始浏览冷门的物品。用户越活跃，越倾向于浏览冷门的物品。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T04:47:15.074Z">
+<meta property="og:updated_time" content="2018-07-11T09:03:55.452Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="推荐系统简述">
+<meta name="twitter:title" content="推荐系统概述">
 <meta name="twitter:description" content="1. 概述 长尾效应就在于它的数量上，将所有非流行的市场累加起来就会形成一个比流行市场还大的市场。这也是数据挖掘中，提高预测的关键。用户活跃度和物品流行度均成长尾分布，接近直线。二者关系，一般认为，新用户倾向于浏览热门的物品，因为他们对网站还不熟悉，只能点击首页的热门物品，而老用户会逐渐开始浏览冷门的物品。用户越活跃，越倾向于浏览冷门的物品。">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>推荐系统简述 | Alive</title>
+  <title>推荐系统概述 | Alive</title>
   
 
 
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">推荐系统简述</h1>
+          <h1 class="post-title" itemprop="name headline">推荐系统概述</h1>
         
 
         <div class="post-meta">
@@ -460,6 +460,7 @@
 <li>标签系统中并不是所有标签都反应用户兴趣，比如”不喜欢”标签。因此需要做标签清理的工作，比如去除停用词、去除因分隔符不同的同义词等。</li>
 <li>标签系统中基于图的推荐算法，一张图，三类顶点，一类是用户顶点，一类是物品顶点，一类是标签顶点。当用户对某个物品i打了某个标签a，连接用户-物品-标签a的边，并将权重设置为1。若边已存在，则权重加一。然后利用PersonalRank算法计算所有物品节点相对于当前用户节点在图上的相关性，然后按照相关性从大到小的排序，给用户推荐排名最高的N个物品。</li>
 </ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1.项亮《推荐系统实践》</p>
 
       
     </div>
@@ -493,6 +494,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/15/自然语言简述/" rel="prev" title="自然语言处理概述">
+                自然语言处理概述 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -583,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -654,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-评测指标"><span class="nav-text">2. 评测指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-用户满意度"><span class="nav-text">2.1 用户满意度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-预测准确度"><span class="nav-text">2.2 预测准确度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-协同过滤算法"><span class="nav-text">3. 协同过滤算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-UserCF"><span class="nav-text">3.1 UserCF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-ItemCF"><span class="nav-text">3.2 ItemCF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-内容过滤算法"><span class="nav-text">3.3 内容过滤算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-隐语义模型"><span class="nav-text">3.4 隐语义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-基于图的算法"><span class="nav-text">3.5  基于图的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-LFM和UserCF-ItemCF的对比"><span class="nav-text">3.6 LFM和UserCF/ItemCF的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-冷启动问题"><span class="nav-text">4. 冷启动问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-基于用户标签的推荐系统"><span class="nav-text">5. 基于用户标签的推荐系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-评测指标"><span class="nav-text">2. 评测指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-用户满意度"><span class="nav-text">2.1 用户满意度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-预测准确度"><span class="nav-text">2.2 预测准确度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-协同过滤算法"><span class="nav-text">3. 协同过滤算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-UserCF"><span class="nav-text">3.1 UserCF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-ItemCF"><span class="nav-text">3.2 ItemCF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-内容过滤算法"><span class="nav-text">3.3 内容过滤算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-隐语义模型"><span class="nav-text">3.4 隐语义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-基于图的算法"><span class="nav-text">3.5  基于图的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-LFM和UserCF-ItemCF的对比"><span class="nav-text">3.6 LFM和UserCF/ItemCF的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-冷启动问题"><span class="nav-text">4. 冷启动问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-基于用户标签的推荐系统"><span class="nav-text">5. 基于用户标签的推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -802,7 +807,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2018/06/11/推荐系统简述/';
           this.page.identifier = '2018/06/11/推荐系统简述/';
-          this.page.title = '推荐系统简述';
+          this.page.title = '推荐系统概述';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
