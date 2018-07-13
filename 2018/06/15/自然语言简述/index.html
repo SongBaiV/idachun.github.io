@@ -82,19 +82,19 @@
 <meta name="description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自然语言处理概述">
-<meta property="og:url" content="http://yoursite.com/2018/06/15/自然语言概述/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/06/15/自然语言简述/index.html">
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言概述/n元模型计算.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言概述/北大词性标注集1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言概述/TF-IDF公式.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言概述/主题模型公式.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/n元模型计算.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/北大词性标注集1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/TF-IDF公式.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/主题模型公式.jpg">
 <meta property="og:updated_time" content="2018-07-13T13:37:51.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/15/自然语言概述/n元模型计算.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/15/自然语言简述/n元模型计算.jpg">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/15/自然语言概述/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/15/自然语言简述/"/>
 
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/自然语言概述/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/自然语言简述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Deorlive_Wt">
@@ -371,9 +371,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/15/自然语言概述/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/15/自然语言简述/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/15/自然语言概述/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/15/自然语言简述/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -440,7 +440,7 @@
 </li>
 <li><p>4.2 统计分词<br>基于统计的分词，一般两个步骤：(1)建立统计语言模型(2)对句子进行单词划分，然后对划分结果进行概率计算，获得概率最大的分词方式，用到了统计学习算法，如隐马尔科夫模型(HMM)、条件随机场(CRF)等</p>
 <ul>
-<li>4.2.1 语言模型<br>语言模型就是求长度为m的字符串的概率分布P(ω1,ω2,…,ωn),其中ω1到ωn代表文本中的各个字，P(ω1，ω2，…，ωm)=P(ω1)P(ω2|ω1)P(ω3|ω1，ω2)…P(ωi|ω1，ω2，…，ωi-1)…P(ωm|ω1，ω2，…，ωm-1)。<br>当文本过长时，计算难度大。一般用n元模型来降低难度，n元模型忽略距离大于等于n的上文词的影响。当n=2时，称为二元模型，只考虑前面1个词，P(ωi|ω1，ω2，…，ωi-1)=P(ωi|ωi-1)，一般二元模型采用的多。<br>一般使用频率计数的比例来计算n元条件概率,可用拉普拉斯平滑算法解决分子分母为0的问题 <img src="/2018/06/15/自然语言概述/n元模型计算.jpg" alt=""></li>
+<li>4.2.1 语言模型<br>语言模型就是求长度为m的字符串的概率分布P(ω1,ω2,…,ωn),其中ω1到ωn代表文本中的各个字，P(ω1，ω2，…，ωm)=P(ω1)P(ω2|ω1)P(ω3|ω1，ω2)…P(ωi|ω1，ω2，…，ωi-1)…P(ωm|ω1，ω2，…，ωm-1)。<br>当文本过长时，计算难度大。一般用n元模型来降低难度，n元模型忽略距离大于等于n的上文词的影响。当n=2时，称为二元模型，只考虑前面1个词，P(ωi|ω1，ω2，…，ωi-1)=P(ωi|ωi-1)，一般二元模型采用的多。<br>一般使用频率计数的比例来计算n元条件概率,可用拉普拉斯平滑算法解决分子分母为0的问题 <img src="/2018/06/15/自然语言简述/n元模型计算.jpg" alt=""></li>
 <li>4.2.2 HMM模型<ul>
 <li>每个字在构造一个特定的词语时都占据着一个词位，即B（词首）、M（词中）、E（词尾）和S（单独成词）。通过求得每个字的词位，即可分词。</li>
 <li>用λ=λ1λ2…λn代表输入的句子，n为句子长度，λi表示字，o=o1o2…on代表输出的标签，那么理想的输出即为：max=maxP(o1o2…on|λ1λ2…λn)，o即为B、M、E、S这4种标记。</li>
@@ -472,7 +472,7 @@
 <li><p>5.1 词性标注<br>词性，即名词、动词、形容词等</p>
 <ul>
 <li>5.1.1 词性标注最简单的方法是从语料库中统计每个词所对应的高频词性，将其作为默认词性。目前较为主流的方法是如同分词一样，将句子的词性标注作为一个序列标注问题来解决，分词中常用的如隐含马尔可夫模型、条件随机场模型等皆可在词性标注任务中使用。</li>
-<li>5.1.2 中文领域中尚无统一的标注标准，较为主流的主要为北大的词性标注集和宾州词性标注集两大类，下图为部分北大词性标注集。<img src="/2018/06/15/自然语言概述/北大词性标注集1.jpg" alt=""></li>
+<li>5.1.2 中文领域中尚无统一的标注标准，较为主流的主要为北大的词性标注集和宾州词性标注集两大类，下图为部分北大词性标注集。<img src="/2018/06/15/自然语言简述/北大词性标注集1.jpg" alt=""></li>
 <li>5.1.3 Jieba分词中的词性标注<br>Jieba的词性标注同样是结合规则和统计的方式，具体为在词性标注的过程中，词典匹配和HMM共同作用。<ul>
 <li>正则表达式进行汉字判断，中文范围 ‘\u4E00-\u9FA5’,前面加上^，表示排除中文<br>re.compile(u’[^\u4E00-\u9FD5]’).sub(r’ ‘, str1)</li>
 <li>在前缀词典中找出它所分出的词性，若在词典中未找到，则赋予词性为“x”（代表未知）。当然，若在这个过程中，设置使用HMM，且待标注词为未登录词，则会通过HMM方式进行词性标注。</li>
@@ -565,7 +565,7 @@
 <li>无监督不需要人工生成、维护的词表，也不需要人工标准语料辅助进行训练。常用的有TF-IDF算法、TextRank算法和主题模型算法（包括LSA、LSI、LDA等）。</li>
 </ul>
 </li>
-<li>6.2 TF-IDF<br>词频-逆文档频率，词频需要做归一化，整个文档中频次/总词数，BOW是词袋模型，即词的出现次数，未归一化处理。TF-IDF公式如下：<img src="/2018/06/15/自然语言概述/TF-IDF公式.jpg" alt=""><br>文本中还有信息能对关键词提取起作用，比如每个词的词性、出现的位置等。在文本中，名词带有更多关键信息，对名词赋予更高权重，能使提取出来的关键词更合理。某些场景中，文本的起始段落和末尾段落比起其他部分的文本更重要，对出现在这些位置的词赋予更高权重，也能提高关键词提取。</li>
+<li>6.2 TF-IDF<br>词频-逆文档频率，词频需要做归一化，整个文档中频次/总词数，BOW是词袋模型，即词的出现次数，未归一化处理。TF-IDF公式如下：<img src="/2018/06/15/自然语言简述/TF-IDF公式.jpg" alt=""><br>文本中还有信息能对关键词提取起作用，比如每个词的词性、出现的位置等。在文本中，名词带有更多关键信息，对名词赋予更高权重，能使提取出来的关键词更合理。某些场景中，文本的起始段落和末尾段落比起其他部分的文本更重要，对出现在这些位置的词赋予更高权重，也能提高关键词提取。</li>
 <li>6.3 TextRank算法<br>可以脱离语料库(整个数据集)的背景，仅对单篇文档进行分析就可以提取该文档的关键词。</li>
 <li>6.4 LSA/LSI/LDA算法<ul>
 <li>6.4.1 介绍<ul>
@@ -574,7 +574,7 @@
 <li>每个文档都应该对应着一个或多个的主题，而每个主题都会有对应的词分布，通过主题，就可以得到每个文档的词分布。</li>
 </ul>
 </li>
-<li>已知数据集中，每个词和文档对应的p(wi|dj)都是已知的。而主题模型就是根据这个已知信息，计算p(wi|tk)和p(tk|dj)的值，从而得到主题的词分布和文档的主题分布信息,公式:<img src="/2018/06/15/自然语言概述/主题模型公式.jpg" alt=""></li>
+<li>已知数据集中，每个词和文档对应的p(wi|dj)都是已知的。而主题模型就是根据这个已知信息，计算p(wi|tk)和p(tk|dj)的值，从而得到主题的词分布和文档的主题分布信息,公式:<img src="/2018/06/15/自然语言简述/主题模型公式.jpg" alt=""></li>
 <li>常用的方法就是LSA（LSI）和LDA。其中LSA主要是采用SVD（奇异值分解）的方法进行暴力破解，而LDA则是通过贝叶斯学派的方法对分布信息进行拟合。</li>
 </ul>
 </li>
@@ -624,7 +624,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/11/推荐系统概述/" rel="next" title="推荐系统概述">
+              <a href="/2018/06/11/推荐系统简述/" rel="next" title="推荐系统概述">
                 <i class="fa fa-chevron-left"></i> 推荐系统概述
               </a>
             
@@ -940,8 +940,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/06/15/自然语言概述/';
-          this.page.identifier = '2018/06/15/自然语言概述/';
+          this.page.url = 'http://yoursite.com/2018/06/15/自然语言简述/';
+          this.page.identifier = '2018/06/15/自然语言简述/';
           this.page.title = '自然语言处理概述';
         };
         var d = document, s = d.createElement('script');
