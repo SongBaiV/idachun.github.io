@@ -90,7 +90,9 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/北大词性标注集1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/TF-IDF公式.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/主题模型公式.jpg">
-<meta property="og:updated_time" content="2018-07-13T13:45:13.069Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/句法树示例.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/清华数库.jpg">
+<meta property="og:updated_time" content="2018-07-16T10:04:12.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
@@ -462,7 +464,7 @@
 <li><p>4.3 混合分词<br>目前不管是基于规则的算法、还是基于HMM、CRF或者deep learning等的方法，其分词效果在具体任务中，其实差距并没有那么明显。实际工程应用中，多是基于一种分词算法，然后用其他分词算法加以辅助。最常用的方式就是先基于词典的方式进行分词，然后再用统计分词方法进行辅助。在保证词典分词准确率的基础上，对未登录词和歧义词有较好的识别，Jieba分词工具便是基于这种方法的实现。</p>
 </li>
 <li>4.4 JieBa<br>Jieba不是只有分词这一个功能，其是一个开源框架，提供了很多在分词之上的算法，如关键词提取、词性标注等。<br>提供了很多热门社区项目的扩展插件，如ElasticSearch、solr、lucene等。<br>Jieba分词结合了基于规则和基于统计这两类方法。首先基于前缀词典进行词图扫描，前缀词典是指词典中的词按照前缀包含的顺序排列，例如词典中出现了“上”，之后以“上”开头的词都会出现在这一部分，例如“上海”，进而会出现“上海市”。基于前缀词典可以快速构建包含全部可能分词结果的有向无环图。基于标注语料，使用动态规划的方法可以找出最大概率路径，并将其作为最终的分词结果。对于未登录词，Jieba使用了基于汉字成词的HMM模型，采用了Viterbi算法进行推导。<ul>
-<li>4.4.1 三种分词模式<br>精确模式：试图将句子最精确地切开，适合文本分析，默认精准模式，jieba.cut(str1)。<br>全模式：把句子中所有可以成词的词语都扫描出来，速度非常快，但是不能解决歧义，jieba.cut(str1,cut_all=True)。<br>搜索引擎模式：在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词,jieba.cut_for_search(str1)。</li>
+<li>4.4.1 三种分词模式<br>精确模式：试图将句子最精确地切开，适合文本分析，默认精准模式，jieba.cut(str1,HMM=True)。<br>全模式：把句子中所有可以成词的词语都扫描出来，速度非常快，但是不能解决歧义，jieba.cut(str1,cut_all=True)。<br>搜索引擎模式：在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词,jieba.cut_for_search(str1)。</li>
 <li>4.4.2 去除停用词<br>通用的<a href="https://github.com/dcexist/learning-nlp/blob/master/chapter-3/data/stop_words.utf8" target="_blank" rel="noopener">停用词表</a>,一般实践过程中，需要根据自己的任务，定期更新维护。</li>
 <li>4.4.3 提高分词效果<br>需要定制自己的领域词典，用以提升分词的效果。Jieba分词就提供了这样的功能，用户可以加载自定义词典，jieba.load_userdict(‘./data/user_dict.txt’)</li>
 </ul>
@@ -569,13 +571,11 @@
 <li>6.3 TextRank算法<br>可以脱离语料库(整个数据集)的背景，仅对单篇文档进行分析就可以提取该文档的关键词。</li>
 <li>6.4 LSA/LSI/LDA算法<ul>
 <li>6.4.1 介绍<ul>
-<li>一篇讲动物生存环境的科普文，通篇介绍了狮子老虎鳄鱼等各种动物的情况，但是文中并没有显式地出现动物二字，这种情况下，前面的两种算法不能提取出动物这个隐含的主题信息，这时候就需要用到主题模型。</li>
-<li>主题模型认为在词与文档之间没有直接的联系，它们应当还有一个维度将它们串联起来，主题模型将这个维度称为主题。<ul>
-<li>每个文档都应该对应着一个或多个的主题，而每个主题都会有对应的词分布，通过主题，就可以得到每个文档的词分布。</li>
-</ul>
-</li>
-<li>已知数据集中，每个词和文档对应的p(wi|dj)都是已知的。而主题模型就是根据这个已知信息，计算p(wi|tk)和p(tk|dj)的值，从而得到主题的词分布和文档的主题分布信息,公式:<img src="/2018/06/15/自然语言简述/主题模型公式.jpg" alt=""></li>
-<li>常用的方法就是LSA（LSI）和LDA。其中LSA主要是采用SVD（奇异值分解）的方法进行暴力破解，而LDA则是通过贝叶斯学派的方法对分布信息进行拟合。</li>
+<li>有些关键词并不一定会显式地出现在文档当中，如一篇讲动物生存环境的科普文，通篇介绍了狮子老虎鳄鱼等各种动物的情况，但是文中并没有显式地出现动物二字，这种情况下，前面的两种算法不能提取出动物这个隐含的主题信息，这时候就需要用到主题模型。</li>
+<li>主题模型认为在词与文档之间没有直接的联系，它们应当还有一个维度将它们串联起来，主题模型将这个维度称为主题。</li>
+<li>每个文档对应着一个或多个的主题，而每个主题对应着一个或多个的词语，通过主题，就可以得到每个文档的词分布。</li>
+<li>已知数据集中，每个词和文档对应的p(wi|dj)都是已知的。而主题模型就是根据这个已知信息，计算p(wi|tk)和p(tk|dj)的值，含义可以理解为一篇文档中某个词语的重要性=一篇文档中属于某个主题的重要性*某个词语在该主题中的重要性，公式:<img src="/2018/06/15/自然语言简述/主题模型公式.jpg" alt=""></li>
+<li>p(wi|tk)和p(tk|dj)的求解常用方法就是LSA（LSI）和LDA。其中LSA主要是采用SVD（奇异值分解）的方法进行暴力破解，而LDA则是通过贝叶斯学派的方法对分布信息进行拟合。</li>
 </ul>
 </li>
 <li>6.4.2 LSA/LSI算法<br>LSA（Latent Semantic Analysis，潜在语义分析）和LSI（Latent Semantic Index，潜在语义索引），通常被认为是同一种算法。LSA和LSI都是对文档的潜在语义进行分析，但是潜在语义索引在分析后，还会利用分析的结果建立相关的索引。<ul>
@@ -583,7 +583,7 @@
 <li>使用BOW模型将每个文档表示为向量</li>
 <li>将所有的文档词向量拼接起来构成词–文档矩阵（m×n）</li>
 <li>对词–文档矩阵进行奇异值分解（SVD）操作（[m×r]·[r×r]·[r×n]）</li>
-<li>根据SVD的结果，将词–文档矩阵映射到一个更低维度k（[m×k]·[k×k]·[k×n]，0&lt;k&lt;r）的近似SVD结果。计算每个词和文档的相似度（相似度计算可以通过余弦相似度或者是KL相似度进行，第一个矩阵的每一行(长度k，代表词语)和第三个矩阵的每一列(长度k，代表文档)计算相似度），可以得到每个文档中对每个词的相似度结果，去相似度最高的一个词即为文档的关键词。</li>
+<li>根据SVD的结果，将词–文档矩阵映射到一个更低维度k（[m×k]·[k×k]·[k×n]，0&lt;k&lt;r）的近似SVD结果，每个词和文档都可以表示为k个主题构成的空间中的一个点。计算每个词和文档的相似度（相似度计算可以通过余弦相似度或者是KL相似度进行，第一个矩阵的每一行(长度k，代表词语)和第三个矩阵的每一列(长度k，代表文档)计算相似度），可以得到每个文档中对每个词的相似度结果，取相似度最高的一个词即为文档的关键词(这个词不一定是构成文档中的词语，可能是通过训练集获得的新词)。</li>
 </ul>
 </li>
 <li>不足<br>1)SVD的计算复杂度高，特征空间维度大时计算效率低下。当新文档进入到已有特征空间时，需要对整个空间重新训练，以得到加入新文档后对应的分布信息。<br>2)改进提出了pLSA算法，通过使用EM算法对分布信息进行拟合替代了使用SVD进行暴力破解，一定程度上解决了LSA的部分缺陷，但是LSA仍有较多不足。<br>3)在pLSA的基础上，引入了贝叶斯模型，实现了现在topic model的主流方法——LDA（Latent Dirichlet Allocation，隐含狄利克雷分布）。</li>
@@ -597,6 +597,55 @@
 </ul>
 </li>
 <li>6.4.4 总结<br>一般情况下，使用词性过滤仅保留名词作为关键词更符合要求，但有些场景对其他词性的词有特殊要求，可以根据场景选择需要过滤的词性。还可以通过调整关键词提取数量、主题模型的主题数量等参数以及增大训练集的方式提高模型表现效果。</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-句法分析"><a href="#7-句法分析" class="headerlink" title="7 句法分析"></a>7 句法分析</h2><ul>
+<li>7.1 概述<ul>
+<li>介绍<ul>
+<li>句法分析是机器翻译的核心技术，主要任务是识别出句子所包含的句法成分以及这些成分之间的关系，一般以句法树来表示句法分析的结果。</li>
+<li>句法分析（Parsing）是从单词串得到句法结构的过程，而实现该过程的工具或程序被称为句法分析器（Parser）。</li>
+<li>分为完全句法分析和局部句法分析两种，差别在于：完全句法分析以获取整个句子的句法结构为目的；而局部句法分析只关注于局部的一些成分，例如常用的依存句法分析就是一种局部分析方法。</li>
+<li>本质是一套面向候选树的评价方法，会给正确的句法树赋予一个较高的分值，而给不合理的句法树赋予一个较低的分值，这样就可以借用候选句法树的分值进行消歧。</li>
+</ul>
+</li>
+<li>难点<ul>
+<li>歧义</li>
+<li>搜索空间大<br>句法分析是一个极为复杂的任务，候选树个数随句子增多呈指数级增长，搜索空间巨大，因此必须设计出合适的解码器。</li>
+</ul>
+</li>
+<li>方法<br>可以简单地分为基于规则的方法和基于统计的方法两大类。基于规则的方法在处理大规模文本时，语法规则覆盖有限。随着大规模标注树库的建立，基于统计学习模型的句法分析方法开始兴起，当下最流行的是PCFG（Probabilistic Context Free Grammar）方法。</li>
+</ul>
+</li>
+<li>7.2 句法分析的数据集与评测方法<ul>
+<li>数据集<br>句法分析的数据集是一种树形的标注结构，称为树库，如下所示：<img src="/2018/06/15/自然语言简述/句法树示例.jpg" alt="">中文树库著名的有中文宾州树库（Chinese TreeBank，CTB）、清华树库（Tsinghua Chinese TreeBank，TCT）和台湾中研院树库，其中CTB是目前绝大多数的中文句法分析研究的基准语料库。不同树库的标记体系不一样，解释不能通用，下图为清华数库部分标记：<img src="/2018/06/15/自然语言简述/清华数库.jpg" alt=""></li>
+<li>评测方法<br>主流句法分析评测方法是PARSEVAL评测体系，指标有准确率、召回率、交叉括号数。交叉括号表示分析得到的某一个短语的覆盖范围与标准句法分析结果的某个短语的覆盖范围存在重叠又不存在包含关系，即构成了一个交叉括号。</li>
+</ul>
+</li>
+<li>7.3 常用方法<br>相较于词法分析（分词、词性标注或命名实体识别等），句法分析成熟度要低上不少。以短语结构树为目标的句法分析器，目前应用最广泛，与很多其他形式语法对应的句法分析器都能通过对短语结构语法（特别是上下文无关文法）的改造而得到，句法分析属于NLP中较为高阶的问题。<ul>
+<li>基于PCFG的句法分析<br>PCFG是上下文无关文法的扩展，可以计算分析树的概率值。PCFG衍生出了各种形式的算法，包括基于单纯PCFG、基于词汇化和基于子类划分PCFG的句法分析方法等。</li>
+<li>基于最大间隔马尔可夫网络的句法分析<br>最大间隔是SVM中的理论，马尔可夫网络是概率图模型中一种具备一定结构处理关系能力的算法。最大间隔马尔可夫网络（Max-Margin Markov Networks）是这两者的结合，能够解决复杂的结构化预测问题，尤为适合用于句法分析任务。这是一种判别式的句法分析方法，通过丰富特征来消解分析过程中产生的歧义。如果要实现多元分类，可以使用多个二分类模型，每个模型分别识别一个短语标记，组合多分类器即可完成句法分析。</li>
+<li>基于CRF的句法分析<br>当将句法分析作为序列标注问题来解决时，同样可以采用条件随机场（CRF）模型。可以采用清华树库，设计特征模板，然后训练一个基于CRF++的模型，并进行测试。</li>
+<li>基于移进–归约的句法分析模型<br>移动-规约是一种自下而上的方法，从输入串开始，逐步进行“规约”，操作基本数据结构是堆栈。应用于中文时，对词性非常敏感，需要和准确度较高的词性标注工具一块使用。</li>
+</ul>
+</li>
+<li>7.4 使用Stanford Parser的PCFG算法进行句法分析<ul>
+<li>介绍<ul>
+<li>Stanford Parser是斯坦福大学自然语言小组开发的开源句法分析器，是基于概率统计句法分析的一个Java实现。以权威的宾州树库作为分析器的训练数据，还支持分词和词性标注、短语结构、依存关系等输出，支持多个语言接口。</li>
+</ul>
+</li>
+<li>安装<ul>
+<li>需安装JDK，底层JAVA实现</li>
+<li>需安装nltk库，因为Python封装是在nltk库中实现的，主要使用nltk.parse中的Stanford模块。</li>
+<li>需要下载Stanford Parser的jar包，主要有两个：stanford-parser.jar和stanford-parser-3.8.0-models.jar。</li>
+</ul>
+</li>
+<li>实战<br>对“他骑自行车去了菜市场”这句话进行句法分析以及可视化操作，<a href="https://github.com/dcexist/learning-nlp/blob/master/chapter-6/PCFG.py" target="_blank" rel="noopener">代码中</a>Stanford Parser的句法分析器接收的输入是分词完后以空格隔开的句子，stanford-parser-3.8.0-models.jar是已经训练好的模型，解压jar包可以看到支持的算法。</li>
+</ul>
+</li>
+<li>7.5 总结<ul>
+<li>和词法分析（分词、词性标注和命名实体识别等）相比，句法分析算法实际性能离真正实用化有距离，原因在于语言学理论和实际的自然语言应用之间存在很大差距。</li>
+<li>实践中，句法分析常结合一定规则来辅助解决一些任务。如模板解析类的任务，通过句法分析进行语义标注，提取其中主谓宾关系，再通过规则模板标出重要的角色信息和行为。</li>
 </ul>
 </li>
 </ul>
@@ -794,7 +843,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-相关术语"><span class="nav-text">1 相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自然语言处理层面"><span class="nav-text">2 自然语言处理层面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-正则表达式在NLP中的应用"><span class="nav-text">3 正则表达式在NLP中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-中文分词"><span class="nav-text">4 中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-词性标注与命名实体识别"><span class="nav-text">5 词性标注与命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关键词提取算法"><span class="nav-text">6 关键词提取算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-相关术语"><span class="nav-text">1 相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自然语言处理层面"><span class="nav-text">2 自然语言处理层面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-正则表达式在NLP中的应用"><span class="nav-text">3 正则表达式在NLP中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-中文分词"><span class="nav-text">4 中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-词性标注与命名实体识别"><span class="nav-text">5 词性标注与命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关键词提取算法"><span class="nav-text">6 关键词提取算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-句法分析"><span class="nav-text">7 句法分析</span></a></li></ol></div>
             
 
           </div>
