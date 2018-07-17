@@ -92,7 +92,11 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/主题模型公式.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/句法树示例.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/清华数库.jpg">
-<meta property="og:updated_time" content="2018-07-16T10:24:26.955Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/NNLM目标函数.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/C&W目标函数.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DM模型示意图.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DBOW模型示意图.jpg">
+<meta property="og:updated_time" content="2018-07-17T10:25:32.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
@@ -397,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  9,114 字
+                  11,138 字
                 </span>
               
 
@@ -413,7 +417,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  33 分钟
+                  40 分钟
                 </span>
               
             </div>
@@ -680,7 +684,55 @@
 </ul>
 </li>
 </ul>
-<h2 id="8-文本向量化"><a href="#8-文本向量化" class="headerlink" title="8 文本向量化"></a>8 文本向量化</h2>
+<h2 id="8-文本向量化"><a href="#8-文本向量化" class="headerlink" title="8 文本向量化"></a>8 文本向量化</h2><ul>
+<li>8.1 向量化算法word2vect<br>认为上下文相似的词，其语义也相似。利用上下文分布表示词义的方法，这类方法就是有名的词空间模型（word space model）。神经网络词向量模型根据上下文与目标词之间的关系进行建模。<ul>
+<li>神经网络语言模型<ul>
+<li>神经网络语言模型（Neural Network Language Model，NNLM），和传统方法估算P(ωi|ωi-(n-1)，…，ωi-1)不同，NNLM模型直接通过一个神经网络结构对n元条件概率进行估计。输入的样本是，依次从文本取n-1个词，预测第n个词的概率。比如某个输入样本是x=[v(wi-(n-1));…;v(wi-2);v(wi-1)] ，输出y=[v(wi)]</li>
+<li>NNLM模型使用低维紧凑的词向量对上文进行表示，解决了词袋模型带来的数据稀疏、语义鸿沟等问题；另一方面，在相似的上文语境中，NNLM模型可以预测出相似的目标词。例如，A=“一只小狗躺在地毯上”出现了2000次，B=“一只猫躺在地毯上”出现了1次。根据频率，P(A)要远远大于P(B)，而唯一的区别在于猫和狗，这两个词在词义和语法上都相似，而P(A)远大于P(B)显然是不合理的，采用NNLM计算则得到的P(A)和P(B)是相似的。每个词的输出概率y(ωi)即为所对应的点，将所有词连接，即组成了向量。</li>
+<li>NNLM模型的目标是构建一个语言概率模型，最费时的部分当属隐藏层到输出层的权重计算。简单的NNLM模型只有三层，输入层、隐藏层和输出层。</li>
+<li>希望能够在得知上文的情况下，知道y(wi)的概率。而y(wi)概率越大，说明上文越有效。则在语料库D中最大化y(ωi)便是NNLM模型的目标函数，如下<img src="/2018/06/15/自然语言简述/NNLM目标函数.jpg" alt=""></li>
+</ul>
+</li>
+<li>C&amp;W模型<ul>
+<li>C&amp;W是以生成词向量为目标的模型，如果n元短语在语料库中出现过，那么模型会给该短语打高分；如果是未出现在语料库中的短语则会得到较低的评分。</li>
+<li>C&amp;W模型的输入层就包含了目标词，其输出层也变为一个节点，该节点输出值的大小代表n元短语的打分高低。相应的，C&amp;W模型的最后一层运算次数为|h|(输出层上一层神经元个数)，远低于NNLM模型的|V|×|h|(词语数目*输出层上一层神经元个数)次。较NNLM模型而言，C&amp;W模型可大大降低运算量。</li>
+<li>C&amp;W模型最小化目标函数:<img src="/2018/06/15/自然语言简述/C&amp;W目标函数.jpg" alt=""> 1-(score(ω,c)-score(ω’,c))，其中(ω,c)表示正样本，来自语料库抽取的n元短语，为保证上下文词数一致，n为奇数，ω是目标词，c表示目标词的上下文语境；(ω’,c)表示负样本，负样本是将正样本序列中的中间词替换成其他词得到的。希望(score(ω,c)-score(ω’,c))越大越好，表示正样本得分高负样本得分低，越大，目标函数值越小，因此需要最小化目标函数。</li>
+</ul>
+</li>
+<li>CBOW模型和Skip-gram模型<br>在NNLM和C&amp;W模型的基础上保留其核心部分，得到了CBOW（Continuous Bag of-Words）模型和Skip-gram模型。<ul>
+<li>CBOW模型(连续词袋模型)<ul>
+<li>输入层是语义上下文的表示(输出层是这段文本的中间词?)，去掉了隐藏层，大幅提升运算速率，预测下一个词的概率。</li>
+<li>使用上下文各词的词向量的平均值替代NNLM模型各个拼接的词向量，如”the cat sat”这句话，首先用固定长度的不同词向量表示上文的三个词语，接着将这三个词向量求平均组成上文的向量化表示。</li>
+<li>目标函数和NNLM模型类似，参考上文。</li>
+</ul>
+</li>
+<li>Skip-gram模型<br>同样去掉了隐藏层，但与CBOW模型输入上下文词的平均词向量不同，Skip-gram模型是从目标词ω的上下文中选择一个词，将其词向量组成上下文的表示。</li>
+<li>总结<br>Skip-gram和CBOW实际上是word2vec两种不同思想的实现：CBOW的目标是根据上下文来预测当前词语的概率，且上下文所有的词对当前词出现概率的影响的权重是一样的，因此叫continuous bag-of-words模型。Skip-gram刚好相反，其是根据当前词语来预测上下文概率的。在实际使用中，算法本身并无高下之分，可根据最后呈现的效果来进行算法选择。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>8.2 向量化算法doc2vec/str2vec<ul>
+<li>利用word2vec技术计算词语间的相似度效果良好，也可计算句子或者其他长文本间的相似度。对文本分词后提取关键词，用词向量表示这些关键词，接着对关键词向量求平均或者将其拼接，最后利用词向量计算文本间的相似度。但丢失了文本中的语序信息，例如“小王送给小红一个苹果”和“小红送给小王一个苹果”，组成两个句子的词语相同，但表达信息不同。</li>
+<li>在word2vec的基础上提出了文本向量化（doc2vec），又称str2vec和para2vec。doc2vec是word2vec的升级，doc2vec不仅提取了文本的语义信息，而且提取了文本的语序信息。在一般的文本处理任务中，会将词向量和段向量相结合使用以期获得更好的效果。</li>
+<li>doc2vec技术存在两种模型——Distributed Memory（DM）和Distributed Bag of Words（DBOW），分别对应word2vec技术里的CBOW和Skip-gram模型。与CBOW模型类似，DM模型试图预测给定上下文中某单词出现的概率，只不过DM模型的上下文不仅包括上下文单词而且还包括相应的段落。DBOW则在仅给定段落向量的情况下预测段落中一组随机单词的概率，与Skip-gram模型只给定一个词语预测目标词概率分布类似。<ul>
+<li>DM模型<br>增加了一个与词向量长度相等的段向量，如段落paragraph ID也是先映射成一个向量，即paragraph vector。paragraph vector与word vector的维数虽然一样，但是代表两个不同的向量空间。如”the cat sat”这句话，首先用固定长度的不同词向量表示上文的三个词语，接着将这三个词向量和段落向量拼接/求平均组成上文的向量化表示，然后将其输入softmax层。在一个句子或者文档的训练过程中，paragraph ID保持不变，共享着同一个paragraph vector，相当于每次在预测单词的概率时，都利用了整个句子的语义。在预测阶段，给待预测的句子新分配一个paragraph ID，词向量和输出层softmax的参数保持训练阶段得到的参数不变，重新利用随机梯度下降算法训练待预测的句子。待误差收敛后，即得到待预测句子的paragraph vector，如下图所示：<img src="/2018/06/15/自然语言简述/DM模型示意图.jpg" alt=""></li>
+<li>DBOW模型<br>DM模型通过段落向量和词向量相结合的方式预测目标词的概率分布，而DBOW模型的输入只有段落向量，通过一个段落向量预测段落中某个随机词的概率分布，如下图所示:<img src="/2018/06/15/自然语言简述/DBOW模型示意图.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>8.3 实战<ul>
+<li>8.3.1 词向量训练<ul>
+<li>1 中文语料预处理<br>采用维基百科里的中文网页作为训练语料库，<a href="https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2" target="_blank" rel="noopener">最新语料</a>是xml格式的，需要进行处理，如将繁体转简体以及分词等。</li>
+<li>2 向量化训练<br>利用gensim模块产生词向量</li>
+</ul>
+</li>
+<li>8.3.2 段落向量的训练</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
