@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/C&W目标函数.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DM模型示意图.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DBOW模型示意图.jpg">
-<meta property="og:updated_time" content="2018-07-17T10:25:32.823Z">
+<meta property="og:updated_time" content="2018-07-18T09:00:09.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  11,138 字
+                  11,483 字
                 </span>
               
 
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  40 分钟
+                  41 分钟
                 </span>
               
             </div>
@@ -725,10 +725,16 @@
 <li>8.3 实战<ul>
 <li>8.3.1 词向量训练<ul>
 <li>1 中文语料预处理<br>采用维基百科里的中文网页作为训练语料库，<a href="https://dumps.wikimedia.org/zhwiki/latest/zhwiki-latest-pages-articles.xml.bz2" target="_blank" rel="noopener">最新语料</a>是xml格式的，需要进行处理，如将繁体转简体以及分词等。</li>
-<li>2 向量化训练<br>利用gensim模块产生词向量</li>
+<li>2 向量化训练<br>利用gensim模块的Word2Vect读取语料，然后产生词向量，保存模型，需要时调用。</li>
 </ul>
 </li>
-<li>8.3.2 段落向量的训练</li>
+<li>8.3.2 段落向量的训练<br>这里不将每个文档进行分词，而是直接将转换后的简体文本保留。doc2vec在训练时能够采用tag信息来更好地辅助训练（表明是同一类doc），相对word2vec模型，输入文档多了一个tag属性。训练产生段落向量，保存<a href="https://pan.baidu.com/s/1nwTpzHB" target="_blank" rel="noopener">模型</a>，需要时调用。</li>
+<li>8.3.3 利用word2vec和doc2vec计算网页相似度<ul>
+<li>word2vec<br>抽取网页新闻中的关键词，接着将关键词向量化，然后将得到的各个词向量相加(而不是拼接)，最后得到的一个词向量总和代表网页新闻的向量化表示，利用这个总的向量计算网页相似度。</li>
+<li>doc2vec<br>主要包括如下三个步骤：①预处理；②文档向量化；③计算文本相似。</li>
+<li>总结<br>doc2vec方法计算的相似度为0.87高于word2vec计算的0.66，通过阅读前两篇新闻，知道这两篇新闻极为相似，因此可以判断doc2vec计算文本相似度的方法更胜一筹。这是因为：doc2vec不仅利用了词语的语义信息而且还综合了上下文语序信息，而word2vec则丢失了语序信息；word2vec方法中的关键词提取算法准确率不高，丢失了很多关键信息。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
