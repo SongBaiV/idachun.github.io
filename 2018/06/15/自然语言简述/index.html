@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/C&W目标函数.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DM模型示意图.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DBOW模型示意图.jpg">
-<meta property="og:updated_time" content="2018-07-18T09:00:09.625Z">
+<meta property="og:updated_time" content="2018-08-02T07:51:10.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  11,483 字
+                  12,077 字
                 </span>
               
 
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  41 分钟
+                  43 分钟
                 </span>
               
             </div>
@@ -441,7 +441,7 @@
         <h2 id="1-相关术语"><a href="#1-相关术语" class="headerlink" title="1 相关术语"></a>1 相关术语</h2><ul>
 <li>分词<br>常用的手段是基于字典的最长串匹配。<a id="more"></a></li>
 <li>词性标注<br>词性一般指动词、名词、形容词等，比如我/r爱/v北京/ns天安门/ns。ns代表名词，v代表动词，都是标注。</li>
-<li>命名实体识别<br>指从文本中识别具有特定类别的实体（通常是名词），例如人名、地名等。</li>
+<li>命名实体识别<br>从文本中找出人名、地名等。</li>
 <li>句法分析<br>往往最终生成的结果是一棵句法分析树。句法分析可以解决传统词袋模型不考虑上下文的问题。“小李是小杨的班长”和“小杨是小李的班长”，这两句话，用词袋模型是相同的，但是句法分析可以分析出其中的主从关系。</li>
 <li>指代消解<br>中文中代词出现的频率很高，它的作用的是用来表征前文出现过的人名、地名等。</li>
 <li>情感识别<br>本质上是分类问题，常应用在舆情分析等领域。情感一般分为两类，即正面、负面，也可以在前面基础上加上中性类别。电商企业，情感识别可以分析商品评价的好坏，以此作为下一个环节的评判依据。通常可以基于词袋模型+分类器，或者现在流行的词向量模型+RNN。经过测试发现，后者比前者准确率略有提升。</li>
@@ -730,13 +730,29 @@
 </li>
 <li>8.3.2 段落向量的训练<br>这里不将每个文档进行分词，而是直接将转换后的简体文本保留。doc2vec在训练时能够采用tag信息来更好地辅助训练（表明是同一类doc），相对word2vec模型，输入文档多了一个tag属性。训练产生段落向量，保存<a href="https://pan.baidu.com/s/1nwTpzHB" target="_blank" rel="noopener">模型</a>，需要时调用。</li>
 <li>8.3.3 利用word2vec和doc2vec计算网页相似度<ul>
-<li>word2vec<br>抽取网页新闻中的关键词，接着将关键词向量化，然后将得到的各个词向量相加(而不是拼接)，最后得到的一个词向量总和代表网页新闻的向量化表示，利用这个总的向量计算网页相似度。</li>
-<li>doc2vec<br>主要包括如下三个步骤：①预处理；②文档向量化；③计算文本相似。</li>
+<li>word2vec计算<br>抽取网页新闻中的关键词，接着将关键词向量化，然后将得到的各个词向量相加(而不是拼接)，最后得到的一个词向量总和代表网页新闻的向量化表示，利用这个总的向量计算网页相似度。</li>
+<li>doc2vec计算<br>主要包括如下三个步骤：①预处理；②文档向量化；③计算文本相似。</li>
 <li>总结<br>doc2vec方法计算的相似度为0.87高于word2vec计算的0.66，通过阅读前两篇新闻，知道这两篇新闻极为相似，因此可以判断doc2vec计算文本相似度的方法更胜一筹。这是因为：doc2vec不仅利用了词语的语义信息而且还综合了上下文语序信息，而word2vec则丢失了语序信息；word2vec方法中的关键词提取算法准确率不高，丢失了很多关键信息。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h2 id="9-情感分析技术"><a href="#9-情感分析技术" class="headerlink" title="9 情感分析技术"></a>9 情感分析技术</h2><p>情感分析可以被归类为文本分类问题。</p>
+<ul>
+<li>9.1 情感分析的应用<ul>
+<li>舆情分析(网络数据)<br>来自消费者或者任何第三方机构的正面或者负面的新闻报道，都会影响到公司的发展。</li>
+<li>消费者呼声(产品自身数据)<br>消费者呼声是指个体消费者对产品与服务的评价。需要对消费者的评价和反馈进行分析。</li>
+<li>市场呼声(网络数据)<br>市场呼声是指消费者使用竞争对手提供的产品与服务的感受。</li>
+</ul>
+</li>
+<li>9.2 情感分析的基本方法<br>对情感分析的研究主要集中在两个方面：识别给定的文本实体是主观的还是客观的，以及识别主观的文本的极性。<br>文本可以划分为积极和消极两类，或者积极、消极和中性（或不相关）的多类。<ul>
+<li>词法分析<br>词法分析使用了词汇积极性标记字典，将输入文本转换为单词序列后，将每一个新的单词与字典中的词汇进行匹配。如果有一个积极的匹配，分数加到输入文本的分数总池中。例如，如果“戏剧性”在字典中是一个积极的匹配，那么文本的总分会递增。相反，如果有一个消极的匹配，输入文本的总分会减少。文本的分类取决于文本的总得分。</li>
+<li>机器学习方法<br>它可以分为三个阶段：数据收集、预处理、训练分类。在训练过程中，需要提供一个标记语料库作为训练数据。分类器使用一系列特征向量对目标数据进行分类。</li>
+<li>混合分析<br>既可以利用机器学习方法的高准确性，又可以利用词法分析快速的特点。</li>
+</ul>
+</li>
+<li>9.3 实战电影评论情感分析<br>word2vec可以将文本嵌入到低维空间，并且不丢失文本的顺序信息。分类模型方面，一般会使用如SVM、朴素贝叶斯等，或者CNN、RNN及LSTM等。<br>步骤：(1)训练或者载入一个词向量生成模型，对样本(文本)向量化(2)创建一个用于训练集的ID矩阵。(3)创建LSTM计算单元。(4)训练。(5)测试。<br>  - </li>
 </ul>
 
       
@@ -932,7 +948,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-相关术语"><span class="nav-text">1 相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自然语言处理层面"><span class="nav-text">2 自然语言处理层面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-正则表达式在NLP中的应用"><span class="nav-text">3 正则表达式在NLP中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-中文分词"><span class="nav-text">4 中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-词性标注与命名实体识别"><span class="nav-text">5 词性标注与命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关键词提取算法"><span class="nav-text">6 关键词提取算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-句法分析"><span class="nav-text">7 句法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-文本向量化"><span class="nav-text">8 文本向量化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-相关术语"><span class="nav-text">1 相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自然语言处理层面"><span class="nav-text">2 自然语言处理层面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-正则表达式在NLP中的应用"><span class="nav-text">3 正则表达式在NLP中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-中文分词"><span class="nav-text">4 中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-词性标注与命名实体识别"><span class="nav-text">5 词性标注与命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关键词提取算法"><span class="nav-text">6 关键词提取算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-句法分析"><span class="nav-text">7 句法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-文本向量化"><span class="nav-text">8 文本向量化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-情感分析技术"><span class="nav-text">9 情感分析技术</span></a></li></ol></div>
             
 
           </div>
