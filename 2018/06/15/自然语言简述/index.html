@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
+<meta name="description" content="1 相关术语 分词常用的手段是正向/方向/双向最大匹配法+统计分词(HMM等)。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自然语言处理概述">
 <meta property="og:url" content="http://yoursite.com/2018/06/15/自然语言简述/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
+<meta property="og:description" content="1 相关术语 分词常用的手段是正向/方向/双向最大匹配法+统计分词(HMM等)。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/n元模型计算.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/北大词性标注集1.jpg">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/C&W目标函数.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DM模型示意图.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DBOW模型示意图.jpg">
-<meta property="og:updated_time" content="2018-08-02T07:51:10.662Z">
+<meta property="og:updated_time" content="2018-08-04T09:21:55.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
-<meta name="twitter:description" content="1 相关术语 分词常用的手段是基于字典的最长串匹配。">
+<meta name="twitter:description" content="1 相关术语 分词常用的手段是正向/方向/双向最大匹配法+统计分词(HMM等)。">
 <meta name="twitter:image" content="http://yoursite.com/2018/06/15/自然语言简述/n元模型计算.jpg">
 
 
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12,077 字
+                  12,098 字
                 </span>
               
 
@@ -439,7 +439,7 @@
 
       
         <h2 id="1-相关术语"><a href="#1-相关术语" class="headerlink" title="1 相关术语"></a>1 相关术语</h2><ul>
-<li>分词<br>常用的手段是基于字典的最长串匹配。<a id="more"></a></li>
+<li>分词<br>常用的手段是正向/方向/双向最大匹配法+统计分词(HMM等)。<a id="more"></a></li>
 <li>词性标注<br>词性一般指动词、名词、形容词等，比如我/r爱/v北京/ns天安门/ns。ns代表名词，v代表动词，都是标注。</li>
 <li>命名实体识别<br>从文本中找出人名、地名等。</li>
 <li>句法分析<br>往往最终生成的结果是一棵句法分析树。句法分析可以解决传统词袋模型不考虑上下文的问题。“小李是小杨的班长”和“小杨是小李的班长”，这两句话，用词袋模型是相同的，但是句法分析可以分析出其中的主从关系。</li>
@@ -478,13 +478,13 @@
 <li><p>4.2 统计分词<br>基于统计的分词，一般两个步骤：(1)建立统计语言模型(2)对句子进行单词划分，然后对划分结果进行概率计算，获得概率最大的分词方式，用到了统计学习算法，如隐马尔科夫模型(HMM)、条件随机场(CRF)等</p>
 <ul>
 <li>4.2.1 语言模型<br>语言模型就是求长度为m的字符串的概率分布P(ω1,ω2,…,ωn),其中ω1到ωn代表文本中的各个字，P(ω1，ω2，…，ωm)=P(ω1)P(ω2|ω1)P(ω3|ω1，ω2)…P(ωi|ω1，ω2，…，ωi-1)…P(ωm|ω1，ω2，…，ωm-1)。<br>当文本过长时，计算难度大。一般用n元模型来降低难度，n元模型忽略距离大于等于n的上文词的影响。当n=2时，称为二元模型，只考虑前面1个词，P(ωi|ω1，ω2，…，ωi-1)=P(ωi|ωi-1)，一般二元模型采用的多。<br>一般使用频率计数的比例来计算n元条件概率,可用拉普拉斯平滑算法解决分子分母为0的问题 <img src="/2018/06/15/自然语言简述/n元模型计算.jpg" alt=""></li>
-<li>4.2.2 HMM模型<ul>
+<li>4.2.2 HMM模型，通过求解每个词的词位来进行分词。<ul>
 <li>每个字在构造一个特定的词语时都占据着一个词位，即B（词首）、M（词中）、E（词尾）和S（单独成词）。通过求得每个字的词位，即可分词。</li>
 <li>用λ=λ1λ2…λn代表输入的句子，n为句子长度，λi表示字，o=o1o2…on代表输出的标签，那么理想的输出即为：max=maxP(o1o2…on|λ1λ2…λn)，o即为B、M、E、S这4种标记。</li>
 <li>期望求解的是max P(o|λ)，通过贝叶斯公式转而求解max P(λ|o)P(o)(分母为常数不需要求)。</li>
 <li>假设一，马尔科夫假设。<br>P(λ|o)=P(λ1|o1)P(λ2|o2)…P(λn|on) </li>
 <li>假设二，齐次马尔科夫假设，每个输出仅仅与上一个输出有关，即二元模型。<br>P(o)=P(o1)P(o2|o1)P(o3|o2)…P(on|on-1)</li>
-<li>P(λ|o)P(o)～P(λ1|o1)P(o2|o1)P(λ2|o2)P(o3|o2)…P(on|on-1)P(λn|on) （3.10）。在HMM中，将P(λk|ok)称为发射概率，P(ok|ok-1)称为转移概率。HMM中，求解maxP(λ|o)P(o)的常用方法是Veterbi算法，它是一种动态规划方法。</li>
+<li>P(λ|o)P(o)～P(λ1|o1)P(o2|o1)P(λ2|o2)P(o3|o2)…P(on|on-1)P(λn|on) （3.10）。在HMM中，将P(λk|ok)称为发射概率，P(ok|ok-1)称为转移概率。HMM中，求解maxP(λ|o)P(o)的常用方法是Viterbi算法，它是一种动态规划方法。</li>
 <li>语料库为分好词的句子，比如<a href="https://github.com/nlpinaction/learning-nlp/blob/master/chapter-3/data/trainCorpus.txt_utf8" target="_blank" rel="noopener">这里</a>。实际项目实战中，读者可通过扩充语料、词典补充等手段予以优化。</li>
 </ul>
 </li>
@@ -499,8 +499,8 @@
 <li><p>4.3 混合分词<br>目前不管是基于规则的算法、还是基于HMM、CRF或者deep learning等的方法，其分词效果在具体任务中，其实差距并没有那么明显。实际工程应用中，多是基于一种分词算法，然后用其他分词算法加以辅助。最常用的方式就是先基于词典的方式进行分词，然后再用统计分词方法进行辅助。在保证词典分词准确率的基础上，对未登录词和歧义词有较好的识别，Jieba分词工具便是基于这种方法的实现。</p>
 </li>
 <li>4.4 JieBa<br>Jieba不是只有分词这一个功能，其是一个开源框架，提供了很多在分词之上的算法，如关键词提取、词性标注等。<br>提供了很多热门社区项目的扩展插件，如ElasticSearch、solr、lucene等。<br>Jieba分词结合了基于规则和基于统计这两类方法。首先基于前缀词典进行词图扫描，前缀词典是指词典中的词按照前缀包含的顺序排列，例如词典中出现了“上”，之后以“上”开头的词都会出现在这一部分，例如“上海”，进而会出现“上海市”。基于前缀词典可以快速构建包含全部可能分词结果的有向无环图。基于标注语料，使用动态规划的方法可以找出最大概率路径，并将其作为最终的分词结果。对于未登录词，Jieba使用了基于汉字成词的HMM模型，采用了Viterbi算法进行推导。<ul>
-<li>4.4.1 三种分词模式<br>精确模式：试图将句子最精确地切开，适合文本分析，默认精准模式，jieba.cut(str1,HMM=True)。<br>全模式：把句子中所有可以成词的词语都扫描出来，速度非常快，但是不能解决歧义，jieba.cut(str1,cut_all=True)。<br>搜索引擎模式：在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词,jieba.cut_for_search(str1)。</li>
-<li>4.4.2 去除停用词<br>通用的<a href="https://github.com/dcexist/learning-nlp/blob/master/chapter-3/data/stop_words.utf8" target="_blank" rel="noopener">停用词表</a>,一般实践过程中，需要根据自己的任务，定期更新维护。</li>
+<li>4.4.1 三种分词模式<br>精确模式：试图将句子最精确地切开，适合文本分析，默认精确模式，jieba.cut(str1,HMM=True)。<br>全模式：把句子中所有可以成词的词语都扫描出来，速度非常快，但是不能解决歧义，jieba.cut(str1,cut_all=True)。<br>搜索引擎模式：在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词,jieba.cut_for_search(str1)。</li>
+<li>4.4.2 去除停用词<br>通用的<a href="https://github.com/dcexist/learning-nlp/blob/master/chapter-3/data/stop_words.utf8" target="_blank" rel="noopener">停用词表</a>，一般实践过程中，需要根据自己的任务，定期更新维护。</li>
 <li>4.4.3 提高分词效果<br>需要定制自己的领域词典，用以提升分词的效果。Jieba分词就提供了这样的功能，用户可以加载自定义词典，jieba.load_userdict(‘./data/user_dict.txt’)</li>
 </ul>
 </li>
@@ -511,10 +511,10 @@
 <li>5.1.1 词性标注最简单的方法是从语料库中统计每个词所对应的高频词性，将其作为默认词性。目前较为主流的方法是如同分词一样，将句子的词性标注作为一个序列标注问题来解决，分词中常用的如隐含马尔可夫模型、条件随机场模型等皆可在词性标注任务中使用。</li>
 <li>5.1.2 中文领域中尚无统一的标注标准，较为主流的主要为北大的词性标注集和宾州词性标注集两大类，下图为部分北大词性标注集。<img src="/2018/06/15/自然语言简述/北大词性标注集1.jpg" alt=""></li>
 <li>5.1.3 Jieba分词中的词性标注<br>Jieba的词性标注同样是结合规则和统计的方式，具体为在词性标注的过程中，词典匹配和HMM共同作用。<ul>
-<li>正则表达式进行汉字判断，中文范围 ‘\u4E00-\u9FA5’,前面加上^，表示排除中文<br>re.compile(u’[^\u4E00-\u9FD5]’).sub(r’ ‘, str1)</li>
+<li>正则表达式进行汉字判断，中文范围 ‘\u4E00-\u9FA5’,前面加上^，表示排除中文<br>re.compile(u’[^\u4E00-\u9FD5]’)</li>
 <li>在前缀词典中找出它所分出的词性，若在词典中未找到，则赋予词性为“x”（代表未知）。当然，若在这个过程中，设置使用HMM，且待标注词为未登录词，则会通过HMM方式进行词性标注。</li>
 <li>若不符合上面的正则表达式，那么将继续通过正则表达式进行类型判断，分别赋予“x”“m”（数词）和“eng”（英文）。</li>
-<li>在词性标注任务中，Jieba分词采用了simultaneous思想的联合模型方法，即将基于字标注的分词方法与词性标注结合起来，使用复合标注集。比如，对于名词“人民”，它的词性标注是“n”，而分词的标注序列是“BE”，于是“人”的标注就是“B_n”，“民”的标注就是“E_n”。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import jieba.posseg as psg</span><br><span class="line"><span class="attribute">sent</span>=<span class="string">'中文分词是文本处理不可或缺的一步!'</span></span><br><span class="line"><span class="attribute">sent_list</span>=psg.cut(sent)</span><br><span class="line"><span class="keyword">for</span> w,t <span class="keyword">in</span> sent_list:</span><br><span class="line">	<span class="builtin-name">print</span> w,t</span><br><span class="line">	</span><br><span class="line">中文 nz</span><br><span class="line">分词 n</span><br><span class="line">是 v</span><br><span class="line">文本处理 n</span><br><span class="line">不可或缺 l</span><br><span class="line">的 uj</span><br><span class="line">一步 m</span><br><span class="line">! x</span><br></pre></td></tr></table></figure>
+<li>在词性标注任务中，Jieba分词采用了simultaneous思想的联合模型方法，即将基于字词位标注的分词方法与词性标注结合起来，使用复合标注集。比如，对于名词“人民”，它的词性标注是“n”，而分词的标注序列是“BE”，于是“人”的标注就是“B_n”，“民”的标注就是“E_n”。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import jieba.posseg as psg</span><br><span class="line"><span class="attribute">sent</span>=<span class="string">'中文分词是文本处理不可或缺的一步!'</span></span><br><span class="line"><span class="attribute">sent_list</span>=psg.cut(sent)</span><br><span class="line"><span class="keyword">for</span> w,t <span class="keyword">in</span> sent_list:</span><br><span class="line">	<span class="builtin-name">print</span> w,t</span><br><span class="line">	</span><br><span class="line">中文 nz</span><br><span class="line">分词 n</span><br><span class="line">是 v</span><br><span class="line">文本处理 n</span><br><span class="line">不可或缺 l</span><br><span class="line">的 uj</span><br><span class="line">一步 m</span><br><span class="line">! x</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -542,7 +542,7 @@
 <li>对句子“我来到牛家村”进行标注，正确标注后的结果应为“我/O来/O到/O牛/B家/M村/E”。采用线性链CRF来进行解决，（O，O，O，B，M，E）是其一种标注序列，（O，O，O，B，B，E）是另一种，选择很多，NER任务中就是找出最靠谱的作为句子标注。</li>
 <li>在CRF中，定义一个特征函数集合，然后使用这个特征集合为标注序列进行打分，据此选出最靠谱的标注序列。比如如果标注中出现连续两个“B”结构的标注序列，则给它低分。</li>
 <li>在CRF中有两种特征函数，分别为转移函数tk(yi-1，yi，i)和状态函数sl(yi，X，i)。前者依赖于当前和前一个位置，表示从标注序列中位置i-1的标记yi-1转移到位置i上的标记yi的概率。后者依赖当前位置，表示标记序列在位置i上为标记yi的概率。</li>
-<li>通过特征函数打分，使得 arg max P(y|x) ，求得合适的标记y，x为特征函数中的x。该问题与HMM求解最大可能序列路径一样，也是采用的Veterbi算法。</li>
+<li>通过特征函数打分，使得 arg max P(y|x) ，求得合适的标记y，x为特征函数中的x。该问题与HMM求解最大可能序列路径一样，也是采用的Viterbi算法。</li>
 <li>解决标注问题时，HMM和CRF效果都比较好，不过CRF能够捕捉全局的信息和灵活的特征设计，因此一般效果要比HMM好，但实现复杂度高。</li>
 </ul>
 </li>
