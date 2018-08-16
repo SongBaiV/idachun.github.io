@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/输入门.png">
 <meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/细胞状态更新.png">
 <meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/输出门.png">
-<meta property="og:updated_time" content="2018-08-16T06:42:53.715Z">
+<meta property="og:updated_time" content="2018-08-16T06:55:07.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RNN&amp;LSTM介绍">
 <meta name="twitter:description" content="1 简介 RNN DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。 循环神经网络(Recurrent Neural Networks)，">
@@ -399,7 +399,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,095 字
+                  1,192 字
                 </span>
               
 
@@ -445,7 +445,7 @@
 </ul>
 </li>
 <li>LSTM<ul>
-<li>LSTM(Long Short-Term Memory),可以避免常规RNN的梯度消失，在工业界广泛应用。LSTM在每个序列索引位置t的门一般包括遗忘门，输入门和输出门三种。</li>
+<li>LSTM(Long Short-Term Memory),可以避免常规RNN的梯度消失，在工业界广泛应用。LSTM在每个序列索引位置t的门一般包括遗忘门，输入门和输出门三种。和普通的神经网络DNN整体形式差不多，输入神经元-隐藏层-输出神经元，只是隐藏层之间有关联。比如图片28*28像素，可以分成28行，第一行有28个像素，即28个神经元，第二行也有28个神经元，第一行的隐藏层和第二行的隐藏层之间有关联。</li>
 <li>省略去每层都有的o(t),L(t),y(t)，RNN的模型简化成如下图。<img src="/2018/06/19/RNN-LSTM介绍/RNN简化结构.jpg" alt=""></li>
 <li>对于序列索引位置t的隐藏结构做了改进，来避免梯度消失的问题，这样的特殊RNN就是LSTM，LSTM的常见结构如下图。<img src="/2018/06/19/RNN-LSTM介绍/LSTM结构.png" alt=""></li>
 <li>在t时刻除了h(t)，还多了一个隐藏状态，如下图上面的长横线，称为细胞状态(Cell State)，记为C(t)。<img src="/2018/06/19/RNN-LSTM介绍/细胞状态.png" alt=""></li>
