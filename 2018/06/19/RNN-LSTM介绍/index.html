@@ -79,16 +79,26 @@
 
 
 
-<meta name="description" content="戎马一生，天下青山一样">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alive">
-<meta property="og:url" content="http://yoursite.com/categories/深度学习/index.html">
+<meta name="description" content="1 简介 RNN DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。 循环神经网络(Recurrent Neural Networks)，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN&amp;LSTM介绍">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="戎马一生，天下青山一样">
+<meta property="og:description" content="1 简介 RNN DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。 循环神经网络(Recurrent Neural Networks)，">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/RNN结构.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/RNN简化结构.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/LSTM结构.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/细胞状态.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/遗忘门.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/输入门.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/细胞状态更新.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/输出门.png">
+<meta property="og:updated_time" content="2018-08-16T06:42:53.715Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alive">
-<meta name="twitter:description" content="戎马一生，天下青山一样">
+<meta name="twitter:title" content="RNN&amp;LSTM介绍">
+<meta name="twitter:description" content="1 简介 RNN DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。 循环神经网络(Recurrent Neural Networks)，">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/19/RNN-LSTM介绍/RNN结构.png">
 
 
 
@@ -118,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/深度学习/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/RNN-LSTM介绍/"/>
 
 
 
 
 
-  <title>分类: 深度学习 | Alive</title>
+  <title>RNN&LSTM介绍 | Alive</title>
   
 
 
@@ -143,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-right ">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,111 +291,225 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>深度学习<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/RNN-LSTM介绍/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Deorlive_Wt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://p2.gexing.com/G1/M00/CC/2B/rBACE1WjflOixlZpAACXLIEhLjg875.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alive">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/06/19/RNN-LSTM介绍/" itemprop="url">
-              
-                <span itemprop="name">RNN&LSTM介绍</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">RNN&LSTM介绍</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-19T09:13:59+08:00"
-              content="2018-06-19" >
-          06-19
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T09:13:59+08:00">
+                2018-06-19
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/19/RNN-LSTM介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/19/RNN-LSTM介绍/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,095 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/18/CNN介绍/" itemprop="url">
-              
-                <span itemprop="name">CNN介绍</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-18T22:31:41+08:00"
-              content="2018-06-18" >
-          06-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/17/DNN简介/" itemprop="url">
-              
-                <span itemprop="name">DNN介绍</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-17T20:21:31+08:00"
-              content="2018-06-17" >
-          06-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><ul>
+<li>RNN<ul>
+<li>DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。</li>
+<li>循环神经网络(Recurrent Neural Networks)，它广泛的应用于自然语言处理中的语音识别，手写识别以及机器翻译等领域。<a id="more"></a></li>
+<li>RNN假设样本是基于序列的，比如是从序列索引1到序列索引τ的。对于这其中的任意序列索引号t,它对应的输入是对应的样本序列中的x(t)。而模型在序列索引号t位置的隐藏状态h(t)，则由x(t)和在t−1位置的隐藏状态h(t−1)共同决定。在任意序列索引号t，有对应的模型预测输出o(t),o(t)只由模型当前的隐藏状态h(t)决定。通过预测输出o(t)和训练序列真实输出y(t),以及损失函数L(t)，就可以用DNN类似的方法来训练模型，接着用来预测测试序列中的一些位置的输出，如下图所示为常见的RNN模型结构。<img src="/2018/06/19/RNN-LSTM介绍/RNN结构.png" alt=""></li>
+<li>RNN虽然理论上可以很漂亮的解决序列数据的训练，但是它也像DNN一样有梯度消失时的问题，当序列很长的时候问题尤其严重。因此，上面的RNN模型一般不能直接用于应用领域。在语音识别，手写识别以及机器翻译等NLP领域实际应用比较广泛的是基于RNN模型的一个特例LSTM。    </li>
+</ul>
+</li>
+<li>LSTM<ul>
+<li>LSTM(Long Short-Term Memory),可以避免常规RNN的梯度消失，在工业界广泛应用。LSTM在每个序列索引位置t的门一般包括遗忘门，输入门和输出门三种。</li>
+<li>省略去每层都有的o(t),L(t),y(t)，RNN的模型简化成如下图。<img src="/2018/06/19/RNN-LSTM介绍/RNN简化结构.jpg" alt=""></li>
+<li>对于序列索引位置t的隐藏结构做了改进，来避免梯度消失的问题，这样的特殊RNN就是LSTM，LSTM的常见结构如下图。<img src="/2018/06/19/RNN-LSTM介绍/LSTM结构.png" alt=""></li>
+<li>在t时刻除了h(t)，还多了一个隐藏状态，如下图上面的长横线，称为细胞状态(Cell State)，记为C(t)。<img src="/2018/06/19/RNN-LSTM介绍/细胞状态.png" alt=""></li>
+<li>遗忘门，在LSTM中以一定的概率控制是否遗忘上一层的隐藏细胞状态C(t-1)。图中输入的有上一序列的隐藏状态h(t−1)和本序列数据x(t)，通过一个激活函数，一般是sigmoid，得到遗忘门的输出f(t)。由于sigmoid的输出f(t)在[0,1]之间，因此这里的输出f(t)代表了遗忘上一层隐藏细胞状态的概率，f(t)再乘以C(t),遗忘门子结构如下图所示。<img src="/2018/06/19/RNN-LSTM介绍/遗忘门.png" alt=""></li>
+<li>输入门负责处理当前序列位置的输入。输入门由两部分组成，第一部分使用了sigmoid激活函数，输出为i(t),第二部分使用了tanh激活函数，输出为a(t), 两者相乘再加上传递来的细胞状态，如下图所示。<img src="/2018/06/19/RNN-LSTM介绍/输入门.png" alt=""></li>
+<li>细胞状态更新，细胞状态C(t)由两部分组成，第一部分是C(t−1)和遗忘门输出f(t)的乘积，第二部分是输入门的i(t)和a(t)的乘积，第一部分加上第二部分，如下图所示。<img src="/2018/06/19/RNN-LSTM介绍/细胞状态更新.png" alt=""></li>
+<li>输出门，隐藏状态h(t)的更新由两部分组成，第一部分是o(t),它由h(t−1)和x(t)以及激活函数sigmoid得到，第二部分由隐藏状态C(t)通过tanh激活函数, 第一部分乘以第二部分，如下图所示。知道了h(t)，进而知道了o(t)，和真实值对比，获得损失函数，进而训练即可。<img src="/2018/06/19/RNN-LSTM介绍/输出门.png" alt=""></li>
+<li>实际应用中LSTM的难点不在前向反向传播算法，这些有算法库，模型结构和一大堆参数的调参才是问题，理解LSTM模型结构是高效使用的前提。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/CNN介绍/" rel="next" title="CNN介绍">
+                <i class="fa fa-chevron-left"></i> CNN介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -393,6 +517,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -413,8 +551,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -494,6 +641,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-text">1 简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -610,6 +773,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -627,6 +794,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/06/19/RNN-LSTM介绍/';
+          this.page.identifier = '2018/06/19/RNN-LSTM介绍/';
+          this.page.title = 'RNN&LSTM介绍';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
