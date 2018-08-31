@@ -81,16 +81,16 @@
 
 <meta name="description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AdaBoost&amp;GDBT原理及推导">
+<meta property="og:title" content="AdaBoost&amp;GBDT原理及推导">
 <meta property="og:url" content="http://yoursite.com/2017/10/10/AdaBoost-GDBT原理及推导/index.html">
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2017/10/10/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/10/10/AdaBoost-GDBT原理及推导/05Adaboost_GBDT2.jpg">
-<meta property="og:updated_time" content="2018-07-10T05:52:13.859Z">
+<meta property="og:updated_time" content="2018-08-31T13:15:53.159Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AdaBoost&amp;GDBT原理及推导">
+<meta name="twitter:title" content="AdaBoost&amp;GBDT原理及推导">
 <meta name="twitter:description" content="原理 AdaBoost对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。">
 <meta name="twitter:image" content="http://yoursite.com/2017/10/10/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>AdaBoost&GDBT原理及推导 | Alive</title>
+  <title>AdaBoost&GBDT原理及推导 | Alive</title>
   
 
 
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AdaBoost&GDBT原理及推导</h1>
+          <h1 class="post-title" itemprop="name headline">AdaBoost&GBDT原理及推导</h1>
         
 
         <div class="post-meta">
@@ -433,7 +433,7 @@
         <ul>
 <li>原理<ul>
 <li>AdaBoost<br>对于存在强依赖关系的弱学习器，需要串行生成。先从初试训练集训练一个学习器，然后根据该学习器的表现对训练样本的分布进行调整，对于先前学习器犯错的样本给予更多的关注，继续生成学习器，重复上述步骤，直至训练了指定数目的学习器，然后将这些学习器进行加权结合，每个权重代表的是其对应分类器在上一轮迭代中的成功度。<a id="more"></a></li>
-<li>GDBT<br>是一种Boosting算法，但又与传统的boost算法思路不同，每次迭代不是对犯错的样本施以更高的权重。回归树在使用前项分步算法迭代中，下一轮是拟合上一轮的模型的负梯度在上一轮模型的值。</li>
+<li>GBDT<br>是一种Boosting算法，但又与传统的boost算法思路不同，每次迭代不是对犯错的样本施以更高的权重。回归树在使用前项分步算法迭代中，下一轮是拟合上一轮的模型的负梯度在上一轮模型的值。</li>
 </ul>
 </li>
 <li>推导<br>图片拖到新标签页，可仔细查看图片。<br><img src="/2017/10/10/AdaBoost-GDBT原理及推导/05Adaboost_GBDT1.jpg" alt=""><br><img src="/2017/10/10/AdaBoost-GDBT原理及推导/05Adaboost_GBDT2.jpg" alt=""></li>
@@ -755,7 +755,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2017/10/10/AdaBoost-GDBT原理及推导/';
           this.page.identifier = '2017/10/10/AdaBoost-GDBT原理及推导/';
-          this.page.title = 'AdaBoost&GDBT原理及推导';
+          this.page.title = 'AdaBoost&GBDT原理及推导';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

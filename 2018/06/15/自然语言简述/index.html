@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/C&W目标函数.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DM模型示意图.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/15/自然语言简述/DBOW模型示意图.jpg">
-<meta property="og:updated_time" content="2018-08-23T02:02:45.546Z">
+<meta property="og:updated_time" content="2018-08-31T03:12:12.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理概述">
 <meta name="twitter:description" content="1 相关术语 分词常用的手段是基于词典的正向/反向/双向最大匹配法+统计分词(HMM等)。">
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  12,082 字
+                  12,168 字
                 </span>
               
 
@@ -678,7 +678,7 @@
 <h2 id="7-文本向量化"><a href="#7-文本向量化" class="headerlink" title="7 文本向量化"></a>7 文本向量化</h2><ul>
 <li>7.1 向量化算法word2vec<br>认为上下文相似的词，其语义也相似。利用上下文分布表示词义的方法，这类方法就是有名的词空间模型（word space model）。神经网络词向量模型根据上下文与目标词之间的关系进行建模。<ul>
 <li>神经网络语言模型<ul>
-<li>神经网络语言模型（Neural Network Language Model，NNLM），和传统方法估算P(ωi|ωi-(n-1)，…，ωi-1)不同，NNLM模型直接通过一个神经网络结构对n元条件概率进行估计。输入的样本是，依次从文本取n-1个词，预测第n个词的概率。比如某个输入样本是x=[v(wi-(n-1));…;v(wi-2);v(wi-1)] ，输出y=[v(wi)]</li>
+<li>神经网络语言模型（Neural Network Language Model，NNLM），和传统方法估算P(ωi|ωi-(n-1)，…，ωi-1)不同，NNLM模型直接通过一个神经网络结构对n元条件概率进行估计。任务是根据语料库，求解词语向量矩阵即权重矩阵。求解的方法是，从语料库中取出一系列长度为n的样本，然后将这个样本one-hot矩阵表示，通过权重矩阵乘以这个one-hot矩阵，就能获得每个词语的向量，然后将这些词语拼接，则获得了这个长度为n的样本的向量化表达，参考<a href="https://blog.csdn.net/qq_39422642/article/details/78658309" target="_blank" rel="noopener">这里</a>。目标函数为使已知前n-1个词语第n个词的概率最大。</li>
 <li>NNLM模型使用低维紧凑的词向量对上文进行表示，解决了词袋模型带来的数据稀疏、语义鸿沟等问题；另一方面，在相似的上文语境中，NNLM模型可以预测出相似的目标词。例如，A=“一只小狗躺在地毯上”出现了2000次，B=“一只猫躺在地毯上”出现了1次。根据频率，P(A)要远远大于P(B)，而唯一的区别在于猫和狗，这两个词在词义和语法上都相似，而P(A)远大于P(B)显然是不合理的，采用NNLM计算则得到的P(A)和P(B)是相似的。每个词的输出概率y(ωi)即为所对应的点，将所有词连接，即组成了向量。</li>
 <li>NNLM模型的目标是构建一个语言概率模型，最费时的部分当属隐藏层到输出层的权重计算。简单的NNLM模型只有三层，输入层、隐藏层和输出层。</li>
 <li>希望能够在得知上文的情况下，知道y(wi)的概率。而y(wi)概率越大，说明上文越有效。则在语料库D中最大化y(ωi)便是NNLM模型的目标函数，如下<img src="/2018/06/15/自然语言简述/NNLM目标函数.jpg" alt=""></li>

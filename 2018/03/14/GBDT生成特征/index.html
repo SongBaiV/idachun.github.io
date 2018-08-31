@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="原理通过GDBT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
+<meta name="description" content="原理通过GBDT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
 <meta name="keywords" content="GBDT生成特征">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT生成特征">
 <meta property="og:url" content="http://yoursite.com/2018/03/14/GBDT生成特征/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="原理通过GDBT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
+<meta property="og:description" content="原理通过GBDT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T05:48:58.671Z">
+<meta property="og:updated_time" content="2018-08-31T13:18:12.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT生成特征">
-<meta name="twitter:description" content="原理通过GDBT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
+<meta name="twitter:description" content="原理通过GBDT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0">
 
 
 
@@ -429,7 +429,7 @@
 
       
         <ul>
-<li>原理<br>通过GDBT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0 0 0 0 1]<a id="more"></a></li>
+<li>原理<br>通过GBDT模型训练出很多棵树，每棵树的节点值是每个样本在这棵树上的预测值。同时，将样本在每棵树的节点的位置保存起来，比如[1,3,5]，表示样本在第一棵树节点位置为1，同理，在第二棵树的节点位置为3。对每个节点位置onehot编码，比如第一棵树共有3个节点，则1为001,同理，比如第二棵树有4个节点，则3为0010，假设第三棵树为5个节点，则[1,3,5]为[0 0 1 0 0 1 0 0 0 0 0 1]<a id="more"></a></li>
 <li>代码<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"></span><br><span class="line">X, y = make_classification(n_samples=<span class="number">10</span>) </span><br><span class="line"><span class="built_in">print</span> y</span><br><span class="line"><span class="built_in">print</span> X.shape</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
