@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 数据库种类关系数据库，如MySQL、Oracle、SQL Server、DB2、PostgreSQL等；键值存储系统；XML数据库；内存数据库；面向列数据库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL概述">
+<meta property="og:url" content="http://yoursite.com/2018/06/10/SQL概述/index.html">
+<meta property="og:site_name" content="Alive">
+<meta property="og:description" content="1 数据库种类关系数据库，如MySQL、Oracle、SQL Server、DB2、PostgreSQL等；键值存储系统；XML数据库；内存数据库；面向列数据库。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/SQL概述/原表1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/SQL概述/结果1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/SQL概述/结果2.jpg">
+<meta property="og:updated_time" content="2018-12-06T11:58:50.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL概述">
+<meta name="twitter:description" content="1 数据库种类关系数据库，如MySQL、Oracle、SQL Server、DB2、PostgreSQL等；键值存储系统；XML数据库；内存数据库；面向列数据库。">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/10/SQL概述/原表1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/10/SQL概述/"/>
+
+
+
+
+
+  <title>SQL概述 | Alive</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alive</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">dachun's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/SQL概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Deorlive_Wt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alive">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQL概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T15:34:49+08:00">
+                2018-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/10/SQL概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/10/SQL概述/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,774 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-数据库种类"><a href="#1-数据库种类" class="headerlink" title="1 数据库种类"></a>1 数据库种类</h2><p>关系数据库，如MySQL、Oracle、SQL Server、DB2、PostgreSQL等；键值存储系统；XML数据库；内存数据库；面向列数据库。<br><a id="more"></a></p>
+<h2 id="2-数据库结构"><a href="#2-数据库结构" class="headerlink" title="2 数据库结构"></a>2 数据库结构</h2><ul>
+<li>RDBMS使用客户端/服务器这样的系统结构。</li>
+<li>客户端向服务器端发送SQL语句来实现数据库的读写操作。</li>
+</ul>
+<h2 id="3-标准SQL"><a href="#3-标准SQL" class="headerlink" title="3 标准SQL"></a>3 标准SQL</h2><ul>
+<li>3.1 基本规则<ul>
+<li>不区分关键字的大小写</li>
+<li>字符串和日期常数需要使用单引号’括起来。</li>
+<li>标准sql中数据库名称、表名和列名名称必须以半角英文字母开头</li>
+</ul>
+</li>
+<li>3.2 数据类型<ul>
+<li>INTEGER，不能存储小数。</li>
+<li>CHAR，定长字符串，向 CHAR(8) 类型的列中输入’abc’的时候，会以 ‘abc ‘（abc 后面有 5 个半角空格）的形式保存起来。</li>
+<li>VARCHAR，可变长字符串，向 VARCHAR(8) 类型的列中输入字符串 ‘abc’ 的时候，保存的就是字符串’abc’。</li>
+<li>DATE，该类型，可以直接比较大小，即前后顺序。</li>
+</ul>
+</li>
+<li>3.3 约束        <ul>
+<li>NOT NULL</li>
+<li>PRIMARY KEY (column)</li>
+</ul>
+</li>
+<li><p>3.4 注释</p>
+  <figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 单行</span></span><br><span class="line">-- 内容</span><br><span class="line"><span class="meta"># 多行</span></span><br><span class="line"><span class="comment">/*   内容   */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.5 SQL语句执行失败时都不会对表中数据造成影响。</p>
+</li>
+</ul>
+<h2 id="4-基础语句"><a href="#4-基础语句" class="headerlink" title="4 基础语句"></a>4 基础语句</h2><ul>
+<li><p>4.1 DDL(data definiation language)</p>
+<ul>
+<li><p>create</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> shop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> product(</span><br><span class="line">product_id <span class="built_in">char</span>(<span class="number">4</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">product_name <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">product_type <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">sale_price <span class="built_in">integer</span>,</span><br><span class="line">purchase_price <span class="built_in">integer</span>,</span><br><span class="line">regist_date <span class="built_in">date</span>,</span><br><span class="line">primary <span class="keyword">key</span>(product_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>drop</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>alter</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 添加多列</span><br><span class="line">alter <span class="keyword">table</span> product <span class="comment">add column (</span></span><br><span class="line">c1 char(<span class="number">3</span>) not null,c2 varchar(<span class="number">10</span>)</span><br><span class="line">);</span><br><span class="line"># 删除多列</span><br><span class="line">alter <span class="keyword">table</span> product <span class="comment">drop column c1,</span></span><br><span class="line">drop column c2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rename</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> product <span class="keyword">to</span> products;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>4.2 DML(data manipulation language)</p>
+<ul>
+<li><p>4.2.1 select </p>
+<ul>
+<li><p>distinct</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># distinct,所有NULL值会显示一个NULL</span></span><br><span class="line"><span class="meta"># 只能用在第一个列名之前</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> product_type,regist_date <span class="keyword">from</span> products;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>where</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">where</span> 子句可以使用计算表达式</span><br><span class="line"><span class="keyword">SELECT</span> product_name FROM <span class="built_in">Product</span></span><br><span class="line"><span class="keyword">WHERE</span> sale_price - purchase_price &gt;= <span class="number">500</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>null<br>判断是否为NULL值:is NULL、is not NULL。</p>
+</li>
+<li><p>not</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NOT运算符</span></span><br><span class="line"><span class="keyword">where</span> c1&lt;c2等价于<span class="keyword">where</span> <span class="keyword">not</span> c1&gt;=c2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select * 和select 所有字段哪个好？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">（1）select *，需要数据库先Query Table Metadata For Columns，一定程度上为数据库增加了负担。但是实际上，两者效率差别不大。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">（2）考虑到今后的扩展性。因为程序里面你需要使用到的列毕竟是确定的，SELECT * 只是减少了一句 SQL String 的长度，并不能减少其他地方的代码。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">（3）使用SELECT *，不能设置列的显示顺序。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>别名<br>别名可以使用中文，使用中文时需要用双引号（”）括起来。</p>
+</li>
+<li><p>可以添加常数（字符串、数字、日期）列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">'商品'</span> <span class="keyword">AS</span> <span class="keyword">string</span>, <span class="number">38</span> <span class="keyword">AS</span> <span class="built_in">number</span>, <span class="string">'2009-02-24'</span> <span class="keyword">AS</span> <span class="built_in">date</span>,</span><br><span class="line">product_id, product_name <span class="keyword">FROM</span> Products;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>算术运算符</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 如果某列某行值是NULL，进行算术运算时，结果全是NULL</span></span><br><span class="line"><span class="keyword">SELECT</span> sale_price * <span class="number">2</span> <span class="keyword">AS</span> <span class="string">"sale_price_x2"</span> <span class="keyword">FROM</span> Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>FROM 字句有时不是必须的</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT (<span class="number">100</span> + <span class="number">200</span>) * <span class="number">3</span> AS calculation;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不等于运算符 &lt;&gt;</p>
+</li>
+<li>字符串类型的数据原则上按照字典顺序进行排序<br>比如在如下字符串中 ‘1’ ‘3’ ‘10’ ‘11’ ‘222’，大于字符’2’的有’3’ ‘222’，字符串内从左往右开始每个字符和2比。</li>
+</ul>
+</li>
+<li><p>4.2.2 insert</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 单行</span></span><br><span class="line">insert into product values ('<span class="number">0001</span>','T恤','衣服',<span class="number">1000</span>,<span class="number">500</span>,'<span class="number">2009-09-20</span>');</span><br><span class="line"><span class="meta"># 多行</span></span><br><span class="line">INSERT INTO product VALUES ('<span class="number">0002</span>', '打孔器', '办公用品', <span class="number">500</span>, <span class="number">320</span>, '<span class="number">2009-09-11</span>'),('<span class="number">0003</span>', '运动T恤', '衣服', <span class="number">4000</span>, <span class="number">2800</span>, <span class="literal">NULL</span>)</span><br><span class="line"><span class="meta"># insert ... select ... 语法，select子句</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.2.3 update … set</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># where子句放在<span class="keyword">set</span>子句之后</span><br><span class="line">UPDATE <span class="comment">Product</span></span><br><span class="line"><span class="keyword">SET</span> <span class="comment">sale_price = sale_price * 10,</span></span><br><span class="line">purchase_price <span class="comment">= purchase_price</span> / <span class="number">2</span></span><br><span class="line">WHERE product_type = <span class="comment">'厨房用具'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.2.4 delete</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">delete</span>语句只能使用<span class="keyword">where</span>子句</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> table1 <span class="keyword">where</span> c1&lt;<span class="number">500</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.2.5 truncate</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 只能删除全部数据，但是速度比<span class="keyword">delete</span>快</span><br><span class="line"><span class="keyword">truncate</span> table1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.2.6 事务</p>
+<ul>
+<li><p>4.2.6.1 语法<br>mysql每一条语句都括在事务的开始语句和结束语句之中。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line">... </span><br><span class="line"><span class="keyword">commit</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.6.6.2 ACID特性<br>原子性atomicity、一致性consistency、隔离性isolation和持久性durability</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.3 DCL(data controll language)<br>commit、rollback、grant和revoke等。</li>
+</ul>
+<h2 id="5-聚合与排序"><a href="#5-聚合与排序" class="headerlink" title="5 聚合与排序"></a>5 聚合与排序</h2><ul>
+<li><p>count</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># count<span class="comment">(*)，计算所有行数，包括全NULL行</span></span><br><span class="line"><span class="comment">select count(*)</span> <span class="keyword">from</span> table1;</span><br><span class="line"># 计算某个字段非NULL行数</span><br><span class="line"><span class="keyword">select</span> count(c1) <span class="keyword">from</span> table1;</span><br><span class="line"># 计算某个字段不重复行数</span><br><span class="line"><span class="keyword">select</span> count(<span class="keyword">distinct</span> c1) <span class="keyword">from</span> table1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>group by</p>
+<ul>
+<li>使用group by分组时，select子句只能选择常数、聚合函数以及分组列元素，其他列元素不可选</li>
+<li>group by子句结果是随机的</li>
+</ul>
+</li>
+<li>having<ul>
+<li>只有SELECT子句和HAVING子句（以及ORDER BY子句）中能够使用聚合函数。</li>
+<li>HAVING 子句必须写在 GROUP BY 子句之后，having的条件一般是select后的常数、聚合函数，分组列也可以，但分组列更多在where子句后限制</li>
+<li>where子句和having子句的执行速度：1，使用count()等聚合函数时，需要排序，排序很耗时，where子句提前减少了数据量；2，where子句可以创建索引，提高速度</li>
+</ul>
+</li>
+<li>order by<ul>
+<li>order by书写顺序放在having后</li>
+<li>由于 ASC 和 DESC 这两个关键字是以列为单位指定的，因此可以<br>同时指定一个列为升序，指定其他列为降序。</li>
+<li>多个排序键规则是优先使用左侧的键，如果该列存在相同值的话，再接着参考右侧的键。</li>
+<li>NULL值在排序时，mysql中全部排在前面</li>
+<li>ORDER BY子句中可以使用SELECT子句中未使用的列和聚合函数。</li>
+</ul>
+</li>
+<li>聚合函数会将NULL行排除在外，然后再计算</li>
+<li>sum()/avg()只能适用于数值型，但max()/min()可以适用非数值型排序类字段</li>
+</ul>
+<h2 id="6-复杂查询"><a href="#6-复杂查询" class="headerlink" title="6 复杂查询"></a>6 复杂查询</h2><ul>
+<li><p>6.1 视图</p>
+<ul>
+<li><p>创建删除</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 创建 </span></span><br><span class="line"><span class="keyword">create</span> <span class="built_in">view</span> temp1 as <span class="built_in">select</span> ...</span><br><span class="line"><span class="meta"># 删除</span></span><br><span class="line"><span class="built_in">drop</span> <span class="built_in">view</span> temp1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视图保存的是sql语句，执行时创建临时表<br>优点：1，不用存储在物理设备上，节约空间；2，写复杂sql时，常用的sql保存视图，频繁调用时节约时间。</p>
+</li>
+<li>多重视图会降低 SQL 的性能，尽量避免</li>
+<li>定义视图时不能使用ORDER BY子句</li>
+<li>更新视图时，有些限制，比如要求一张表、未使用distinct/group by/having等子句</li>
+</ul>
+</li>
+<li><p>6.2 子查询</p>
+<ul>
+<li>6.2.1 就是一段完整的sql语句</li>
+<li>6.2.2 尽量避免使用多层嵌套的子查询</li>
+<li><p>6.2.3 标量子查询<br>一次返回一个元素，即1行1列；可以适用于多种关键词子句中。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查询出销售单价高于平均销售单价的商品</span><br><span class="line"># where子句后不能使用聚合函数AVG()，所以只能使用标量子查询</span><br><span class="line"><span class="keyword">SELECT</span> product_name, sale_price</span><br><span class="line"><span class="keyword">FROM</span> Product</span><br><span class="line"><span class="keyword">WHERE</span> sale_price &gt; (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(sale_price) <span class="keyword">FROM</span> Product);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>6.2.4 关联子查询</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询出各商品种类中高于该商品种类的平均销售单价的商品</span></span><br><span class="line">SELECT product_type, product_name, sale_price</span><br><span class="line"><span class="keyword">FROM</span> Product AS P1</span><br><span class="line">WHERE sale_price &gt; (SELECT AVG(sale_price) <span class="keyword">FROM</span> Product AS P2</span><br><span class="line">WHERE P1.product_type = P2.product_type</span><br><span class="line">GROUP BY product_type);\</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一列，表示各商品种类平均价格</span></span><br><span class="line">select product_id,product_name,product_type,sale_price, </span><br><span class="line">(select avg(sale_price) <span class="keyword">from</span> product t2 where </span><br><span class="line">t1.<span class="attribute">product_type</span>=t2.product_type<span class="built_in"> GROUP </span>BY product_type) </span><br><span class="line">as avg_sale_price <span class="keyword">from</span> product t1;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-函数、谓词、CASE表达式"><a href="#7-函数、谓词、CASE表达式" class="headerlink" title="7 函数、谓词、CASE表达式"></a>7 函数、谓词、CASE表达式</h2><ul>
+<li><p>7.1 函数</p>
+<ul>
+<li>7.1.1 算数函数<ul>
+<li>ABS(-10),结果为10        </li>
+<li>MOD(7,3),结果为1        </li>
+<li>round(5.555,2),结果为5.55    </li>
+</ul>
+</li>
+<li>7.1.2 字符串函数<ul>
+<li>concat(str1,str2)<br>select str1,str2,concat(str1,str2) from table1;</li>
+<li>length(str1)<br>mysql以字节为单位，1个汉字两个字节，长度为2<br>select str1,length(str1) from table1;</li>
+<li>lower(str1)</li>
+<li>upper(str1)</li>
+<li>repalce(str1,str2,str3)<br>str1为abc太郎，str2为abc，str3为ABC，结果为ABC太郎</li>
+<li>substring(str1 from 2 for 2)<br>substring（字符串 from 起始位置 for 截取的字符个数）</li>
+</ul>
+</li>
+<li><p>7.1.3 日期函数</p>
+<ul>
+<li>current_date<br>返回当前日期2018-06-03<br>select current_date;</li>
+<li>current_time<br>返回当前时间 14:13:06</li>
+<li>current_timestamp<br>返回当前日期时间 2018-06-03 14:14:59</li>
+<li>extract(日期元素  from 日期)<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="keyword">current_timestamp</span>)</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="keyword">current_time</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>7.1.4 转换函数</p>
+<ul>
+<li>cast(转换前的值 as 数据类型)<br>select cast(product_id as signed integer) from product;</li>
+<li>coalesce(str1,’a’)<br>将str1列中的NULL值填充’a’<br>select coalesce(str1,’a’) from table1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>7.2 谓词</p>
+<ul>
+<li>like<br>前方一致，例如以ddd开头，’ddd%’；中间一致，例如包含ddd，’%ddd%’；后方一致，例如以ddd结尾，’%ddd’。<br>其中，%是代表“0字符以上的任意字符串”，_是代表“任意 1 个字符”</li>
+<li>between … and …<br>包括临界值</li>
+<li>is null、is not null</li>
+<li>in、not in<br>select * from table1 where price in (200,300,400)<br>in 后面可以接子查询</li>
+<li>exist<br>左侧没有任何参数，右侧书写 1 个参数，该参数通常都会是一个关联子查询。子查询中的SELECT * 是个习惯不重要，exist只关心记录是否存在，因此返回哪些列都没有关系。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> product_name, sale_price</span><br><span class="line"><span class="keyword">FROM</span> Product <span class="keyword">AS</span> P</span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line"><span class="keyword">NOT</span> <span class="keyword">EXISTS</span></span><br><span class="line"> (<span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> ShopProduct <span class="keyword">AS</span> SP</span><br><span class="line"><span class="keyword">WHERE</span> SP.shop_id = <span class="string">'000A'</span></span><br><span class="line"><span class="keyword">AND</span> SP.product_id = P.product_id);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>7.3 CASE表达式</p>
+<ul>
+<li><p>语法</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 求值表达式可以将其看作使用 =、 != 或者 LIKE、 BETWEEN 等谓词编写出来的表达式</span><br><span class="line"># 求值表达式为真，执行<span class="keyword">then</span>后面的表达式，返回一个元素，执行结束；不为真，执行下面的<span class="keyword">when</span>重复，都不为真，执行<span class="keyword">else</span></span><br><span class="line"># 使用分支众多的 <span class="keyword">CASE</span>表达式编写几十行代码的情况也并不少见</span><br><span class="line"><span class="keyword">CASE</span> <span class="keyword">WHEN</span> &lt;求值表达式&gt; <span class="keyword">THEN</span> &lt;表达式&gt;</span><br><span class="line">		   <span class="keyword">WHEN</span> &lt;求值表达式&gt; <span class="keyword">THEN</span> &lt;表达式&gt;</span><br><span class="line">		   <span class="keyword">WHEN</span> &lt;求值表达式&gt; <span class="keyword">THEN</span> &lt;表达式&gt;</span><br><span class="line">			···</span><br><span class="line"><span class="keyword">ELSE</span> &lt;表达式&gt;</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>示例<br>原表<img src="/2018/06/10/SQL概述/原表1.jpg" alt=""><br>输出结果1<img src="/2018/06/10/SQL概述/结果1.jpg" alt=""><br>代码1为</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">ELSE</span> 子句也可以省略不写，这时会被默认为 <span class="keyword">ELSE</span> NULL，但建议写。</span><br><span class="line"># <span class="keyword">end</span>不能省略</span><br><span class="line"><span class="keyword">SELECT</span>  product_name,</span><br><span class="line">   <span class="keyword">CASE</span> </span><br><span class="line">   WHEN product_type = <span class="string">'衣服'</span>     <span class="keyword">THEN</span> <span class="keyword">concat</span>(<span class="string">'A ：'</span>,product_type)</span><br><span class="line">   WHEN product_type = <span class="string">'办公用品'</span> <span class="keyword">THEN</span> <span class="keyword">concat</span>(<span class="string">'B ：'</span>,product_type)</span><br><span class="line">   WHEN product_type = <span class="string">'厨房用具'</span> <span class="keyword">THEN</span> <span class="keyword">concat</span>(<span class="string">'C ：'</span>,product_type)</span><br><span class="line">   <span class="keyword">ELSE</span> NULL</span><br><span class="line">   <span class="keyword">END</span> </span><br><span class="line">   <span class="keyword">AS</span> abc_product_type</span><br><span class="line"><span class="keyword">FROM</span> Product</span><br></pre></td></tr></table></figure>
+<p>输出结果2<img src="/2018/06/10/SQL概述/结果2.jpg" alt=""><br>代码2为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">   <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> product_type = <span class="string">'衣服'</span></span><br><span class="line">				  <span class="keyword">THEN</span> sale_price <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> sum_price_clothes,</span><br><span class="line">   <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> product_type = <span class="string">'厨房用具'</span></span><br><span class="line">				  <span class="keyword">THEN</span> sale_price <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> sum_price_kitchen,</span><br><span class="line">   <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> product_type = <span class="string">'办公用品'</span></span><br><span class="line">				  <span class="keyword">THEN</span> sale_price <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> sum_price_office</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-集合运算"><a href="#8-集合运算" class="headerlink" title="8 集合运算"></a>8 集合运算</h2><ul>
+<li><p>union</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 集合运算符会除去重复的记录</span></span><br><span class="line"><span class="comment"># union并列两边选取的字段列数要相同，类型要相同</span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product </span><br><span class="line"><span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product2;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以使用任何形式的 SELECT 语句，WHERE、 GROUP BY、 HAVING 等子句都可以使用，但ORDER BY子句只需要且只能在最后使用一次</span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product </span><br><span class="line">where product_type = <span class="string">'厨房用具'</span></span><br><span class="line"><span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product2</span><br><span class="line">where product_type = <span class="string">'厨房用具'</span></span><br><span class="line">order by product_id;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保留重复行，加上all</span></span><br><span class="line"><span class="comment"># 除了保留重复行外，UNION ALL 和UNION的不同之处在于它不会对结果进行排序，因此比UNION 的性能更好。</span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product </span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">all</span></span></span><br><span class="line"><span class="keyword">select</span> product_id,product_name from product2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>inner join=join<br>on子句必须书写在 from和 where之间</p>
+</li>
+<li><p>left outer join=left join</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成固定行数的单据时，就需要使用外联结。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># left 表示左边的表是主表，结果包含主表的全部数据，另一张表没有对应的默认NULL</span></span><br><span class="line">select <span class="keyword">a</span>.shop_id,<span class="keyword">a</span>.shop_name,<span class="keyword">a</span>.product_id,b.product_name,b.sale_price</span><br><span class="line"><span class="built_in">from</span> shopproduct <span class="keyword">a</span></span><br><span class="line">left join</span><br><span class="line">product b </span><br><span class="line"><span class="keyword">on</span> <span class="title">a</span>.<span class="title">product_id</span>=<span class="title">b</span>.<span class="title">product_id</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># left和right功能一样，常使用left</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>right outer join=right join<br>right表示右边的表是主表，结果包含主表的全部数据，另一张表没有对应的默认NULL</p>
+</li>
+<li>cross join<br>这种联结在实际业务中并不会使用。两个表的行数分别为m和n，则笛卡尔积结果为mn行。<br>集合运算中的除法通常称为关系除法。除法运算是集合运算中最复杂的运算，但是其在实际业务中的应用十分广泛，因此希望大家能在达到中级以上水平时掌握其使用方法。</li>
+</ul>
+<h2 id="9-SQL高级处理"><a href="#9-SQL高级处理" class="headerlink" title="9 SQL高级处理"></a>9 SQL高级处理</h2><ul>
+<li><p>9.1 窗口函数</p>
+<ul>
+<li>概述<br>MySQL版本5.7 不支持该功能。<br>语法：”窗口函数  OVER (PARTITION BY 某列 ORDER BY 某列)”,其中”PARTITION BY 某列”可省略。<br>窗口函数也称为 OLAP函数 ，online analytical processing，实时分析处理。<br>PARTITION BY 能够设定排序的对象范围,称之为窗口。<br>ORDER BY 能够指定按照哪一列、何种顺序进行排序。<br>窗口函数只能在SELECT子句中使用。<br>能够作为窗口函数的聚合函数（SUM、 AVG、 COUNT、 MAX、 MIN）。<br>专用窗口函数，RANK、 DENSE_RANK、 ROW_NUMBER 等。</li>
+<li><p>rank()</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,rank排名<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">4</span>，跳过<span class="number">2</span>,<span class="number">3</span>名</span><br><span class="line">SELECT product_name, product_type, sale_price,</span><br><span class="line">rank OVER (PARTITION BY product_type</span><br><span class="line">ORDER BY sale_price) AS ranking</span><br><span class="line">FROM Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dense_rank()</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,rank排名<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>，不跳过<span class="number">2</span>名</span><br><span class="line">SELECT product_name, product_type, sale_price,</span><br><span class="line">dense_rank() OVER (PARTITION BY product_type</span><br><span class="line">ORDER BY sale_price) AS ranking</span><br><span class="line">FROM Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>row_number()</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 5,5,5,6,rank排名1,2,3,4</span><br><span class="line"><span class="keyword">SELECT</span> product_name, product_type, sale_price,</span><br><span class="line">row_number() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> product_type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_price) <span class="keyword">AS</span> ranking</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sum()等聚合函数</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 累计聚合函数，如累积和、累计平均值、累计最大最小值、累计行数等</span><br><span class="line"><span class="keyword">SELECT</span> product_id, product_name, sale_price,</span><br><span class="line"><span class="built_in">SUM</span> (sale_price) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> product_id) <span class="keyword">AS</span> current_sum</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动平均</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 前2行，加上本行，共计3行</span><br><span class="line"><span class="keyword">SELECT</span> product_id, product_name, sale_price,</span><br><span class="line"><span class="built_in">AVG</span> (sale_price) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> product_id</span><br><span class="line">ROWS <span class="number">2</span> PRECEDING) <span class="keyword">AS</span> moving_avg</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br><span class="line"></span><br><span class="line"># 后2行，加上本行，共计3行</span><br><span class="line"><span class="keyword">SELECT</span> product_id, product_name, sale_price,</span><br><span class="line"><span class="built_in">AVG</span> (sale_price) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> product_id</span><br><span class="line">ROWS <span class="number">2</span> following) <span class="keyword">AS</span> moving_avg</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br><span class="line"></span><br><span class="line"># 前1行和后1行，假设本行，共计3行</span><br><span class="line"><span class="keyword">SELECT</span> product_id, product_name, sale_price,</span><br><span class="line"><span class="built_in">AVG</span> (sale_price) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> product_id</span><br><span class="line">ROWS <span class="keyword">BETWEEN</span> <span class="number">1</span> PRECEDING <span class="keyword">AND</span> </span><br><span class="line"><span class="number">1</span> FOLLOWING) <span class="keyword">AS</span> moving_avg</span><br><span class="line"><span class="keyword">FROM</span> Product;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql不分组排序</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @c1定义变量，:= 是赋值</span></span><br><span class="line">select product_name, product_type, sale_price,@c1:=@c1+<span class="number">1</span> <span class="keyword">as</span> row_number</span><br><span class="line"><span class="keyword">from</span> product,(select @c1:=<span class="number">0</span>) m</span><br><span class="line">order <span class="keyword">by</span> sale_price;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql分组排序</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按product_type分组排序</span></span><br><span class="line">SELECT</span><br><span class="line">		t.product_name,</span><br><span class="line">		t.product_type,</span><br><span class="line">		t.sale_price,</span><br><span class="line">		COUNT(*)     AS rank</span><br><span class="line">		<span class="keyword">FROM</span> product t</span><br><span class="line">LEFT JOIN product r</span><br><span class="line">ON t.product_type = r.product_type</span><br><span class="line"><span class="keyword">AND</span> t.sale_price &gt;= r.sale_price</span><br><span class="line">GROUP BY t.product_id ;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>9.2 grouping运算符</p>
+<ul>
+<li><p>rollup</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysql仅支持rollup</span></span><br><span class="line"><span class="comment"># 计算小计和合计值</span></span><br><span class="line">SELECT product_type, SUM(sale_price) AS sum_price</span><br><span class="line"><span class="keyword">FROM</span> Product</span><br><span class="line">GROUP BY product_type WITH ROLLUP;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>grouping</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 分辨超级分组记录中的 NULL 和原始数据本身的 NULL </span><br><span class="line"><span class="keyword">SELECT</span> GROUPING(product_type) <span class="keyword">AS</span> product_type,</span><br><span class="line">GROUPING(regist_date) <span class="keyword">AS</span> regist_date, <span class="built_in">SUM</span>(sale_price) <span class="keyword">AS</span> sum_price</span><br><span class="line"><span class="keyword">FROM</span> Product</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> ROLLUP(product_type, regist_date);</span><br><span class="line"></span><br><span class="line"># CAST(regist_date AS VARCHAR(16))，防止各个分支会分别返回日期类型和字符串类型的值，执行时就会发生语法错误</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> GROUPING(product_type) = <span class="number">1</span></span><br><span class="line"><span class="keyword">THEN</span> <span class="string">'商品种类 合计'</span></span><br><span class="line"><span class="keyword">ELSE</span> product_type <span class="keyword">END</span> <span class="keyword">AS</span> product_type,</span><br><span class="line"><span class="keyword">CASE</span> <span class="keyword">WHEN</span> GROUPING(regist_date) = <span class="number">1</span></span><br><span class="line"><span class="keyword">THEN</span> <span class="string">'登记日期 合计'</span></span><br><span class="line"><span class="keyword">ELSE</span> <span class="keyword">CAST</span>(regist_date <span class="keyword">AS</span> VARCHAR(<span class="number">16</span>)) <span class="keyword">END</span> <span class="keyword">AS</span> regist_date,</span><br><span class="line"><span class="built_in">SUM</span>(sale_price) <span class="keyword">AS</span> sum_price</span><br><span class="line"><span class="keyword">FROM</span> Product</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> ROLLUP(product_type, regist_date);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cube<br>和rollup语法一样，直接替换<br>CUBE，就是将 GROUP BY 子句中聚合键的“所有可能的组合”的汇总结果集中到一个结果中。因此，组合的个数就是 2的n次方（n 是聚合键的个数）。</p>
+</li>
+<li>grouping sets<br>GROUPING SETS可以用于从 ROLLUP 或者 CUBE 的结果中取出部分记录。</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.SQL基础教程（第2版）([日]MICK 著)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/Python-正则表达式/" rel="next" title="Python 正则表达式">
+                <i class="fa fa-chevron-left"></i> Python 正则表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/11/推荐系统简述/" rel="prev" title="推荐系统概述">
+                推荐系统概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Deorlive_Wt</p>
+              <p class="site-description motion-element" itemprop="description">戎马一生，天下青山一样</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/idachun" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3198677493?refer_flag=1001030201_&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据库种类"><span class="nav-text">1 数据库种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库结构"><span class="nav-text">2 数据库结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-标准SQL"><span class="nav-text">3 标准SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-基础语句"><span class="nav-text">4 基础语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-聚合与排序"><span class="nav-text">5 聚合与排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-复杂查询"><span class="nav-text">6 复杂查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-函数、谓词、CASE表达式"><span class="nav-text">7 函数、谓词、CASE表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-集合运算"><span class="nav-text">8 集合运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-SQL高级处理"><span class="nav-text">9 SQL高级处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/06/10/SQL概述/';
+          this.page.identifier = '2018/06/10/SQL概述/';
+          this.page.title = 'SQL概述';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search、xml.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+</body>
+</html>
