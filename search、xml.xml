@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hive编程概述]]></title>
+    <url>%2F2019%2F01%2F22%2FHive%E7%BC%96%E7%A8%8B%E6%A6%82%E8%BF%B0%2F</url>
+    <content type="text"><![CDATA[1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。 有一个挑战就是用户如何从一个现有的数据基础架构转移到Hadoop上，而这个基础架构是基于传统RDBMS和结构化查询语句(SQL)的。这是Hive出现的原因，Hive提供了一个称为Hive查询语言(HiveQL/HQL)的SQL方言，来查询存储在Hadoop集群中的数据。 对Java工程师而言，将常见的数据运算对应到底层的MapReduce JAVA API也是非常麻烦的。Hive可以将大多数的查询转化成MapReduce任务(job)。 Hive最适合用于数据仓库应用程序，来进行相关的静态数据分析，然后形成意见和报告。不需要快速响应给出结果，而且数据本身不会频繁变化。Hadoop及HDFS的设计本身约束和局限性限制了Hive的功能，最大的限制就是不支持记录级别的更新、删除和插入操作，只能通过查询生成新表或者将查询结果导入到文件中。因MapReduce启动耗时，Hive查询耗时严重。Hive也不支持事务。 Hive不支持OLTP所需的关键功能，更接近OLAP工具，因查询耗时，其实也不怎么满足OLAP中的”联机“含义。如果用户需要对大规模数据使用OLTP功能，可以选择一些NoSQL数据库，如HBase、Cassandra等。用户也可以和这些数据库结合来使用Hive。 HIVEQL和MySQL的语言最接近。 1.2 MapReduce介绍 Google的两篇MapReduce和GFS论文启发了Doug Cutting开发了Hadoop。 举例WordCount，是MapReduce框架的”hello world”程序。比如10个大文档，每个文档有多行，每行是一句句英语。 10个大文档被拆分成20个文档，20个文档分别触发一个Mapper进程。Mapper进程启动后，会频繁调用来处理文件中的每行文本，传入的键是这行的起始位置(比如1行2行)，值是这行对应的文本。Mapper进程会对传入的值按空格分割成一个个单词，然后每个单词输出一个键值对。键是该单词，值是个数1。 然后按照键值对进行排序sort，然后重新洗牌shuffle，将相同键的键值对分到一个reduce进程中，然后对值进行求和。 优化：如果Mapper进程只是对每个单词计数1，Sort和Shuffle过程会产生网络和磁盘I/O浪费。可以在Mapper进程跟踪单词频数，输出的键值对可以是“单词”-“在这个Mapper进程中出现的次数和”。 MapReduce框架的输入输出数据结构都是键值对。map操作将输入的一个键值对变成0到多个键值对，且输入和输出的键必须不同，值不要求。reduce操作将输入的某个键的所有键值对转换成一个键值对。 Hadoop将提交的job分解成多个独立的map和reduce任务(task)时，一般task所处的位置和要处理的数据的位置一样，减少网络开销。Hadoop会监控每个task，并重启失败的task。 Hadoop每个数据块(block)会复制多份，默认是3份，大小通常是64M的倍数。这么大的数据块可以在硬盘上连续存储，减少磁盘寻址次数。 1.3 Hive等其他高级工具 1.3.1 Hive 和Hive的交互方式，有CLI(命令行界面)和图形用户界面(如Cloudera开源项目Hue)两种。 Hive发行版中附带的模块有CLI、HIVE网络界面(HWI)以及可通过JDBC、ODBC和一个Thrift服务器进行编程访问的几个模块。 所有的命令和查询都会进入到Driver（驱动模块），该模块对输入进行解析编译优化，然后按步骤执行（通常是启动多个MapReduce任务job来执行）。当启动MapReduce任务时，Hive本身不会生成Java MapReduce程序，而是通过一个xml文件驱动执行内置的、原生的Mapper和Reducer模块。 Hive通过和JobTracker通信来初始化MapReduce任务(job)，不需要部署在JobTracker所在的管理节点上执行。大型集群中，通常会有网关机专门部署像Hive这样的工具，可远程和JobTracker通信。 通常数据文件是在HDFS中的，而HDFS是由NameNode进行管理。 Metastore（元数据存储）是一个独立的关系数据库（通常是一个MySQL实例），Hive会在其中保存表模式和其他系统元数据。 1.3.2 Pig由Yahoo开发，是一种数据流语言，而不是查询语言，其所定制的语言不是基于SQL的。步进式的数据流可以比一组复杂的查询更加直观，常用于ETL(抽取、转换和装载)过程的一部分，也就是将外部数据装载到Hadoop集群中，并转换成所期望的数据格式。Hadoop团队通常会将Hive和Pig结合使用，对于特定工作选择合适的工具。 1.3.3 HBase HBase是一个分布式的、可伸缩的数据存储，支持行级别的数据更新、快速查询和行级事务（不支持多行事务）。 设计灵感来自于Google的BigTable，HBase支持的一个重要特性就是列存储，其中的列可以组成列族。列族在分布式集群中物理上是存储在一起，当查询场景设计的列是所有列的一个子集时，读写速度会快很多。因为不需要读取所有的行然后丢弃大部分的列，而是只读取所需要的列。 可以像键-值存储一样来使用HBase，每一行都提供了一个唯一键来提供非常快的速度读写这一行的列或者列族。HBase还对每个列保留多个版本的值（按照时间戳进行标记），版本数量可配置。 HBase使用HDFS（或其他某种分布式文件系统）来持久化存储数据，使用了内存缓存技术对数据和本地文件进行追加数据更新操作日志。持久化文件将定期使用日志进行更新等操作。 HBase没有提供类似SQL的查询语言，但是Hive现在已经可以和HBase结合使用了。 1.3.4 Cascading、Crunch及其他 Apache Hadoop生态系统之外还有几个高级语言，当Hive本身没有提供额外的功能时，需要使用JAVA编码来拓展Hive功能，如Cascading、Crunch及其他。 对于一些事件流处理的工作，Spark、Storm、Kfaka等的结合能够取得很好的效果。]]></content>
+      <categories>
+        <category>Hadoop/Spark</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[RNN&LSTM介绍]]></title>
     <url>%2F2018%2F06%2F19%2FRNN-LSTM%E4%BB%8B%E7%BB%8D%2F</url>
     <content type="text"><![CDATA[1 RNN DNN和CNN中，训练样本的输入和输出是确定的。但有一类问题DNN和CNN不好解决，当训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。对于这类问题，RNN比较擅长。 循环神经网络(Recurrent Neural Networks)，它广泛的应用于自然语言处理中的语音识别，手写识别以及机器翻译等领域。 RNN假设样本是基于序列的，比如是从序列索引1到序列索引τ的。对于这其中的任意序列索引号t,它对应的输入是对应的样本序列中的x(t)。而模型在序列索引号t位置的隐藏状态h(t)，则由x(t)和在t−1位置的隐藏状态h(t−1)共同决定。在任意序列索引号t，有对应的模型预测输出o(t),o(t)只由模型当前的隐藏状态h(t)决定。通过预测输出o(t)和训练序列真实输出y(t),以及损失函数L(t)，就可以用DNN类似的方法来训练模型，接着用来预测测试序列中的一些位置的输出，如下图所示为常见的RNN模型结构。 RNN虽然理论上可以很漂亮的解决序列数据的训练，但是它也像DNN一样有梯度消失时的问题，当序列很长的时候问题尤其严重。因此，上面的RNN模型一般不能直接用于应用领域。在语音识别，手写识别以及机器翻译等NLP领域实际应用比较广泛的是基于RNN模型的一个特例LSTM。 2 LSTM LSTM(Long Short-Term Memory),可以避免常规RNN的梯度消失，在工业界广泛应用。LSTM在每个序列索引位置t的门一般包括遗忘门，输入门和输出门三种。和普通的神经网络DNN整体形式差不多，输入神经元-隐藏层-输出神经元，只是隐藏层之间有关联。比如一张图片28*28像素，可以分成28行，第一行有28个像素，即28个神经元，第二行也有28个神经元，第一行的隐藏层和第二行的隐藏层之间有关联。 省略去每层都有的o(t),L(t),y(t)，RNN的模型简化成如下图。 对于序列索引位置t的隐藏结构做了改进，来避免梯度消失的问题，这样的特殊RNN就是LSTM，LSTM的常见结构如下图。 在t时刻除了h(t)，还多了一个隐藏状态，如下图上面的长横线，称为细胞状态(Cell State)，记为C(t)。 遗忘门，在LSTM中以一定的概率控制是否遗忘上一层的隐藏细胞状态C(t-1)。图中输入的有上一序列的隐藏状态h(t−1)和本序列数据x(t)，通过一个激活函数，一般是sigmoid，得到遗忘门的输出f(t)。由于sigmoid的输出f(t)在[0,1]之间，因此这里的输出f(t)代表了遗忘上一层隐藏细胞状态的概率，f(t)再乘以C(t),遗忘门子结构如下图所示。 输入门负责处理当前序列位置的输入。输入门由两部分组成，第一部分使用了sigmoid激活函数，输出为i(t),第二部分使用了tanh激活函数，输出为a(t), 两者相乘再加上传递来的细胞状态，如下图所示。 细胞状态更新，细胞状态C(t)由两部分组成，第一部分是C(t−1)和遗忘门输出f(t)的乘积，第二部分是输入门的i(t)和a(t)的乘积，第一部分加上第二部分，如下图所示。 输出门，隐藏状态h(t)的更新由两部分组成，第一部分是o(t),它由h(t−1)和x(t)以及激活函数sigmoid得到，第二部分由隐藏状态C(t)通过tanh激活函数, 第一部分乘以第二部分，如下图所示。知道了h(t)，进而知道了o(t)，和真实值对比，获得损失函数，进而训练即可。 实际应用中LSTM的难点不在前向反向传播算法，这些有算法库，模型结构和一大堆参数的调参才是问题，理解LSTM模型结构是高效使用的前提。]]></content>
@@ -210,6 +218,9 @@
     <title><![CDATA[sql 操作案例]]></title>
     <url>%2F2017%2F10%2F20%2Fsql-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%2F</url>
     <content type="text"><![CDATA[用户行为记录表，计算相邻两次的差值(比如时间戳之差，作为用户观看时间) 1234spark.sql("select user_id,video_type,server_time,row_number() over(partition by user_id order by server_time) rank from playlog ").createOrReplaceTempView("a")spark.sql("select user_id,video_type,server_time,rank-1 as rank from a order by user_id,server_time").createOrReplaceTempView("b")spark.sql("select a.user_id,a.video_type,( b.server_time-a.server_time) watch_time from a left join b on a.user_id=b.user_id and a.rank=b.rank order by a.server_time").createOrReplaceTempView("c")spark.sql("select user_id,video_type, watch_time/60000.0 watch_time from c where watch_time is not null").createOrReplaceTempView("d")]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[pandas 常用函数]]></title>
@@ -220,9 +231,12 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[jupyter notebook 隐藏代码]]></title>
+    <title><![CDATA[Jupyter notebook 隐藏代码]]></title>
     <url>%2F2017%2F10%2F16%2Fjupyter-notebook-%E9%9A%90%E8%97%8F%E4%BB%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[代码如下：123456789101112131415from IPython.display import HTMLHTML('''&lt;script&gt;code_show=true; function code_toggle() &#123; if (code_show)&#123; $('div.input').hide(); &#125; else &#123; $('div.input').show(); &#125; code_show = !code_show&#125; $( document ).ready(code_toggle);&lt;/script&gt;&lt;form action="javascript:code_toggle()"&gt;&lt;input type="submit" value="Click here to toggle on/off the raw code."&gt;&lt;/form&gt;''')]]></content>
+      <categories>
+        <category>Jypyter</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[makedown 表格自动生成]]></title>
@@ -297,6 +311,14 @@
     <content type="text"><![CDATA[原理利用sigmoid函数对线性回归预测的结果进行映射，规定当sigmoid自变量&gt;0时，输出y为1代表正例，当sigmoid变量&lt;0时，输出y为0代表负例，利用极大似然法求解模型参数（极大似然法公式中也代表着使预测为正的概率最大和预测为负的概率最大）。 推导图片拖到新标签页，可仔细查看图片。]]></content>
       <categories>
         <category>算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[《沉思录》节选]]></title>
+    <url>%2F2017%2F01%2F08%2F%E6%B2%89%E6%80%9D%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[序言 作者是马可奥勒留，古罗马皇帝，自幼被皇帝收为养子后被推上帝位。哲学史上，属于斯多葛派。晚期的斯多葛派哲学家思考具体的生活伦理，关注的是在一个个体难以把握自己命运的广大世界里，如何让自己有限的一生发出善的光辉？ 奥勒留坦言受惠于埃比克太德的《对话录》甚多，埃比克太德早年曾是奴隶，后获释为自由人。 哲学原来并非如后世的哲学教科书那般呆板枯燥，如一堆殿堂上的木偶，而是一潭活水。 卷一本卷为奥勒留自述从身边的人或者历史人物中学到了哪些东西，有的不只是某些品格如谦和，还有的具体到某个具体的事情值得学习。很多方面都是大家都知道的大道理，但知易行难。 从阿珀洛尼厄斯那里学到，凡是除了依赖理性，别无他途。 养父（古罗马皇帝安东尼.派厄斯）身上，他也善于享受但不沉溺，对这些东西很多人是软弱地既不能放弃、也做不到有节制地享受的。 感谢神明，虽然我曾一度陷入情欲，最终还是得到了解脱。感谢神明，在我对哲学产生兴趣时，没有让我拜倒在任何诡辩家脚下。没有一味读死书或沉迷于逻辑推理，也没有过度专注于探究天国的奥秘。 卷二 不论地位如何，我的存在，不过是一具尸体、一阵呼吸、一份能支配自己的能力。假设你现在濒临死亡，好好想想：你已经垂垂老矣，不要让自己成为奴隶，听凭操纵，像木偶一样受各种冲动胡乱驱使，也不要再抱怨目前的处境，或者为将来忧虑。 抛开你对书本的渴望，这样你就不必在喋喋不休的抱怨中死去，而是怀着真正的欢欣和对神明的虔诚感激离开人世。 记住你已经拖延得很久了，神明赋予你的恩典已经够多了，你却没有好好把握。你的生命有限，如果不能用来消除思想上的困惑，这样的机会就再也没有了，再也不属于你，随着你的离世而永远地丧失了。 人的生命如此短暂，你的甚至已经接近尾声，却没有让自己获得荣耀，而将幸福寄托在别人的灵魂身上。 在生活中被自己的行为弄得筋疲力尽的人也同样是愚蠢的，他们的一切冲动没有目标，他们的思想是懵懂的。 如果一个人不能够看清别人灵魂，那也没有什么不妥；而很少留心自己内心动机的人，却注定不幸。 由欲望引起的过错比愤怒引起的过错更应该受到谴责。愤怒时，由于某种痛苦或内心的煎熬失去了理智；因欲望犯错是由于经不起快乐的诱惑，过错也就更不道德，缺乏男人应有的自制力。 让你的每一个行为、每一句话、每一种想法都像是即将辞世的人所做的最后一次吧。 万事万物在飞逝而去，那些以快乐诱惑我们、以痛苦恐吓我们的事物，以及浮华的名声，这一切都毫无价值，转瞬即逝，需要我们的理性来甄别。死亡不过是自然的一种转换，若是还害怕这种自然的转换，那就像小孩一样无知了。 没有比这更值得同情了：有的人对什么都要弄个究竟，连地下的事物都要刨根问底，还要琢磨邻人的想法，却不知道只要一心一意地供奉内心的神明就足够了，这样就能保持心灵的纯洁。不因激情和轻率而犯错，也不会对神灵的安排和人的作为感到不满。 人所失去的，只是他此刻所拥有的生活；人所拥有的，也只是他此刻正在失去的生活，因此，生命的长短没有什么不同。 属于身体的一切如同流水易逝，属于灵魂的宛若泡影，人生是一场战场，一段旅途，身后的名声也只会渐渐湮灭。那靠什么来保护指引我们呢？只有一样东西————这便是哲学，它能保护我们的灵魂始终纯洁，免受伤害，不被痛苦和快乐所驱使，能让我们做事不再漫无目的，也不会存心欺瞒，别人做什么或者不做什么都影响不了我们。更进一步，我们因此能够对一切发生或者注定的事情欣然领受，好像一切自有源头，理所应当。最重要的是，我们能够以一种愉快的心情等待死亡，因为这只是组成一切生物的元素的分解。如果元素本身在不断变化，变成其他事物的过程中并没有什么令人不快的，我们又何必恐惧这种变化和分解呢？ 卷三]]></content>
+      <categories>
+        <category>读书笔记</category>
       </categories>
   </entry>
 </search>
