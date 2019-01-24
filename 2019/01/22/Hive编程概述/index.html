@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-24T03:17:48.805Z">
+<meta property="og:updated_time" content="2019-01-24T07:07:01.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,167 字
+                  2,719 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -457,7 +457,7 @@
 <li>所有的命令和查询都会进入到Driver（驱动模块），该模块对输入进行解析编译优化，然后按步骤执行（通常是启动多个MapReduce任务job来执行）。当启动MapReduce任务时，Hive本身不会生成Java MapReduce程序，而是通过一个xml文件驱动执行内置的、原生的Mapper和Reducer模块。</li>
 <li>Hive通过和JobTracker通信来初始化MapReduce任务(job)，不需要部署在JobTracker所在的管理节点上执行。大型集群中，通常会有网关机专门部署像Hive这样的工具，可远程和JobTracker通信。</li>
 <li>通常数据文件是在HDFS中的，而HDFS是由NameNode进行管理。</li>
-<li>Metastore（元数据存储）是一个独立的关系数据库（通常是一个MySQL实例），Hive会在其中保存表模式和其他系统元数据。</li>
+<li>Metastore（元数据存储）是一个独立的关系数据库，Hive会在其中保存表模式和其他系统元数据。默认情况下，Hive使用内置的Derby SQL服务器，提供有限的单进程的存储服务，启动Hive会话时，Derby会在当前工作目录下创建metastore_db的目录。集群一般使用MySQL数据库。</li>
 </ul>
 </li>
 <li>1.3.2 Pig<br>由Yahoo开发，是一种数据流语言，而不是查询语言，其所定制的语言不是基于SQL的。步进式的数据流可以比一组复杂的查询更加直观，常用于ETL(抽取、转换和装载)过程的一部分，也就是将外部数据装载到Hadoop集群中，并转换成所期望的数据格式。<br>Hadoop团队通常会将Hive和Pig结合使用，对于特定工作选择合适的工具。</li>
@@ -489,7 +489,29 @@
 <li>伪分布式模式<br>这种模式下的行为和分布式模式一致，引用的文件系统是分布式文件系统，由JobTracker服务来管理job，但只有一台物理机。行为类似于一个节点的集群，比如文件块冗余数限制为1个备份。</li>
 </ul>
 </li>
-<li>2.1.3 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如</li>
+<li>2.1.3 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如 echo “a big apple” &gt; wc_in/a.txt、echo “big apple pen” &gt; wc_in/b.txt。然后执行命令，hadoop jar $HADOOP_HOME/hadoop-0.20.2-examples.jar wordcount wc_in wc_out。<br>输入输出为目录(wc_in,wc_out)，因为一般目录下有很多文件。</li>
+</ul>
+</li>
+<li>2.2 Hive的内部<br>  lib目录下的jar包文件，每个jar文件都实现了Hive功能的某个部分；bin目录下是各种Hive服务可执行文件，包括CLI等；conf目录存放配置文件，hive-default.xml.template包含了Hive提供的配置熟悉及默认值，一般用户在hive-site.xml修改属性。</li>
+<li>2.3 配置Hadoop环境<ul>
+<li>2.3.1 本地模式配置<ul>
+<li>Hive表数据存储位置，修改hive-site.xml文件，配置property属性，hive.metastore.warehouse.dir</li>
+<li>property属性，hive.metastore.local默认为true，然后使用JDBC直接和一个关系数据库进行通信；为false的话，将通过metastore server来进行通信。</li>
+<li>property属性，javax.jdo.option.ConnectionURL，告诉Hive如何连接metastore server，属性值中的databaseName是Derby的metastore_db目录的路径，通过这样设置可以解决每开启一个Hive会话Hive自动删除工作目录下的metastore_db。</li>
+</ul>
+</li>
+<li>2.3.2 分布式模式和伪分布式模式配置<ul>
+<li>job由JobTracker管理；每个工作节点执行的job task由TaskTracker管理；HDFS由NameNode管理；每个节点上的数据块由DataNode管理。</li>
+<li>为方便用户定义自己的数据仓库目录，执行这个语句，set hive.meatstore.warehouse.dir=/user/myname/hive/warehouse。一种是每次启动Hive CLI或在每个Hive脚本前加上这一句；另一种是将这种命令放在$HOME/.hiverc文件中，每一次启动Hive都会执行这个文件。</li>
+</ul>
+</li>
+<li>2.3.3 使用JDBC连接元数据<ul>
+<li>集群中，Hive的元数据存储一般使用MySQL。</li>
+<li>hive-site.xml中，javax.jdo.option.ConnectionURL设置值为jdbc:mysql://machine1/hive.db?createDatabaseIfNotExist=true，其中machine1为服务器名，hive_db为自定义数据库名。</li>
+<li>hive-site.xml中，javax.jdo.option.DriverName设置值为com.mysql.jdbc.Driver。</li>
+<li>需要将JDBC驱动jar包放在$HIVE_HOME/lib目录下。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
