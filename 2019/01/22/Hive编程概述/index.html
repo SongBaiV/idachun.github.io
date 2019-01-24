@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-24T07:07:01.756Z">
+<meta property="og:updated_time" content="2019-01-24T07:27:58.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,719 字
+                  2,877 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10 分钟
+                  11 分钟
                 </span>
               
             </div>
@@ -512,8 +512,19 @@
 <li>需要将JDBC驱动jar包放在$HIVE_HOME/lib目录下。</li>
 </ul>
 </li>
+<li>2.3.4 Hive命令<ul>
+<li>hive –service name即可启动相应的服务</li>
+<li>cli<br>命令行界面，语句hive即可启动，hive默认为hive –service cli</li>
+<li>hiveserver<br>监听来自其他进程的Thrift连接的一个守护进程。</li>
+<li>hwi<br>可以执行查询语句和其他命令的简单web界面。</li>
+<li>jar<br>可以执行需要Hive环境的应用。</li>
+<li>–auxpath选项允许用户指定一个以冒号分割的jar包，jar包中包含有用户需要的自定义拓展。</li>
+<li>–config，可以覆盖$HIVE-HOME/conf默认的属性配置，指向一个新的配置文件目录。 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li>2.4 命令行界面</li>
 </ul>
 
       
