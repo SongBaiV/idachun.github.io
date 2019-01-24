@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-24T07:27:58.437Z">
+<meta property="og:updated_time" content="2019-01-24T09:17:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,877 字
+                  3,230 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -460,7 +460,11 @@
 <li>Metastore（元数据存储）是一个独立的关系数据库，Hive会在其中保存表模式和其他系统元数据。默认情况下，Hive使用内置的Derby SQL服务器，提供有限的单进程的存储服务，启动Hive会话时，Derby会在当前工作目录下创建metastore_db的目录。集群一般使用MySQL数据库。</li>
 </ul>
 </li>
-<li>1.3.2 Pig<br>由Yahoo开发，是一种数据流语言，而不是查询语言，其所定制的语言不是基于SQL的。步进式的数据流可以比一组复杂的查询更加直观，常用于ETL(抽取、转换和装载)过程的一部分，也就是将外部数据装载到Hadoop集群中，并转换成所期望的数据格式。<br>Hadoop团队通常会将Hive和Pig结合使用，对于特定工作选择合适的工具。</li>
+<li>1.3.2 Pig<ul>
+<li>由Yahoo开发，是一种数据流语言，而不是查询语言，其所定制的语言不是基于SQL的。步进式的数据流可以比一组复杂的查询更加直观，常用于ETL(抽取、转换和装载)过程的一部分，也就是将外部数据装载到Hadoop集群中，并转换成所期望的数据格式。</li>
+<li>Hadoop团队通常会将Hive和Pig结合使用，对于特定工作选择合适的工具。</li>
+</ul>
+</li>
 <li>1.3.3 HBase<ul>
 <li>HBase是一个分布式的、可伸缩的数据存储，支持行级别的数据更新、快速查询和行级事务（不支持多行事务）。</li>
 <li>设计灵感来自于Google的BigTable，HBase支持的一个重要特性就是列存储，其中的列可以组成列族。列族在分布式集群中物理上是存储在一起，当查询场景设计的列是所有列的一个子集时，读写速度会快很多。因为不需要读取所有的行然后丢弃大部分的列，而是只读取所需要的列。</li>
@@ -471,11 +475,13 @@
 </li>
 <li>1.3.4    Cascading、Crunch及其他<ul>
 <li>Apache Hadoop生态系统之外还有几个高级语言，当Hive本身没有提供额外的功能时，需要使用JAVA编码来拓展Hive功能，如Cascading、Crunch及其他。</li>
-<li>对于一些事件流处理的工作，Spark、Storm、Kfaka等的结合能够取得很好的效果。<h2 id="2-基础操作"><a href="#2-基础操作" class="headerlink" title="2 基础操作"></a>2 基础操作</h2></li>
+<li>对于一些事件流处理的工作，Spark、Storm、Kfaka等的结合能够取得很好的效果。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<h2 id="2-基础操作"><a href="#2-基础操作" class="headerlink" title="2 基础操作"></a>2 基础操作</h2><ul>
 <li>2.1 安装步骤<ul>
 <li>2.1.1 虚拟机安装</li>
 <li>2.1.2 JAVA和HADOOP安装<ul>
@@ -489,7 +495,7 @@
 <li>伪分布式模式<br>这种模式下的行为和分布式模式一致，引用的文件系统是分布式文件系统，由JobTracker服务来管理job，但只有一台物理机。行为类似于一个节点的集群，比如文件块冗余数限制为1个备份。</li>
 </ul>
 </li>
-<li>2.1.3 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如 echo “a big apple” &gt; wc_in/a.txt、echo “big apple pen” &gt; wc_in/b.txt。然后执行命令，hadoop jar $HADOOP_HOME/hadoop-0.20.2-examples.jar wordcount wc_in wc_out。<br>输入输出为目录(wc_in,wc_out)，因为一般目录下有很多文件。</li>
+<li>2.1.4 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如 echo “a big apple” &gt; wc_in/a.txt、echo “big apple pen” &gt; wc_in/b.txt。然后执行命令，hadoop jar $HADOOP_HOME/hadoop-0.20.2-examples.jar wordcount wc_in wc_out。<br>输入输出为目录(wc_in,wc_out)，因为一般目录下有很多文件。</li>
 </ul>
 </li>
 <li>2.2 Hive的内部<br>  lib目录下的jar包文件，每个jar文件都实现了Hive功能的某个部分；bin目录下是各种Hive服务可执行文件，包括CLI等；conf目录存放配置文件，hive-default.xml.template包含了Hive提供的配置熟悉及默认值，一般用户在hive-site.xml修改属性。</li>
@@ -524,9 +530,23 @@
 </li>
 </ul>
 </li>
-<li>2.4 命令行界面</li>
+<li><p>2.4 命令行界面</p>
+<ul>
+<li><p>查询CLI选项列表</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">hive</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">help</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">service</span> <span class="comment">cli</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hive使用过程中，有好几种命名空间。hivevar，用户自定义变量；hiveconf，hive相关配置属性；system，java相关配置属性；env，shell（如bash）环境定义的环境变量。</p>
+</li>
+<li><p>CLI中，set可以显示和修改变量</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#等价于 hive --hivevar foo=bar</span></span><br><span class="line">hive --define <span class="attribute">foo</span>=bar</span><br><span class="line"><span class="comment">#显示变量</span></span><br><span class="line">hive&gt; <span class="builtin-name">set</span> hivevar:foo</span><br><span class="line"><span class="comment">#修改变量</span></span><br><span class="line">hive&gt; <span class="builtin-name">set</span> hivevar:<span class="attribute">foo</span>=bar2</span><br><span class="line"><span class="comment"># 设置hive属性</span></span><br><span class="line">hive --hiveconf hive.cli.print.current.<span class="attribute">db</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hive查询</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询结果保存，自动退出CLI。-S是静默模式，省略一些不必要的输出，输出是在本地文件系统，不是HDFS</span></span><br><span class="line">hive -S -e "select * from table1 limit 5" &gt; /tmp/temp1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 模糊查找某个属性名</span></span><br><span class="line">hive -S -e "set" | grep warehouse</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行脚本，一般后缀名为.q或.hql</span></span><br><span class="line">hive -f /path/1.hql</span><br><span class="line"><span class="meta">#</span><span class="bash"> CLI界面执行脚本</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> <span class="built_in">source</span> /path/1.hql</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中执行shell命令，命令前加！，以分号结尾</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! /bin/<span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span>;</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! <span class="built_in">pwd</span>;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中使用hadoop dfs命令，去掉hadoop，以分号结尾</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上比在bash中执行hadoop dfs···更高效，因为之前每次都会启动一个JVM实例，而hive会在同一个进程执行命令。</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> dfs -ls /</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 脚本中，以--表示注释</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hive会将最近的10000行命令记录保存在<span class="variable">$HOME</span>/.hivehistory中。</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-
+</li>
+</ul>
+<h2 id="3-数据类型和文件格式"><a href="#3-数据类型和文件格式" class="headerlink" title="3 数据类型和文件格式"></a>3 数据类型和文件格式</h2>
       
     </div>
     
@@ -667,7 +687,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -716,7 +736,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础操作"><span class="nav-text">2 基础操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础操作"><span class="nav-text">2 基础操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据类型和文件格式"><span class="nav-text">3 数据类型和文件格式</span></a></li></ol></div>
             
 
           </div>
