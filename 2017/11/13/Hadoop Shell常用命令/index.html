@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Hadoop命令 查询目录文件大小 1hdfs dfs -du -h  /">
+<meta name="description" content="Hadoop命令 查询有哪些目录 1hdfs dfs -ls /  用管道查看文件(more/head/tail等) 1hdfs dfs -cat wc_out/* | more  查询目录文件大小  1hdfs dfs -du -h  /">
 <meta name="keywords" content="Hadoop命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop Shell命令">
 <meta property="og:url" content="http://yoursite.com/2017/11/13/Hadoop Shell常用命令/index.html">
 <meta property="og:site_name" content="Alive">
-<meta property="og:description" content="Hadoop命令 查询目录文件大小 1hdfs dfs -du -h  /">
+<meta property="og:description" content="Hadoop命令 查询有哪些目录 1hdfs dfs -ls /  用管道查看文件(more/head/tail等) 1hdfs dfs -cat wc_out/* | more  查询目录文件大小  1hdfs dfs -du -h  /">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T09:47:46.485Z">
+<meta property="og:updated_time" content="2019-01-24T03:25:08.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop Shell命令">
-<meta name="twitter:description" content="Hadoop命令 查询目录文件大小 1hdfs dfs -du -h  /">
+<meta name="twitter:description" content="Hadoop命令 查询有哪些目录 1hdfs dfs -ls /  用管道查看文件(more/head/tail等) 1hdfs dfs -cat wc_out/* | more  查询目录文件大小  1hdfs dfs -du -h  /">
 
 
 
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  63 字
+                  102 字
                 </span>
               
 
@@ -429,7 +429,14 @@
 
       
         <h2 id="Hadoop命令"><a href="#Hadoop命令" class="headerlink" title="Hadoop命令"></a>Hadoop命令</h2><ul>
-<li>查询目录文件大小 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hdfs</span> dfs -du -h  /</span><br></pre></td></tr></table></figure>
+<li><p>查询有哪些目录</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -<span class="keyword">ls</span> /</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用管道查看文件(more/head/tail等)</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat wc<span class="number">_</span><span class="keyword">out</span><span class="comment">/* | more</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询目录文件大小 </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hdfs</span> dfs -du -h  /</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <a id="more"></a>
@@ -443,8 +450,10 @@
 <li><p>上传文件到hdfs上 </p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put .<span class="regexp">/output/</span> <span class="regexp">/user/</span>portrait<span class="regexp">/scgd/</span>data0</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>给命令起别名</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> <span class="title">hfs</span>= hdfs dfs</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p><br></p>
 
       
     </div>
@@ -574,7 +583,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

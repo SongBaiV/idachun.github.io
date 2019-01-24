@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T06:28:18.374Z">
+<meta property="og:updated_time" content="2019-01-24T03:17:48.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,770 字
+                  2,167 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -471,9 +471,25 @@
 </li>
 <li>1.3.4    Cascading、Crunch及其他<ul>
 <li>Apache Hadoop生态系统之外还有几个高级语言，当Hive本身没有提供额外的功能时，需要使用JAVA编码来拓展Hive功能，如Cascading、Crunch及其他。</li>
-<li>对于一些事件流处理的工作，Spark、Storm、Kfaka等的结合能够取得很好的效果。</li>
+<li>对于一些事件流处理的工作，Spark、Storm、Kfaka等的结合能够取得很好的效果。<h2 id="2-基础操作"><a href="#2-基础操作" class="headerlink" title="2 基础操作"></a>2 基础操作</h2></li>
 </ul>
 </li>
+</ul>
+</li>
+<li>2.1 安装步骤<ul>
+<li>2.1.1 虚拟机安装</li>
+<li>2.1.2 JAVA和HADOOP安装<ul>
+<li>配置JAVA_HOME和PATH，一种方法是在/etc/profile文件末尾追加；另一种方法是在/etc/profile.d目录下新建bash文件如java.sh,在文件中添加这两项。如果用户不希望影响到系统的其他用户，可以将JAVA_HOME和PATH环境变量的定义加入到用户的$HOME/.bashrc文件中。</li>
+<li>配置HADOOP_HOME和PATH，其他同上</li>
+</ul>
+</li>
+<li>2.1.3 Hadoop运行模式<ul>
+<li>本地模式<br>使用的是本地文件系统，执行Hadoop job时（包含大多数的Hive查询），Map task和Reduce task在同一个进程执行。</li>
+<li>分布式模式<br>真实的集群是这种模式，没有完整URL指定的路径都是HDFS的路径，由JobTracker服务来管理job，不同的task在不同的进程执行。<br>即使是在分布式模式下执行，Hive也可以在提交查询前判断是否可以用本地模式来执行查询，当数据量不大时，本地模式查询更快。可以在$HOME/.hiverc文件中添加命令sethive.exec.mode.local.auto=true，来使用这个功能。</li>
+<li>伪分布式模式<br>这种模式下的行为和分布式模式一致，引用的文件系统是分布式文件系统，由JobTracker服务来管理job，但只有一台物理机。行为类似于一个节点的集群，比如文件块冗余数限制为1个备份。</li>
+</ul>
+</li>
+<li>2.1.3 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如</li>
 </ul>
 </li>
 </ul>
@@ -596,7 +612,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础操作"><span class="nav-text">2 基础操作</span></a></li></ol></div>
             
 
           </div>
