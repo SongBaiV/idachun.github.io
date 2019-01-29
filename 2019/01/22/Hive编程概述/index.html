@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-24T09:17:57.000Z">
+<meta property="og:updated_time" content="2019-01-29T07:02:01.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,230 字
+                  4,085 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -546,7 +546,39 @@
 </ul>
 </li>
 </ul>
-<h2 id="3-数据类型和文件格式"><a href="#3-数据类型和文件格式" class="headerlink" title="3 数据类型和文件格式"></a>3 数据类型和文件格式</h2>
+<h2 id="3-数据类型和文件格式"><a href="#3-数据类型和文件格式" class="headerlink" title="3 数据类型和文件格式"></a>3 数据类型和文件格式</h2><ul>
+<li>3.1 基本数据类型<ul>
+<li>常用的数据类型有TINYINT、SMALLINT、INT、BIGINT、BOOLEAN、FLOAT、DOUBLE、STRING、TIMESTAMP和BINARAY(字节数组)等。所有的数据类型都是对JAVA接口的实现，行为细节和JAVA对应的类型是一致的。</li>
+<li>很多数据库中，其SQL方言提供限制最大长度的字符串数组，Hive不支持这种。关系型数据库中，出于性能优化的考虑，定长的数组更容易建立索引、数据扫描等。Hadoop和Hive强调优化磁盘的读和写的性能，而限制列的值的长度相对来说没那么重要。</li>
+<li>Hive在查询比较不同数据类型的列时，会有隐式转换。如float和double比较，会先将float转化double类型。</li>
+</ul>
+</li>
+<li><p>3.2 集合数据类型</p>
+<ul>
+<li>Hive的列支持三种集合类型，分别是struct、map和array。</li>
+<li>struct是指对象，可以包含好几张元素，表示不同性质；array是指数组，同种元素；map是指键值对。</li>
+<li>。大多数关系数据库并不支持这些集合数据类型，因为会破坏标准格式。破坏标准格式会增大数据冗余的风险，消耗不必要的磁盘空间，还有可能造成数据不一致，数据改变时冗余的拷贝数据可能没有及时更新。好处就是可以增大吞吐量，当数据量级是T或者P时，以最少的“头部寻址”扫描数据是非常有必要的。按数据集进行封装的话，可以通过减少寻址次数来提高查询速度。如果根据外键关系关联的话，需要进行磁盘间的寻址操作，有非常高的性能损耗。</li>
+<li>Hive中没有键的概念，但是用户可以对表建立索引。<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># suboardinates指有哪些下属；duductions指薪酬有哪些扣费项目及扣费多少；address指街道地址、城市地址和州地址等</span></span><br><span class="line">create table employees(</span><br><span class="line">name string,</span><br><span class="line">salary float,</span><br><span class="line">suboardinates array&lt;STRING&gt;,</span><br><span class="line">duductions MAP&lt;STRING,FLOAT&gt;,</span><br><span class="line">address  STRUCT&lt;street:STRING,city:STRING,state:STRING&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>3.3 文本文件数据编码<br>指定数据存储时用得编码</p>
+<ul>
+<li>分隔符 \n  ,用于换行</li>
+<li>分隔符 ^A  ,用于分隔字段，八进制编码\001表示</li>
+<li>分隔符 ^B  ,用于分隔struct和array的元素，也可以分隔map键值对，八进制编码\002表示</li>
+<li>分隔符 ^C  ,用于分隔map键值对，八进制编码\003表示<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># suboardinates指有哪些下属；duductions指薪酬有哪些扣费项目及扣费多少；address指街道地址、城市地址和州地址等</span></span><br><span class="line"><span class="meta"># 最后两句不需要row format delimited，默认情况下是textline格式</span></span><br><span class="line"><span class="meta"># 分隔符 \n ，Hive只支持这种，其他的可以自定义。</span></span><br><span class="line">create table employees(</span><br><span class="line">name <span class="built_in">string</span>,</span><br><span class="line">salary float,</span><br><span class="line">suboardinates array&lt;<span class="built_in">STRING</span>&gt;,</span><br><span class="line">duductions MAP&lt;<span class="built_in">STRING</span>,FLOAT&gt;,</span><br><span class="line">address  STRUCT&lt;street:<span class="built_in">STRING</span>,city:<span class="built_in">STRING</span>,state:<span class="built_in">STRING</span>&gt;</span><br><span class="line">);</span><br><span class="line">row format delimited</span><br><span class="line">fields terminated <span class="keyword">by</span> <span class="comment">'\001'</span></span><br><span class="line">collection items terminated <span class="keyword">by</span> <span class="comment">'\002'</span></span><br><span class="line">map keys terminated <span class="keyword">by</span> <span class="comment">'\003'</span></span><br><span class="line">lines terminated <span class="keyword">by</span> <span class="comment">'\n'</span></span><br><span class="line">stored <span class="keyword">as</span> textline;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>3.4 读时模式</p>
+<ul>
+<li>传统数据库是写时模式，数据写入数据库时对模式进行检查。</li>
+<li>Hive是读时模式，数据查询的时候检查，如果没有该字段会有很多的null值、读取数值列时发现非数值的字符串类型会返回null值。Hive尽可能地将各种错误恢复过来。</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
