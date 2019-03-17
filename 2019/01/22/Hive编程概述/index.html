@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Alive">
 <meta property="og:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-29T07:02:01.978Z">
+<meta property="og:updated_time" content="2019-02-16T13:46:07.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive编程概述">
 <meta name="twitter:description" content="1 基础知识 1.1 概述 Hadoop实现了一个特别的计算模型，也就是MapReduce，可以将计算任务分割成多个处理单元然后分散到一群普通的机器上，从而降低成本并提供水平可伸缩性。计算模型的下面是称为Hadoop分布式文件系统(HDFS)的分布式文件系统。">
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,085 字
+                  4,178 字
                 </span>
               
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15 分钟
+                  16 分钟
                 </span>
               
             </div>
@@ -491,14 +491,14 @@
 </li>
 <li>2.1.3 Hadoop运行模式<ul>
 <li>本地模式<br>使用的是本地文件系统，执行Hadoop job时（包含大多数的Hive查询），Map task和Reduce task在同一个进程执行。</li>
-<li>分布式模式<br>真实的集群是这种模式，没有完整URL指定的路径都是HDFS的路径，由JobTracker服务来管理job，不同的task在不同的进程执行。<br>即使是在分布式模式下执行，Hive也可以在提交查询前判断是否可以用本地模式来执行查询，当数据量不大时，本地模式查询更快。可以在$HOME/.hiverc文件中添加命令sethive.exec.mode.local.auto=true，来使用这个功能。</li>
+<li>分布式模式<br>真实的集群是这种模式，没有完整URL指定的路径都是HDFS的路径，由JobTracker服务来管理job，不同的task在不同的进程执行。<br>即使是在分布式模式下执行，Hive也可以在提交查询前判断是否可以用本地模式来执行查询，当数据量不大时，本地模式查询更快。可以在$HOME/.hiverc文件中添加命令set hive.exec.mode.local.auto=true，来使用这个功能。</li>
 <li>伪分布式模式<br>这种模式下的行为和分布式模式一致，引用的文件系统是分布式文件系统，由JobTracker服务来管理job，但只有一台物理机。行为类似于一个节点的集群，比如文件块冗余数限制为1个备份。</li>
 </ul>
 </li>
 <li>2.1.4 测试WordCount例子<br>新建输入文件夹wc_in，下面放几个文本，如 echo “a big apple” &gt; wc_in/a.txt、echo “big apple pen” &gt; wc_in/b.txt。然后执行命令，hadoop jar $HADOOP_HOME/hadoop-0.20.2-examples.jar wordcount wc_in wc_out。<br>输入输出为目录(wc_in,wc_out)，因为一般目录下有很多文件。</li>
 </ul>
 </li>
-<li>2.2 Hive的内部<br>  lib目录下的jar包文件，每个jar文件都实现了Hive功能的某个部分；bin目录下是各种Hive服务可执行文件，包括CLI等；conf目录存放配置文件，hive-default.xml.template包含了Hive提供的配置熟悉及默认值，一般用户在hive-site.xml修改属性。</li>
+<li>2.2 Hive的内部<br>  lib目录下的jar包文件，每个jar文件都实现了Hive功能的某个部分；bin目录下是各种Hive服务可执行文件，包括CLI等；conf目录存放配置文件，hive-default.xml.template包含了Hive提供的配置属性及默认值，一般用户在hive-site.xml修改属性(没有则新建)。</li>
 <li>2.3 配置Hadoop环境<ul>
 <li>2.3.1 本地模式配置<ul>
 <li>Hive表数据存储位置，修改hive-site.xml文件，配置property属性，hive.metastore.warehouse.dir</li>
@@ -541,7 +541,7 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#等价于 hive --hivevar foo=bar</span></span><br><span class="line">hive --define <span class="attribute">foo</span>=bar</span><br><span class="line"><span class="comment">#显示变量</span></span><br><span class="line">hive&gt; <span class="builtin-name">set</span> hivevar:foo</span><br><span class="line"><span class="comment">#修改变量</span></span><br><span class="line">hive&gt; <span class="builtin-name">set</span> hivevar:<span class="attribute">foo</span>=bar2</span><br><span class="line"><span class="comment"># 设置hive属性</span></span><br><span class="line">hive --hiveconf hive.cli.print.current.<span class="attribute">db</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Hive查询</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询结果保存，自动退出CLI。-S是静默模式，省略一些不必要的输出，输出是在本地文件系统，不是HDFS</span></span><br><span class="line">hive -S -e "select * from table1 limit 5" &gt; /tmp/temp1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 模糊查找某个属性名</span></span><br><span class="line">hive -S -e "set" | grep warehouse</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行脚本，一般后缀名为.q或.hql</span></span><br><span class="line">hive -f /path/1.hql</span><br><span class="line"><span class="meta">#</span><span class="bash"> CLI界面执行脚本</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> <span class="built_in">source</span> /path/1.hql</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中执行shell命令，命令前加！，以分号结尾</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! /bin/<span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span>;</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! <span class="built_in">pwd</span>;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中使用hadoop dfs命令，去掉hadoop，以分号结尾</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上比在bash中执行hadoop dfs···更高效，因为之前每次都会启动一个JVM实例，而hive会在同一个进程执行命令。</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> dfs -ls /</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 脚本中，以--表示注释</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hive会将最近的10000行命令记录保存在<span class="variable">$HOME</span>/.hivehistory中。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询结果保存，自动退出CLI。-S是静默模式，省略一些不必要的输出，输出是在本地文件系统，不是HDFS</span></span><br><span class="line">hive -S -e "select * from table1 limit 5" &gt; /tmp/temp1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 模糊查找某个属性名</span></span><br><span class="line">hive -S -e "set" | grep warehouse</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行脚本，一般后缀名为.q或.hql</span></span><br><span class="line">hive -f /path/1.hql</span><br><span class="line"><span class="meta">#</span><span class="bash"> CLI界面执行脚本</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> <span class="built_in">source</span> /path/1.hql</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中执行shell命令，命令前加！，以分号结尾</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! /bin/<span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span>;</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> ! <span class="built_in">pwd</span>;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hive中使用hadoop dfs命令，去掉hadoop，以分号结尾</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上比在bash中执行hadoop dfs···更高效，因为hadoop dfs每次都会启动一个JVM实例，而hive会在同一个进程执行命令。</span></span><br><span class="line"><span class="meta">hive&gt;</span><span class="bash"> dfs -ls /</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 脚本中，以--表示注释</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Hive会将最近的10000行命令记录保存在<span class="variable">$HOME</span>/.hivehistory中。</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -578,7 +578,7 @@
 </ul>
 </li>
 </ul>
-
+<h2 id="4-HiveQL-数据定义"><a href="#4-HiveQL-数据定义" class="headerlink" title="4 HiveQL:数据定义"></a>4 HiveQL:数据定义</h2><h2 id="5-HiveQL-数据操作"><a href="#5-HiveQL-数据操作" class="headerlink" title="5 HiveQL:数据操作"></a>5 HiveQL:数据操作</h2><h2 id="6-HiveQL-查询"><a href="#6-HiveQL-查询" class="headerlink" title="6 HiveQL:查询"></a>6 HiveQL:查询</h2><h2 id="7-HiveQL-视图"><a href="#7-HiveQL-视图" class="headerlink" title="7 HiveQL:视图"></a>7 HiveQL:视图</h2><h2 id="8-HiveQL-索引"><a href="#8-HiveQL-索引" class="headerlink" title="8 HiveQL:索引"></a>8 HiveQL:索引</h2><h2 id="9-模式设计"><a href="#9-模式设计" class="headerlink" title="9 模式设计"></a>9 模式设计</h2><h2 id="10-调优"><a href="#10-调优" class="headerlink" title="10 调优"></a>10 调优</h2><h2 id="11-其他文件格式和压缩方法"><a href="#11-其他文件格式和压缩方法" class="headerlink" title="11 其他文件格式和压缩方法"></a>11 其他文件格式和压缩方法</h2><h2 id="12-开发"><a href="#12-开发" class="headerlink" title="12 开发"></a>12 开发</h2><h2 id="13-函数"><a href="#13-函数" class="headerlink" title="13 函数"></a>13 函数</h2><h2 id="14-Streaming"><a href="#14-Streaming" class="headerlink" title="14 Streaming"></a>14 Streaming</h2><h2 id="15-自定义Hive文件和记录格式"><a href="#15-自定义Hive文件和记录格式" class="headerlink" title="15 自定义Hive文件和记录格式"></a>15 自定义Hive文件和记录格式</h2><h2 id="16-Hive的Thrift服务"><a href="#16-Hive的Thrift服务" class="headerlink" title="16 Hive的Thrift服务"></a>16 Hive的Thrift服务</h2><h2 id="17-存储处理程序和NoSQL"><a href="#17-存储处理程序和NoSQL" class="headerlink" title="17 存储处理程序和NoSQL"></a>17 存储处理程序和NoSQL</h2><h2 id="18-安全"><a href="#18-安全" class="headerlink" title="18 安全"></a>18 安全</h2><h2 id="19-锁"><a href="#19-锁" class="headerlink" title="19 锁"></a>19 锁</h2><h2 id="20-Hive和Onzie整合"><a href="#20-Hive和Onzie整合" class="headerlink" title="20 Hive和Onzie整合"></a>20 Hive和Onzie整合</h2>
       
     </div>
     
@@ -768,7 +768,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础操作"><span class="nav-text">2 基础操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据类型和文件格式"><span class="nav-text">3 数据类型和文件格式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-text">1 基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础操作"><span class="nav-text">2 基础操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据类型和文件格式"><span class="nav-text">3 数据类型和文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-HiveQL-数据定义"><span class="nav-text">4 HiveQL:数据定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-HiveQL-数据操作"><span class="nav-text">5 HiveQL:数据操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-HiveQL-查询"><span class="nav-text">6 HiveQL:查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-HiveQL-视图"><span class="nav-text">7 HiveQL:视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-HiveQL-索引"><span class="nav-text">8 HiveQL:索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-模式设计"><span class="nav-text">9 模式设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-调优"><span class="nav-text">10 调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-其他文件格式和压缩方法"><span class="nav-text">11 其他文件格式和压缩方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-开发"><span class="nav-text">12 开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-函数"><span class="nav-text">13 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Streaming"><span class="nav-text">14 Streaming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-自定义Hive文件和记录格式"><span class="nav-text">15 自定义Hive文件和记录格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Hive的Thrift服务"><span class="nav-text">16 Hive的Thrift服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-存储处理程序和NoSQL"><span class="nav-text">17 存储处理程序和NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-安全"><span class="nav-text">18 安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-锁"><span class="nav-text">19 锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-Hive和Onzie整合"><span class="nav-text">20 Hive和Onzie整合</span></a></li></ol></div>
             
 
           </div>
